@@ -391,6 +391,23 @@
     background:rgba(18,27,22,.38)!important;backdrop-filter:blur(2px);
   }
 
+
+  /* v31 — чёткое разделение блоков и акцент на остатке маржи */
+  @media(min-width:1200px){
+    .wrap>.card{border:1.5px solid #d7dfda;box-shadow:0 3px 12px rgba(26,53,39,.055);margin-bottom:16px;background:linear-gradient(180deg,#fff 0%,#fdfefd 100%)}
+    .wrap>.card:hover{border-color:#b9c9bf;box-shadow:0 5px 16px rgba(26,53,39,.075)}
+  }
+  .wrap>.card{border:1.5px solid #dce3df;box-shadow:0 2px 9px rgba(25,35,30,.045)}
+  .wrap>.card h2{padding-bottom:9px;border-bottom:1px solid #edf0ee;margin-bottom:13px}
+  .wrap>.card h2::before{height:22px;width:6px;background:#218653}
+  #remainingMargin{background:#e8f6ed!important;border:2px solid #218653!important;box-shadow:inset 0 0 0 1px rgba(33,134,83,.07);position:relative}
+  #remainingMargin .label{color:#176b42!important;font-size:12px;font-weight:800;letter-spacing:.15px;text-transform:uppercase}
+  #remainingMargin .value{color:#145c38!important;font-size:29px;font-weight:850;letter-spacing:-.6px;line-height:1.15}
+  #remainingMargin::before{content:'ВАЖНЫЙ ПОКАЗАТЕЛЬ';display:block;font-size:9px;letter-spacing:.8px;font-weight:850;color:#218653;margin-bottom:7px}
+  .summary .metric{min-height:105px}
+  .summary .metric:first-child{border:1px solid #dce3df;background:#f7f9f8}
+  @media(max-width:520px){#remainingMargin .value{font-size:25px}.summary .metric{min-height:0}}
+
 </style>
 
 <style id="accessGateStyles">
