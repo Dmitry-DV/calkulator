@@ -400,10 +400,9 @@
   .wrap>.card{border:1.5px solid #dce3df;box-shadow:0 2px 9px rgba(25,35,30,.045)}
   .wrap>.card h2{padding-bottom:9px;border-bottom:1px solid #edf0ee;margin-bottom:13px}
   .wrap>.card h2::before{height:22px;width:6px;background:#218653}
-  #remainingMargin{background:#e8f6ed!important;border:2px solid #218653!important;box-shadow:inset 0 0 0 1px rgba(33,134,83,.07);position:relative}
-  #remainingMargin .label{color:#176b42!important;font-size:12px;font-weight:800;letter-spacing:.15px;text-transform:uppercase}
-  #remainingMargin .value{color:#145c38!important;font-size:29px;font-weight:850;letter-spacing:-.6px;line-height:1.15}
-  #remainingMargin::before{content:'ВАЖНЫЙ ПОКАЗАТЕЛЬ';display:block;font-size:9px;letter-spacing:.8px;font-weight:850;color:#218653;margin-bottom:7px}
+  .remaining-margin-card{background:#e8f6ed!important;border:2px solid #218653!important;box-shadow:inset 0 0 0 1px rgba(33,134,83,.07)}
+  .remaining-margin-card .label{color:#176b42!important;font-size:12px;font-weight:800;letter-spacing:.15px;text-transform:uppercase}
+  #remainingMargin{background:transparent!important;border:0!important;box-shadow:none!important;position:relative;color:#145c38!important;font-size:29px;font-weight:850;letter-spacing:-.6px;line-height:1.15}
   .summary .metric{min-height:105px}
   .summary .metric:first-child{border:1px solid #dce3df;background:#f7f9f8}
   @media(max-width:520px){#remainingMargin .value{font-size:25px}.summary .metric{min-height:0}}
@@ -630,7 +629,7 @@
     <div class="offer-summary-label">Итог предложения</div>
     <div class="summary">
       <div class="metric"><div class="label">Расход на уступки — всего</div><div class="value" id="totalSpend">185 000 ₽</div><div class="spend-breakdown"><div><span>Живая скидка</span><strong id="liveDiscountSpend">0 ₽</strong></div><div><span>Себестоимость допов</span><strong id="addonSpend">0 ₽</strong></div></div></div>
-      <div class="metric outline"><div class="label">Остаток маржи</div><div class="value" id="remainingMargin">35 000 ₽</div></div>
+      <div class="metric outline remaining-margin-card"><div class="label">Остаток маржи</div><div class="value" id="remainingMargin">35 000 ₽</div></div>
     </div>
     <p id="warning" class="warning">Остаток низкий: проверь, оправдана ли такая уступка и какие ещё расходы не учтены.</p>
     <div class="final"><div><div class="label">Финальная цена автомобиля для клиента</div><div class="label" id="finalCaption">Бонусы включены в предложение</div></div><div class="value" id="finalPrice">0 ₽</div></div>
