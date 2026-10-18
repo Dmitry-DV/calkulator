@@ -432,7 +432,34 @@
   @media(max-width:700px){.vehicle-picker{grid-template-columns:1fr;grid-template-rows:auto 48px auto 48px;gap:8px}.vehicle-picker>label{grid-column:1;grid-row:1;margin:0}.vehicle-picker>#carModel{grid-column:1;grid-row:2}#carColorWrap{grid-column:1;grid-row:3 / span 2;grid-template-rows:auto 48px}.main-step[data-step]::before{position:static;display:inline-flex;margin-bottom:10px}.main-step>h2{margin-top:0}.loan-selected-car{font-size:11px;max-width:100%;padding:6px 7px}.side-jump-nav{right:8px;bottom:10px;top:auto;transform:none;flex-direction:column;padding:5px;border-radius:12px}.side-jump-nav button{padding:9px 10px;font-size:11px}}
 
 
+
+  /* Разделяем основные блоки визуально: мягкие оттенки, без пестроты. */
+  #clientSection{background:linear-gradient(180deg,#e1f0fb 0%,#f7fbff 78%)!important;border-color:#9fc7e3!important}
+  #clientSection>h2{border-bottom-color:#dceaf5}
+  #clientSection.main-step[data-step]::before{color:#356b91;background:#edf6fd;border-color:#c9dfef}
+
+  #priceSection{background:linear-gradient(180deg,#eee5fa 0%,#faf7ff 78%)!important;border-color:#c7b4df!important}
+  #priceSection>h2{border-bottom-color:#e9e2f3}
+  #priceSection.main-step[data-step]::before{color:#6a548f;background:#f3eefb;border-color:#ddd1ed}
+
+  #tradeInSection{background:linear-gradient(180deg,#fff0d2 0%,#fff9ee 78%)!important;border-color:#e1bf86!important}
+  #tradeInSection>h2{border-bottom-color:#f0e3cd}
+  #tradeInSection.main-step[data-step]::before{color:#8a6330;background:#fff4df;border-color:#ead6b5}
+
+  #offerSection{background:linear-gradient(180deg,#def3e5 0%,#f4fbf6 78%)!important;border-color:#a6d1b4!important}
+  #offerSection>h2{border-bottom-color:#dfede3}
+  #offerSection.main-step[data-step]::before{color:#28704b;background:#eaf7ef;border-color:#c8e2d2}
+
+  #loanCalculator{background:linear-gradient(180deg,#e5ecfb 0%,#f6f8fd 78%)!important;border-color:#b6c6e3!important}
+  #loanCalculator>h2{border-bottom-color:#e2e7f1}
+  #loanCalculator.main-step[data-step]::before{color:#4c628e;background:#eef3fc;border-color:#d2dced}
+
+  #dealReadySection{background:linear-gradient(180deg,#d8f0ed 0%,#f1faf8 78%)!important;border-color:#9fcfc8!important;position:relative}
+  #dealReadySection>h2{border-bottom:1px solid #deebe8!important;padding-bottom:12px!important}
+  #dealReadySection[data-step]::before{content:none!important;display:none!important}
+
   .excel-btn{border-color:#218653!important;background:#f0f8f3!important;color:#176b42!important;font-weight:800!important}.excel-btn:hover{background:#e2f2e8!important;opacity:1}
+  .deal-mode-wrap{grid-column:1 / -1;margin-top:2px;padding:14px 15px;border:1px solid #cfded4;border-radius:14px;background:#f7faf8}.deal-mode-wrap .field-label{margin-bottom:7px}.deal-mode-hint{font-size:12px;color:var(--muted);margin:6px 0 0;line-height:1.45}.deal-mode-wrap select{width:100%;min-height:48px;box-sizing:border-box;border:1px solid #cfdad3;border-radius:12px;padding:12px 14px;background:#fff;font:inherit;color:var(--ink);outline:none}.deal-ready{border:1px solid #cfded4!important;background:#f8fbf9!important}.deal-ready-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.deal-ready-status{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}.deal-ready-status.ready{background:#e6f5eb;color:#176b42;border:1px solid #b9ddc5}.deal-ready-status.not-ready{background:#fff5e8;color:#9a5a00;border:1px solid #efd2a5}.deal-ready-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}.deal-ready-item{display:flex;align-items:flex-start;gap:9px;padding:10px 11px;border:1px solid #e3e9e5;border-radius:11px;background:#fff;font-size:13px;line-height:1.35}.deal-ready-item .dot{width:20px;height:20px;flex:0 0 20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eef2ef;color:#6f7b74;font-size:12px;font-weight:900}.deal-ready-item.ok{border-color:#c9e3d1;background:#f7fcf8}.deal-ready-item.ok .dot{background:#dff2e5;color:#176b42}.deal-ready-item .text strong{display:block;font-size:13px}.deal-ready-item .text span{display:block;color:var(--muted);font-size:11px;margin-top:2px}@media(max-width:600px){.deal-ready-list{grid-template-columns:1fr}.deal-ready-head{align-items:flex-start;flex-direction:column}.deal-ready-status{white-space:normal}}
 </style>
 
 <style id="accessGateStyles">
@@ -556,6 +583,17 @@
   }
 </style>
 
+
+<style id="desktop-sticky-header-fix">
+/* Desktop: keep the deal header genuinely sticky while the page scrolls.
+   Prevent overflow/animation on the grid/body from becoming a sticky containing block. */
+@media (min-width:1200px){
+  html{overflow-x:visible!important;overflow-y:visible!important;}
+  body{overflow-x:visible!important;overflow-y:visible!important;animation:none!important;}
+  .wrap{overflow:visible!important;align-self:start!important;}
+  .heading-row{position:sticky!important;top:0!important;z-index:1000!important;}
+}
+</style>
 </head>
 <body class="access-locked">
 <div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="accessGateTitle">
@@ -614,6 +652,15 @@
       <div><label class="field-label" for="clientName">Имя клиента</label><input id="clientName" type="text" placeholder="Например, Иван Петров" /></div>
       <div><label class="field-label" for="clientPhone">Номер телефона</label><input id="clientPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (927) 711-61-51" maxlength="18" required aria-describedby="phoneHint" /><p id="phoneHint" class="note" style="margin-top:6px">Введите 11 цифр. Формат +7 (XXX) XXX-XX-XX исправится автоматически.</p></div>
       <div style="grid-column:1 / -1" class="vehicle-picker"><label class="field-label" for="carModel">Какой автомобиль рассматривает клиент</label><select id="carModel"><option value="">Выбери модель и комплектацию</option><optgroup label="H3"><option value="h3_opt_fwd">H3 ОПТИМУМ, передний привод</option><option value="h3_prem_fwd">H3 ПРЕМИУМ, передний привод</option><option value="h3_opt_awd">H3 ОПТИМУМ, полный привод</option><option value="h3_prem_awd">H3 ПРЕМИУМ, полный привод</option><option value="h3_tech_awd">H3 ТЕХНО +, полный привод</option></optgroup><optgroup label="H5"><option value="h5_opt">H5 ОПТИМУМ</option><option value="h5_prem">H5 ПРЕМИУМ</option></optgroup><optgroup label="H7"><option value="h7_prem">H7 ПРЕМИУМ</option><option value="h7_tech">H7 ТЕХНО +</option></optgroup><optgroup label="H9"><option value="h9_prem">H9 ПРЕМИУМ</option><option value="h9_tech">H9 ТЕХНО +</option></optgroup></select><div id="carColorWrap"><label class="field-label" for="carColor">Цвет автомобиля</label><select id="carColor"><option value="">Выбери цвет</option></select></div><input id="carInterest" type="hidden" value="" /></div>
+      <div class="deal-mode-wrap">
+        <label class="field-label" for="dealMode">Параметры сделки</label>
+        <select id="dealMode">
+          <option value="cash">Наличные</option>
+          <option value="trade_cash">Трейд-ин и наличные</option>
+          <option value="trade_credit" selected>Трейд-ин и кредит</option>
+        </select>
+        <p id="dealModeHint" class="deal-mode-hint">Полный сценарий: Trade-in и кредит. Показываются все блоки сделки.</p>
+      </div>
     </div>
   </section>
 
@@ -661,7 +708,7 @@
     <p id="warning" class="warning">Остаток низкий: проверь, оправдана ли такая уступка и какие ещё расходы не учтены.</p>
     <div class="final"><div><div class="label">Финальная цена автомобиля для клиента</div><div class="label" id="finalCaption">Бонусы включены в предложение</div></div><div class="value" id="finalPrice">0 ₽</div></div>
     <div class="tradein-final"><div class="label">Доплата за новый автомобиль после вычета трейд-ин</div><div class="value" id="tradeInDifference">0 ₽</div></div>
-    <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn no-credit-proposal" type="button">Сделать КП без кредита</button><button class="btn" id="resetBtnOffer" type="button">Сбросить расчёт</button><button class="btn primary save-btn" id="saveBtn" type="button">Сохранить расчёт</button><button class="btn excel-btn" id="exportExcelBtn" type="button">Подставить в Excel</button></div>
+    <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn no-credit-proposal" type="button">Сделать КП без кредита</button><button class="btn" id="resetBtnOffer" type="button">Сбросить расчёт</button></div>
   </section>
   <section class="card main-step loan-card-spacer" id="loanCalculator" data-step="5">
     <h2>5. Кредит для клиента <span id="loanSelectedCar" class="loan-selected-car">Автомобиль не выбран</span></h2><div class="section-intro">Заполни сверху вниз. Банк и ставка подберутся автоматически по ПВ и сроку.</div>
@@ -699,7 +746,16 @@
 </a>
       
     </div>
-    <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn credit-proposal" type="button">Сделать КП с кредитом</button><button class="btn" id="resetBtnLoan" type="button">Сбросить расчёт</button><button class="btn primary save-btn" id="saveBtnLoan" type="button">Сохранить расчёт</button></div>
+    <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn credit-proposal" type="button">Сделать КП с кредитом</button><button class="btn" id="resetBtnLoan" type="button">Сбросить расчёт</button></div>
+  </section>
+
+  <section class="card deal-ready" id="dealReadySection">
+    <div class="deal-ready-head">
+      <div><h2 style="margin:0">Сделка готова</h2><p class="section-intro" style="margin:5px 0 0">Проверь основные данные перед сохранением или передачей расчёта.</p></div>
+      <div id="dealReadyStatus" class="deal-ready-status not-ready">Нужно заполнить</div>
+    </div>
+    <div id="dealReadyList" class="deal-ready-list"></div>
+    <div class="buttons deal-ready-actions" style="margin-top:18px"><button class="btn primary save-btn" id="saveBtn" type="button">Сохранить расчёт</button><button class="btn excel-btn" id="exportExcelBtn" type="button">Подставить в Excel</button></div>
   </section>
 
 </div>
@@ -792,8 +848,9 @@
   $('jumpTopBtn').addEventListener('click',()=> $('clientSection').scrollIntoView({behavior:'smooth',block:'start'}));
   $('jumpOfferBtn').addEventListener('click',()=> $('offerSection').scrollIntoView({behavior:'smooth',block:'start'}));
   $('jumpLoanBtn').addEventListener('click',()=> $('loanCalculator').scrollIntoView({behavior:'smooth',block:'start'}));
-  function getState(){ return {clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
+  function getState(){ return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
   function applyState(s){
+    if($('dealMode')) $('dealMode').value=['cash','trade_cash','trade_credit'].includes(s.dealMode)?s.dealMode:'trade_credit';
     $('clientName').value=s.clientName||''; $('clientPhone').value=s.clientPhone||''; carModel.value=s.carModel||''; carColor.value=''; syncVehicleUI(); if(s.carColor && VEHICLE_CATALOG[carModel.value]){carColor.value=s.carColor;syncVehicleUI();} if(!carModel.value && s.carInterest){ const found=Object.entries(VEHICLE_CATALOG).find(([key,v])=>String(s.carInterest).toLowerCase().includes(v.label.toLowerCase())); if(found){carModel.value=found[0];syncVehicleUI();const color=VEHICLE_CATALOG[found[0]].colors.find(c=>String(s.carInterest).toLowerCase().includes(c.toLowerCase()));if(color)carColor.value=color;syncVehicleUI();} else carInterest.value=s.carInterest||''; } else carInterest.value=vehicleDescription()||s.carInterest||'';
     $('tradeInValue').value=s.tradeInValue??''; $('tradeInCar').value=s.tradeInCar||'';
     price.value=s.carPrice??initial.carPrice; rate.value=s.marginRate??initial.marginRate; discount.value=s.discount??initial.discount; discountNumber.value=s.discountNumber??s.discount??initial.discountNumber; $('loyaltyTradeIn').checked=!!s.loyaltyTradeIn;
@@ -807,7 +864,7 @@
     if(s.downPaymentPercent!==undefined) downPaymentPercent.value=String(s.downPaymentPercent||''); else downPaymentPercent.value='';
     if(s.loanTerm!==undefined) loanTerm.value=s.loanTerm;
     if(s.loanProgram!==undefined){ const rawProgram=String(s.loanProgram||'alpha_h3_151'); loanProgram.value=RATE_TABLES[rawProgram]?rawProgram:(Object.keys(RATE_TABLES).find(key=>RATE_TABLES[key].label===rawProgram)||'alpha_h3_151'); } if(s.loanRate!==undefined) loanRate.value=s.loanRate; if(s.cascoInLoan!==undefined) cascoInLoan.checked=!!s.cascoInLoan; if(s.cascoPrice!==undefined) cascoPrice.value=formatInputMoney(s.cascoPrice); $('clientPhone').value=normalizePhone($('clientPhone').value);
-    loanCarPrice.dataset.touched=s.loanCarPrice?'1':'0'; syncVehicleUI(); update(); updateLoan(false);
+    loanCarPrice.dataset.touched=s.loanCarPrice?'1':'0'; syncVehicleUI(); updateDealMode(); update(); updateLoan(false); updateDealReady();
   }
   function readHistory(){ try { const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); return Array.isArray(data)?data:[]; } catch { return []; } }
   function writeHistory(items){ try { localStorage.setItem(STORAGE_KEY,JSON.stringify(items)); return true; } catch { alert('Не удалось сохранить историю. Возможно, локальное хранилище браузера недоступно или заполнено.'); return false; } }
@@ -890,7 +947,7 @@
       const totalPay=payment*months, overpay=Math.max(0,totalPay-principal);
       credit=`\nПредварительный расчёт кредита\nБанк / программа: ${RATE_TABLES[state.loanProgram||'alpha_h3_151']?.label||state.loanProgram||'не указано'}\nЦена автомобиля для кредита: ${money(loanCar)}\nПервоначальный взнос: ${money(down)}${state.downPaymentPercent?` (${String(state.downPaymentPercent).replace('.',',')}% от цены)`:''}\nПервоначальный взнос, %: ${state.downPaymentPercent||'не выбран'}\nКАСКО${state.cascoInLoan?' включено в кредит':''}: ${money(numericValue(state.cascoPrice||'140 000'))}\nСумма кредита: ${money(principal)}\nСрок кредита: ${months} мес.\nСтавка годовых: ${String(state.loanRate).replace('.',',')}%\nЕжемесячный платёж: ${money(payment)}\nОбщая сумма выплат банку: ${money(totalPay)}\nПереплата по процентам: ${money(overpay)}`;
     }
-    return `Расчёт сделки\nКлиент: ${state.clientName||'не указан'}\nТелефон: ${state.clientPhone||'не указан'}\nАвтомобиль, который рассматривает клиент: ${(state.carInterest||'').trim()||'не указан'}\nМодель из каталога: ${VEHICLE_CATALOG[state.carModel]?.label||'не выбрана'}\nЦвет автомобиля: ${state.carColor||'не выбран'}\nАвтомобиль клиента по трейд-ин: ${(state.tradeInCar||'').trim()||'не указан'}\nОценка трейд-ин: ${money(trade)}\nДоплата за новый автомобиль после скидки и трейд-ин: ${money(Math.max(0,finalPrice-trade))}\nИсходная цена: ${money(car)}\nМаржа от автомобиля (${state.marginRate||0}%): ${money(hardware)}\nДополнительный доход (${state.incomeSource||'не указан'}): ${money(extra)}\nОбщая маржа сделки: ${money(total)}\nЖивая скидка всего (включая лояльный Trade-in): ${money(disc+loyalty)}\n  • Ручная скидка: ${money(disc)}\n  • Лояльный Trade-in за счёт импортёра: ${money(loyalty)}\nБонусы:\n${bonuses}\nСебестоимость допов: ${money((state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend)}\nРасход на уступки (живая скидка + лояльный Trade-in + допы): ${money(spend)}\nОстаток маржи (лояльный Trade-in не уменьшает маржу): ${money(total-disc-addonsSpend)}\nФинальная цена клиенту: ${money(finalPrice)}${credit}`;
+    return `Расчёт сделки\nПараметр сделки: ${state.dealMode==='cash'?'Наличные':(state.dealMode==='trade_cash'?'Трейд-ин и наличные':'Трейд-ин и кредит')}\nКлиент: ${state.clientName||'не указан'}\nТелефон: ${state.clientPhone||'не указан'}\nАвтомобиль, который рассматривает клиент: ${(state.carInterest||'').trim()||'не указан'}\nМодель из каталога: ${VEHICLE_CATALOG[state.carModel]?.label||'не выбрана'}\nЦвет автомобиля: ${state.carColor||'не выбран'}\nАвтомобиль клиента по трейд-ин: ${(state.tradeInCar||'').trim()||'не указан'}\nОценка трейд-ин: ${money(trade)}\nДоплата за новый автомобиль после скидки и трейд-ин: ${money(Math.max(0,finalPrice-trade))}\nИсходная цена: ${money(car)}\nМаржа от автомобиля (${state.marginRate||0}%): ${money(hardware)}\nДополнительный доход (${state.incomeSource||'не указан'}): ${money(extra)}\nОбщая маржа сделки: ${money(total)}\nЖивая скидка всего (включая лояльный Trade-in): ${money(disc+loyalty)}\n  • Ручная скидка: ${money(disc)}\n  • Лояльный Trade-in за счёт импортёра: ${money(loyalty)}\nБонусы:\n${bonuses}\nСебестоимость допов: ${money((state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend)}\nРасход на уступки (живая скидка + лояльный Trade-in + допы): ${money(spend)}\nОстаток маржи (лояльный Trade-in не уменьшает маржу): ${money(total-disc-addonsSpend)}\nФинальная цена клиенту: ${money(finalPrice)}${credit}`;
   }
   function update(){
     const car=Math.max(0,numericValue(price.value)), pct=Math.min(100,Math.max(0,numericValue(rate.value))), hardwareMargin=car*pct/100, extra=Math.max(0,numericValue(extraIncome.value)), budget=hardwareMargin+extra, disc=Math.max(0,numericValue(discountNumber.value)); const loyalty=$('loyaltyTradeIn').checked?200000:0;
@@ -1016,7 +1073,10 @@
     if(!src) return {error:'Вставь текст расчёта.'};
     const getLine=(label)=>{const suffix=(label==='Маржа от автомобиля'||label==='Дополнительный доход')?'(?:\\s*\\([^\\n]*?\\))?':'';const re=new RegExp('^'+escapeRegExp(label)+suffix+'\\s*:\\s*(.+)$','im');const m=src.match(re);return m?m[1].trim():'';};
     const moneyAfter=(label)=>{const v=getLine(label);const m=v.match(/-?\d[\d\s\u00A0]*/);return m?digitsOnly(m[0]):'';};
+    const modeText=getLine('Параметр сделки')||'';
+    const parsedMode=/трейд[- ]ин\s+и\s+кредит/i.test(modeText)?'trade_credit':/трейд[- ]ин\s+и\s+наличные/i.test(modeText)?'trade_cash':'cash';
     const state={
+      dealMode:parsedMode,
       clientName:getLine('Клиент')||'', clientPhone:getLine('Телефон')||'', carInterest:getLine('Автомобиль, который рассматривает клиент')||'', carModel:'', carColor:'',
       tradeInCar:getLine('Автомобиль клиента по трейд-ин')||'', tradeInValue:moneyAfter('Оценка трейд-ин'), carPrice:moneyAfter('Исходная цена'),
       discountNumber:moneyAfter('Живая скидка'), loyaltyTradeIn:/Лояльный Trade-in за счёт импортёра:\s*200\s*000\s*₽/i.test(src), marginRate:'', extraIncome:moneyAfter('Дополнительный доход'), incomeSource:'',
@@ -1140,7 +1200,7 @@ function saveCurrentDeal(){
       window.scrollTo({top:0,behavior:'smooth'});
     }
   }
-  $('saveBtn').addEventListener('click',saveCurrentDeal);
+  $('saveBtn')?.addEventListener('click',saveCurrentDeal);
   $('saveBtnLoan')?.addEventListener('click',saveCurrentDeal);
   function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
   function proposalDocument(state, includeCredit=false){
@@ -1156,7 +1216,18 @@ function saveCurrentDeal(){
     const safeName=escapeHtml(state.clientName||'Уважаемый клиент');
     const bonuses=selected.length?`<ul>${selected.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<p>Дополнительные бонусы не включены.</p>';
     const credit=includeCredit?`<section><h2>Предварительный расчёт кредита</h2><div class="grid"><div><span>Цена для расчёта кредита</span><strong>${money(loanCar)}</strong></div><div><span>Первоначальный взнос</span><strong>${money(down)}${state.downPaymentPercent?` · ${escapeHtml(String(state.downPaymentPercent).replace('.',','))}%`:``}</strong></div><div><span>Сумма кредита${state.cascoInLoan?' с КАСКО':''}</span><strong>${money(principal)}</strong></div><div><span>Срок и ставка</span><strong>${months} мес. · ${escapeHtml(state.loanRate||0)}% годовых</strong></div><div><span>Ежемесячный платёж</span><strong>${money(payment)}</strong></div><div><span>Общая сумма выплат банку</span><strong>${money(total)}</strong></div>${state.cascoInLoan?`<div><span>КАСКО включено в кредит</span><strong>${money(numericValue(state.cascoPrice))}</strong></div>`:''}</div><p class="muted">Расчёт предварительный, аннуитетный. Итоговые условия, платёж и страхование подтверждаются банком.</p></section>`:'';
-    return `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Коммерческое предложение — ${safeName}</title><style>*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#202020;margin:0;background:#f4f4f4;padding:24px}.page{max-width:820px;margin:0 auto;background:#fff;padding:38px 44px;border-radius:12px}.top{border-bottom:3px solid #202020;padding-bottom:18px;margin-bottom:25px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#666}.top h1{font-size:30px;margin:8px 0}.muted{color:#666;font-size:12px;line-height:1.5}.hello{font-size:17px;line-height:1.5}section{margin-top:25px;break-inside:avoid}h2{font-size:18px;margin:0 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid>div{padding:13px;background:#f5f5f5;border-radius:8px}.grid span{display:block;font-size:12px;color:#666;margin-bottom:6px}.grid strong{font-size:16px}.price{background:#202020;color:#fff;border-radius:10px;padding:20px;margin-top:18px}.price span{display:block;color:#ddd;font-size:13px}.price strong{display:block;font-size:30px;margin-top:7px}.total{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #eee}.total strong{text-align:right}.actions{display:flex;gap:10px;margin:0 auto 16px;max-width:820px}.actions button{padding:12px 16px;border-radius:8px;border:1px solid #ccc;background:#fff;font-size:14px;cursor:pointer}.actions .main{background:#202020;color:#fff;border-color:#202020}footer{border-top:1px solid #eee;margin-top:30px;padding-top:14px}.note{font-size:11px;color:#777;line-height:1.5}@media(max-width:600px){body{padding:10px}.page{padding:22px 18px}.grid{grid-template-columns:1fr}.top h1{font-size:25px}.price strong{font-size:26px}}@media print{body{background:#fff;padding:0}.page{max-width:none;border-radius:0;padding:0;box-shadow:none}.actions{display:none}@page{size:A4;margin:15mm}}</style></head><body>
+    return `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Коммерческое предложение — ${safeName}</title><style>*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#202020;margin:0;background:#f4f4f4;padding:24px}.page{max-width:820px;margin:0 auto;background:#fff;padding:38px 44px;border-radius:12px}.top{border-bottom:3px solid #202020;padding-bottom:18px;margin-bottom:25px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#666}.top h1{font-size:30px;margin:8px 0}.muted{color:#666;font-size:12px;line-height:1.5}.hello{font-size:17px;line-height:1.5}section{margin-top:25px;break-inside:avoid}h2{font-size:18px;margin:0 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid>div{padding:13px;background:#f5f5f5;border-radius:8px}.grid span{display:block;font-size:12px;color:#666;margin-bottom:6px}.grid strong{font-size:16px}.price{background:#202020;color:#fff;border-radius:10px;padding:20px;margin-top:18px}.price span{display:block;color:#ddd;font-size:13px}.price strong{display:block;font-size:30px;margin-top:7px}.total{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #eee}.total strong{text-align:right}.actions{display:flex;gap:10px;margin:0 auto 16px;max-width:820px}.actions button{padding:12px 16px;border-radius:8px;border:1px solid #ccc;background:#fff;font-size:14px;cursor:pointer}.actions .main{background:#202020;color:#fff;border-color:#202020}footer{border-top:1px solid #eee;margin-top:30px;padding-top:14px}.note{font-size:11px;color:#777;line-height:1.5}@media(max-width:600px){body{padding:10px}.page{padding:22px 18px}.grid{grid-template-columns:1fr}.top h1{font-size:25px}.price strong{font-size:26px}}@media print{body{background:#fff;padding:0}.page{max-width:none;border-radius:0;padding:0;box-shadow:none}.actions{display:none}@page{size:A4;margin:15mm}}</style>
+<style id="desktop-sticky-header-fix">
+/* Desktop: keep the deal header genuinely sticky while the page scrolls.
+   Prevent overflow/animation on the grid/body from becoming a sticky containing block. */
+@media (min-width:1200px){
+  html{overflow-x:visible!important;overflow-y:visible!important;}
+  body{overflow-x:visible!important;overflow-y:visible!important;animation:none!important;}
+  .wrap{overflow:visible!important;align-self:start!important;}
+  .heading-row{position:sticky!important;top:0!important;z-index:1000!important;}
+}
+</style>
+</head><body>
   <div class="actions"><button class="main" onclick="window.print()">Печать / сохранить в PDF</button><button onclick="window.close()">Закрыть</button></div><main class="page"><div class="top"><div class="eyebrow">Ваше предложение</div><h1>${escapeHtml(state.carInterest||'Автомобиль Haval')}</h1><div class="muted">Подготовлено ${new Date().toLocaleDateString('ru-RU')}</div></div><p class="hello">${safeName}, подготовили для вас предложение по автомобилю. Ниже — основные условия покупки.</p><section><h2>Стоимость автомобиля</h2><div class="total"><span>Цена автомобиля</span><strong>${money(car)}</strong></div><div class="total"><span>Скидка</span><strong>− ${money(disc)}</strong></div>${loyalty?`<div class="total"><span>Лояльный Trade-in (компенсация импортёра)</span><strong>− ${money(loyalty)}</strong></div>`:''}<div class="price"><span>Итоговая цена после скидки</span><strong>${money(finalPrice)}</strong></div></section><section><h2>Дополнительные преимущества</h2>${bonuses}</section>${trade>0?`<section><h2>Trade-in</h2><div class="grid"><div><span>Автомобиль клиента</span><strong>${escapeHtml(state.tradeInCar||'Автомобиль не указан')}</strong></div><div><span>Предварительная оценка</span><strong>${money(trade)}</strong></div><div><span>Доплата после скидки и Trade-in</span><strong>${money(Math.max(0,finalPrice-trade))}</strong></div></div><p class="muted">Оценка Trade-in предварительная и уточняется после осмотра автомобиля.</p></section>`:''}${credit}<footer><p class="note">Предложение носит информационный характер. Наличие автомобиля, комплектация, окончательная стоимость, условия Trade-in и кредитования подтверждаются менеджером на момент оформления.</p></footer></main></body></html>`;
   }
   function makeCommercialProposal(includeCredit=false){
@@ -1194,6 +1265,31 @@ function saveCurrentDeal(){
     $('clientName').value=name.split(/\s+/).filter(Boolean).map(part=>part.split('-').map(piece=>piece ? piece.charAt(0).toLocaleUpperCase('ru-RU')+piece.slice(1).toLocaleLowerCase('ru-RU') : '').join('-')).join(' ');
     renderLocalPanel();
   });
+  const dealMode=$('dealMode');
+  const dealModeConfig={cash:{hint:'Наличные: остаются только цена и маржа и блок «Что предлагаем клиенту». Trade-in и кредит скрыты.',visible:['clientSection','priceSection','offerSection']},trade_cash:{hint:'Трейд-ин и наличные: показываются цена и маржа, Trade-in и предложение. Кредит скрыт.',visible:['clientSection','priceSection','tradeInSection','offerSection']},trade_credit:{hint:'Полный сценарий: Trade-in и кредит. Показываются все блоки сделки.',visible:['clientSection','priceSection','tradeInSection','offerSection','loanCalculator']}};
+  const dealStepTitles={clientSection:'Данные клиента',priceSection:'Цена автомобиля и маржа',tradeInSection:'Оценка автомобиля по трейд-ин',offerSection:'Что предлагаем клиенту',loanCalculator:'Кредит для клиента',dealReadySection:'Сделка готова'};
+  function updateDealMode(){
+    const mode=dealMode?.value||'trade_credit', cfg=dealModeConfig[mode]||dealModeConfig.trade_credit;
+    const visible=[...cfg.visible,'dealReadySection'];
+    Object.keys(dealStepTitles).forEach(id=>{const el=$(id);if(el)el.hidden=!visible.includes(id);});
+    let n=0; visible.forEach(id=>{const el=$(id);if(!el)return;n++;el.dataset.step=String(n);const h=el.querySelector(':scope > h2');if(h){const badge=h.querySelector('.loan-selected-car');h.textContent='';h.append(document.createTextNode(`${n}. ${dealStepTitles[id]} `));if(badge)h.append(badge);}});
+    const hint=$('dealModeHint');if(hint)hint.textContent=cfg.hint;
+    const jumpLoan=$('jumpLoanBtn');if(jumpLoan)jumpLoan.hidden=!cfg.visible.includes('loanCalculator');
+    updateDealReady();
+  }
+  function updateDealReady(){
+    const state=getState(), mode=state.dealMode||'trade_credit', items=[];
+    const add=(label,ok,detail)=>items.push({label,ok,detail});
+    add('Клиент',String(state.clientName||'').trim()!==''&&phoneIsValid(state.clientPhone),phoneIsValid(state.clientPhone)?'Имя и телефон заполнены':'Нужны имя и корректный телефон');
+    add('Автомобиль и цвет',!!state.carModel&&!!state.carColor,state.carModel&&state.carColor?'Модель и цвет выбраны':'Выбери модель и цвет');
+    add('Цена и маржа',numericValue(state.carPrice)>0&&Number(state.marginRate)>=0,numericValue(state.carPrice)>0?'Цена заполнена':'Укажи цену автомобиля');
+    if(mode!=='cash') add('Trade-in',numericValue(state.tradeInValue)>0&&String(state.tradeInCar||'').trim()!=='',numericValue(state.tradeInValue)>0?'Оценка и автомобиль заполнены':'Нужны автомобиль клиента и оценка');
+    if(mode==='trade_credit') add('Кредит',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!=='',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!==''?'Цена, ПВ и ставка заполнены':'Нужны цена кредита, ПВ и ставка');
+    add('Предложение клиенту',true,'Блок доступен для выбора допов и скидки');
+    const list=$('dealReadyList');if(list)list.innerHTML=items.map(x=>`<div class="deal-ready-item ${x.ok?'ok':''}"><span class="dot">${x.ok?'✓':'!'}</span><div class="text"><strong>${escapeHtml(x.label)}</strong><span>${escapeHtml(x.detail)}</span></div></div>`).join('');
+    const ready=items.every(x=>x.ok),status=$('dealReadyStatus');if(status){status.className='deal-ready-status '+(ready?'ready':'not-ready');status.textContent=ready?'✓ Сделка готова':'Нужно заполнить';}
+  }
+  dealMode?.addEventListener('change',()=>{updateDealMode();renderLocalPanel();});
   const scriptChecks=[...document.querySelectorAll('.script-done')];
   function updateScriptProgress(){const done=scriptChecks.filter(cb=>cb.checked).length;const progress=$('scriptProgress');if(progress)progress.textContent=`${done} из ${scriptChecks.length}`;}
   scriptChecks.forEach(cb=>cb.addEventListener('change',updateScriptProgress));
@@ -1203,7 +1299,8 @@ function saveCurrentDeal(){
   window.addEventListener('scroll',updateDealHeader,{passive:true});
   updateDealHeader();
   updateScriptProgress();
-  syncVehicleUI(); renderHistory(); update(); updateLoan(true); renderLocalPanel();
+  document.querySelectorAll('input,select,textarea').forEach(el=>{el.addEventListener('input',updateDealReady);el.addEventListener('change',updateDealReady);});
+  syncVehicleUI(); renderHistory(); update(); updateLoan(true); updateDealMode(); renderLocalPanel();
   // Export bridge: Excel exporter lives outside the main calculator IIFE.
   window.__calcGetState = getState;
   window.__calcNumericValue = numericValue;
@@ -1262,6 +1359,7 @@ function saveCurrentDeal(){
       ws.getCell('D5').value=state.clientName||'';
       ws.getCell('D6').value=state.carInterest||'';
       ws.getCell('D10').value=state.carColor||'';
+      ws.getCell('D13').value=state.dealMode==='cash'?'Наличные':(state.dealMode==='trade_cash'?'Трейд-ин и наличные':'Трейд-ин и кредит');
       ws.getCell('D14').value=carPriceValue||0;
       // D15 — закупочная стоимость = РРЦ - маржа. D16 — маржа на автомобиль.
       ws.getCell('D15').value=purchaseCost;
