@@ -597,6 +597,70 @@
   .heading-row{position:sticky!important;top:0!important;z-index:1000!important;}
 }
 </style>
+
+<style id="ux-ui-v15">
+/* UX/UI v15 — единая система цвета: нейтральный текст + приглушённые цветовые семейства для блоков */
+:root{--ux-ink:#1b1f1d;--ux-muted:#66716b;--ux-border:#d7ded9;--ux-green:#176b42;--ux-green-soft:#e6f3eb}
+body{background:#f3f5f4!important;color:var(--ux-ink)!important}
+/* Весь пользовательский текст и ввод — чёрный/графитовый, без зелёного или фиолетового текста */
+.field-label,.section-intro,h2,h3,label,.item-name,.item-name small,.metric .label,.loan-selected-car,.deal-mode-hint,.note,.unit,.range-labels,.warning,.deal-ready-item,.deal-ready-item .text span{color:var(--ux-ink)!important}
+input[type="text"],input[type="tel"],input[type="number"],select,textarea,
+#clientName,#clientPhone,#carInterest,#carPrice,#extraIncome,#tradeInValue,#tradeInCar,#loanCarPrice,#downPayment,#discountNumber,#incomeSource,
+#loanProgram,#loanTerm,#loanRate{color:#111!important;font-weight:700!important}
+input::placeholder,textarea::placeholder{color:#7b8580!important;font-weight:600!important;opacity:1}
+/* Единая форма всех основных блоков */
+.wrap>.card{border:1px solid #cfd8d3!important;border-radius:20px!important;box-shadow:0 3px 12px rgba(24,39,31,.07)!important}
+.wrap>.card h2{color:#151917!important}
+.wrap>.card h2::before{background:#3b4741!important}
+/* Каждый блок отличим, но все цвета принадлежат одной приглушённой пастельной системе */
+#clientSection{background:#e8f0f4!important;border-color:#b9cbd4!important}
+#clientSection>h2{border-bottom-color:#ccd9df!important}
+#clientSection.main-step[data-step]::before{color:#263b45!important;background:#dce8ed!important;border-color:#b9cbd4!important}
+#priceSection{background:#eeeaf4!important;border-color:#c9bfd6!important}
+#priceSection>h2{border-bottom-color:#dad2e1!important}
+#priceSection.main-step[data-step]::before{color:#3d3548!important;background:#e3dce9!important;border-color:#c9bfd6!important}
+#tradeInSection{background:#f3eee4!important;border-color:#d8cbb5!important}
+#tradeInSection>h2{border-bottom-color:#e2d8c6!important}
+#tradeInSection.main-step[data-step]::before{color:#4a4134!important;background:#e9dfce!important;border-color:#d8cbb5!important}
+#offerSection{background:#e7f0ea!important;border-color:#b8cdbd!important}
+#offerSection>h2{border-bottom-color:#d0ded3!important}
+#offerSection.main-step[data-step]::before{color:#304237!important;background:#dce9df!important;border-color:#b8cdbd!important}
+#loanCalculator{background:#e8edf4!important;border-color:#bac7d7!important}
+#loanCalculator>h2{border-bottom-color:#d0d9e4!important}
+#loanCalculator.main-step[data-step]::before{color:#344050!important;background:#dce4ed!important;border-color:#bac7d7!important}
+#dealReadySection{background:#e5efec!important;border-color:#b6ccc4!important}
+#dealReadySection>h2{border-bottom-color:#cddbd6!important}
+/* Внутренние панели тоже не должны вводить новый цветовой язык */
+.deal-mode-wrap,.deal-ready{background:rgba(255,255,255,.55)!important;border-color:rgba(86,103,94,.22)!important}
+.metric,.metric.outline,.loan-results .metric{background:rgba(255,255,255,.62)!important;border-color:rgba(86,103,94,.20)!important}
+.deal-ready-item{background:rgba(255,255,255,.7)!important;border-color:rgba(86,103,94,.20)!important}
+/* Зеленый оставляем только для действий/успешных состояний, а не для обычного текста */
+.btn.primary,.heading-row .new-client-top-btn{background:#176b42!important;border-color:#176b42!important;color:#fff!important}
+.excel-btn,.tradein-link .btn{background:#edf5f0!important;border-color:#aac6b5!important;color:#183f2c!important}
+input[type="range"]{accent-color:#176b42!important}
+.item input[type="checkbox"],.loan-toggle input{accent-color:#176b42!important}
+/* Выбранные допы — единый зелёный статус */
+.item.is-selected,.custom-option.is-selected{background:#e5f1e9!important;border-color:#9fc1ab!important;box-shadow:inset 0 0 0 1px #9fc1ab!important}
+/* Числовые показатели не должны быть зелёными просто потому, что это цифра */
+#carPrice:not(:placeholder-shown),#extraIncome:not(:placeholder-shown),#tradeInValue:not(:placeholder-shown),#loanCarPrice:not(:placeholder-shown),#downPayment:not(:placeholder-shown),#discountNumber:not(:placeholder-shown){color:#111!important}
+.offer-discount-panel .range-head strong{color:#111!important}
+/* Семантические итоговые состояния */
+.tradein-final{background:#e6f0e9!important;border-color:#afc8b8!important}
+.tradein-final .value{color:#163d29!important}
+.loan-results .payment-metric{background:#e3eee8!important;border-color:#abc6b5!important}
+.deal-ready-status.ready{background:#e3eee8!important;color:#183f2c!important;border-color:#abc6b5!important}
+.deal-ready-status.not-ready{background:#f3eee4!important;color:#4b4337!important;border-color:#d8cbb5!important}
+/* Итоговые суммы */
+.total-spend-card{background:#e0eee6!important;border-color:#7fae91!important}
+.total-spend-card .label,.total-spend-card .value{color:#153d28!important}
+.remaining-margin-card{background:#176b42!important;border-color:#145c38!important}
+.remaining-margin-card .label,.remaining-margin-card #remainingMargin{color:#fff!important}
+.remaining-margin-card.is-danger{background:#b42318!important;border-color:#8f1c13!important}
+/* Убираем случайные цветные ссылки/бейджи */
+.loan-selected-car{color:#1b1f1d!important;background:#edf1ef!important;border-color:#cbd5cf!important}
+.side-jump-nav{background:rgba(255,255,255,.97)!important;border-color:#cfd8d3!important}
+.side-jump-nav button{background:#eef2f0!important;color:#1b1f1d!important;border-color:#c7d1cb!important}
+</style>
 </head>
 <body class="access-locked">
 <div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="accessGateTitle">
