@@ -400,13 +400,39 @@
   .wrap>.card{border:1.5px solid #dce3df;box-shadow:0 2px 9px rgba(25,35,30,.045)}
   .wrap>.card h2{padding-bottom:9px;border-bottom:1px solid #edf0ee;margin-bottom:13px}
   .wrap>.card h2::before{height:22px;width:6px;background:#218653}
-  .remaining-margin-card{background:#e8f6ed!important;border:2px solid #218653!important;box-shadow:inset 0 0 0 1px rgba(33,134,83,.07)}
+  .remaining-margin-card,.total-spend-card{background:#e8f6ed!important;border:2px solid #218653!important;box-shadow:inset 0 0 0 1px rgba(33,134,83,.07)}
+  .total-spend-card .label{color:#176b42!important;font-size:12px;font-weight:800;letter-spacing:.15px;text-transform:uppercase}
+  .total-spend-card .value{color:#145c38!important;font-size:29px;font-weight:850;letter-spacing:-.6px;line-height:1.15}
+  .summary .metric:first-child.total-spend-card{background:#e8f6ed!important;border:2px solid #218653!important}
   .remaining-margin-card .label{color:#176b42!important;font-size:12px;font-weight:800;letter-spacing:.15px;text-transform:uppercase}
   #remainingMargin{background:transparent!important;border:0!important;box-shadow:none!important;position:relative;color:#145c38!important;font-size:29px;font-weight:850;letter-spacing:-.6px;line-height:1.15}
   .summary .metric{min-height:105px}
   .summary .metric:first-child{border:1px solid #dce3df;background:#f7f9f8}
   @media(max-width:520px){#remainingMargin .value{font-size:25px}.summary .metric{min-height:0}}
 
+
+  /* Автомобиль из каталога и визуальное разделение основных шагов */
+  .vehicle-picker{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 48px;gap:8px 12px;align-items:start}
+  .vehicle-picker>label{grid-column:1;grid-row:1;margin:0;align-self:end}
+  .vehicle-picker>#carModel{grid-column:1;grid-row:2}
+  #carColorWrap{grid-column:2;grid-row:1 / span 2;display:grid;grid-template-rows:auto 48px;gap:8px;min-width:0}
+  #carColorWrap .field-label{margin:0;align-self:end}
+  #carColorWrap select{grid-row:2}
+  #carColorWrap[hidden]{display:none!important}
+  .vehicle-picker select:focus,.vehicle-picker select:focus-visible{outline:none!important;outline-offset:0;border-color:#cfdad3!important;box-shadow:none!important}
+  .vehicle-picker select{width:100%;min-height:48px;box-sizing:border-box;border:1px solid #cfdad3;border-radius:12px;padding:12px 14px;background:#fff;font:inherit;color:var(--ink);outline:none;box-shadow:none;-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,#176b42 50%),linear-gradient(135deg,#176b42 50%,transparent 50%);background-position:calc(100% - 18px) 21px,calc(100% - 12px) 21px;background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:34px}
+  .vehicle-picker select:disabled{background-color:#f4f6f5;color:#8a9690;cursor:not-allowed}
+  .main-step{border:1px solid #cfded4!important;box-shadow:0 7px 22px rgba(28,75,49,.075)!important;position:relative;overflow:visible}
+  .main-step>h2{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #e2ece5;margin-bottom:18px}
+  .main-step[data-step]::before{content:'ШАГ ' attr(data-step);position:absolute;right:20px;top:20px;font-size:10px;letter-spacing:.08em;font-weight:800;color:#237348;background:#eaf5ee;border:1px solid #c8e1d0;border-radius:999px;padding:5px 8px}
+  .loan-selected-car{display:inline-block;font-size:13px;line-height:1.35;font-weight:750;color:#176b42;background:#eaf5ee;border:1px solid #b8d8c2;border-radius:10px;padding:7px 10px;margin-left:0;max-width:58%;vertical-align:middle;}
+  .side-jump-nav{position:fixed;right:14px;bottom:14px;top:auto;transform:none;z-index:120;display:flex;flex-direction:column;gap:8px;padding:7px;background:rgba(255,255,255,.96);border:1px solid #d8e4dc;border-radius:15px;box-shadow:0 8px 24px rgba(20,55,35,.18);backdrop-filter:blur(10px);max-width:calc(100vw - 28px)}
+  .side-jump-nav button{border:1px solid #b9d8c4;background:#eaf5ee;color:#176b42;border-radius:10px;padding:11px 12px;font:inherit;font-weight:700;font-size:12px;line-height:1.2;cursor:pointer;white-space:nowrap}
+  .side-jump-nav button:hover{background:#d9efdf}
+  @media(max-width:700px){.vehicle-picker{grid-template-columns:1fr;grid-template-rows:auto 48px auto 48px;gap:8px}.vehicle-picker>label{grid-column:1;grid-row:1;margin:0}.vehicle-picker>#carModel{grid-column:1;grid-row:2}#carColorWrap{grid-column:1;grid-row:3 / span 2;grid-template-rows:auto 48px}.main-step[data-step]::before{position:static;display:inline-flex;margin-bottom:10px}.main-step>h2{margin-top:0}.loan-selected-car{font-size:11px;max-width:100%;padding:6px 7px}.side-jump-nav{right:8px;bottom:10px;top:auto;transform:none;flex-direction:column;padding:5px;border-radius:12px}.side-jump-nav button{padding:9px 10px;font-size:11px}}
+
+
+  .excel-btn{border-color:#218653!important;background:#f0f8f3!important;color:#176b42!important;font-weight:800!important}.excel-btn:hover{background:#e2f2e8!important;opacity:1}
 </style>
 
 <style id="accessGateStyles">
@@ -570,6 +596,7 @@
     <div class="history-actions"><button class="btn" id="clearHistoryBtn" type="button">Очистить историю</button></div>
   </div>
 </aside>
+<nav class="side-jump-nav" aria-label="Быстрая навигация"><button type="button" id="jumpTopBtn">↑ Данные клиента</button><button type="button" id="jumpOfferBtn">↕ Что предлагаем</button><button type="button" id="jumpLoanBtn">↓ Кредит</button></nav>
 <div class="wrap">
   <div class="heading-row"><h1 class="heading">Калькулятор сделки</h1><div class="heading-actions"><button class="btn new-client-top-btn" id="newClientTopBtn" type="button">Новый клиент</button><details class="import-box import-box-top">
     <summary>Вставить готовый расчёт</summary>
@@ -581,16 +608,16 @@
   </details></div></div>
   <p class="sub">Заполни данные по порядку: клиент → цена и маржа → Trade-in → предложение → кредит.</p>
 
-  <section class="card">
+  <section class="card main-step" id="clientSection" data-step="1">
     <h2>1. Данные клиента</h2>
     <div class="customer-grid">
       <div><label class="field-label" for="clientName">Имя клиента</label><input id="clientName" type="text" placeholder="Например, Иван Петров" /></div>
       <div><label class="field-label" for="clientPhone">Номер телефона</label><input id="clientPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (927) 711-61-51" maxlength="18" required aria-describedby="phoneHint" /><p id="phoneHint" class="note" style="margin-top:6px">Введите 11 цифр. Формат +7 (XXX) XXX-XX-XX исправится автоматически.</p></div>
-      <div style="grid-column:1 / -1"><label class="field-label" for="carInterest">Какой автомобиль рассматривает клиент</label><input id="carInterest" type="text" placeholder="Например, Haval H7 Premium, чёрный, полный привод" /></div>
+      <div style="grid-column:1 / -1" class="vehicle-picker"><label class="field-label" for="carModel">Какой автомобиль рассматривает клиент</label><select id="carModel"><option value="">Выбери модель и комплектацию</option><optgroup label="H3"><option value="h3_opt_fwd">H3 ОПТИМУМ, передний привод</option><option value="h3_prem_fwd">H3 ПРЕМИУМ, передний привод</option><option value="h3_opt_awd">H3 ОПТИМУМ, полный привод</option><option value="h3_prem_awd">H3 ПРЕМИУМ, полный привод</option><option value="h3_tech_awd">H3 ТЕХНО +, полный привод</option></optgroup><optgroup label="H5"><option value="h5_opt">H5 ОПТИМУМ</option><option value="h5_prem">H5 ПРЕМИУМ</option></optgroup><optgroup label="H7"><option value="h7_prem">H7 ПРЕМИУМ</option><option value="h7_tech">H7 ТЕХНО +</option></optgroup><optgroup label="H9"><option value="h9_prem">H9 ПРЕМИУМ</option><option value="h9_tech">H9 ТЕХНО +</option></optgroup></select><div id="carColorWrap"><label class="field-label" for="carColor">Цвет автомобиля</label><select id="carColor"><option value="">Выбери цвет</option></select></div><input id="carInterest" type="hidden" value="" /></div>
     </div>
   </section>
 
-  <section class="card">
+  <section class="card main-step" id="priceSection" data-step="2">
     <h2>2. Цена автомобиля и маржа</h2>
     <div class="price-grid deal-finance-grid">
       <div><label class="field-label" for="carPrice">Исходная цена автомобиля, ₽</label><input id="carPrice" class="money-input" type="text" value="" placeholder="3 290 000" inputmode="numeric" /></div>
@@ -601,7 +628,7 @@
     <div class="total-margin"><span>Общая маржа сделки</span><strong id="totalMargin">220 000 ₽</strong></div>
   </section>
 
-  <section class="card" id="tradeInSection">
+  <section class="card main-step" id="tradeInSection" data-step="3">
     <h2>3. Оценка автомобиля по трейд-ин</h2>
     <div class="tradein-grid">
       <div><label class="field-label" for="tradeInValue">Оценка автомобиля, ₽</label><input id="tradeInValue" class="money-input" type="text" value="" placeholder="1 500 000" inputmode="numeric" /></div>
@@ -610,7 +637,7 @@
     <div class="tradein-link"><a class="btn" href="https://www.avito.ru/evaluation/cars?utm_source=rubricator" target="_blank" rel="noopener">Быстрая оценка на Авито ↗</a></div>
   </section>
 
-  <section class="card">
+  <section class="card main-step" id="offerSection" data-step="4">
     <h2>4. Что предлагаем клиенту</h2><div class="section-intro">Здесь собраны скидка и дополнительные опции. Отмечай только то, что реально отдаём клиенту.</div>
     <div class="offer-discount-panel"><div class="range-head"><span>Скидка клиенту</span><strong id="discountValue">65 000 ₽</strong></div>
     <div class="discount-number-wrap"><label class="field-label" for="discountNumber">Введи скидку вручную, ₽</label><input id="discountNumber" class="money-input" type="text" value="" placeholder="0" inputmode="numeric" aria-label="Живая скидка числом" /></div>
@@ -628,16 +655,16 @@
     </div></div>
     <div class="offer-summary-label">Итог предложения</div>
     <div class="summary">
-      <div class="metric"><div class="label">Расход на уступки — всего</div><div class="value" id="totalSpend">185 000 ₽</div><div class="spend-breakdown"><div><span>Живая скидка</span><strong id="liveDiscountSpend">0 ₽</strong></div><div><span>Себестоимость допов</span><strong id="addonSpend">0 ₽</strong></div></div></div>
+      <div class="metric total-spend-card"><div class="label">Расход на уступки — всего</div><div class="value" id="totalSpend">185 000 ₽</div><div class="spend-breakdown"><div><span>Живая скидка</span><strong id="liveDiscountSpend">0 ₽</strong></div><div><span>Себестоимость допов</span><strong id="addonSpend">0 ₽</strong></div></div></div>
       <div class="metric outline remaining-margin-card"><div class="label">Остаток маржи</div><div class="value" id="remainingMargin">35 000 ₽</div></div>
     </div>
     <p id="warning" class="warning">Остаток низкий: проверь, оправдана ли такая уступка и какие ещё расходы не учтены.</p>
     <div class="final"><div><div class="label">Финальная цена автомобиля для клиента</div><div class="label" id="finalCaption">Бонусы включены в предложение</div></div><div class="value" id="finalPrice">0 ₽</div></div>
     <div class="tradein-final"><div class="label">Доплата за новый автомобиль после вычета трейд-ин</div><div class="value" id="tradeInDifference">0 ₽</div></div>
-    <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn no-credit-proposal" type="button">Сделать КП без кредита</button><button class="btn" id="resetBtnOffer" type="button">Сбросить расчёт</button><button class="btn primary save-btn" id="saveBtn" type="button">Сохранить расчёт</button></div>
+    <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn no-credit-proposal" type="button">Сделать КП без кредита</button><button class="btn" id="resetBtnOffer" type="button">Сбросить расчёт</button><button class="btn primary save-btn" id="saveBtn" type="button">Сохранить расчёт</button><button class="btn excel-btn" id="exportExcelBtn" type="button">Подставить в Excel</button></div>
   </section>
-  <section class="card loan-card-spacer" id="loanCalculator">
-    <h2>5. Кредит для клиента</h2><div class="section-intro">Заполни сверху вниз. Банк и ставка подберутся автоматически по ПВ и сроку.</div>
+  <section class="card main-step loan-card-spacer" id="loanCalculator" data-step="5">
+    <h2>5. Кредит для клиента <span id="loanSelectedCar" class="loan-selected-car">Автомобиль не выбран</span></h2><div class="section-intro">Заполни сверху вниз. Банк и ставка подберутся автоматически по ПВ и сроку.</div>
     <div class="loan-grid-row loan-row-main">
       <div><label class="field-label" for="loanCarPrice">Цена автомобиля, ₽</label><input id="loanCarPrice" class="money-input" type="text" value="" placeholder="Цена автомобиля" inputmode="numeric" /></div>
       <div><label class="field-label" for="downPaymentPercent">Первоначальный взнос</label><select id="downPaymentPercent" style="width:100%;border:1px solid #ddd;border-radius:12px;padding:13px 14px;font:inherit;background:#fff;margin-bottom:8px"><option value="">Сумма вручную</option><option value="10">10%</option><option value="15">15%</option><option value="20">20%</option><option value="25">25%</option><option value="30">30%</option><option value="40">40%</option><option value="50">50%</option><option value="60">60%</option><option value="70">70%</option><option value="80">80%</option></select><input id="downPayment" class="money-input" type="text" value="" placeholder="1 000 000" inputmode="numeric" /><div id="downPaymentHint" class="note" style="margin-top:6px">Можно выбрать процент от цены автомобиля или указать сумму вручную.</div></div>
@@ -733,9 +760,41 @@
   let currentHistoryId = null;
   const initial = {carPrice: price.value, marginRate: rate.value, discount: discount.value, discountNumber: discountNumber.value, extraIncome: extraIncome.value, incomeSource: $('incomeSource').value, checks: checks.map(x=>x.checked), costs: costInputs.map(x=>x.value), customOptionName:'', customOptionCost:'', customOptionSelected:false, loyaltyTradeIn:false, loanRate: '', downPaymentPercent:'', loanProgram:'alpha_h3_151'};
 
-  function getState(){ return {clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
+  const carModel=$('carModel'), carColor=$('carColor'), carColorWrap=$('carColorWrap'), carInterest=$('carInterest');
+  const VEHICLE_CATALOG={
+    h3_opt_fwd:{label:'H3 ОПТИМУМ, передний привод',price:2749000,colors:['Белый','Чёрный','Серый','Оранжевый']},
+    h3_prem_fwd:{label:'H3 ПРЕМИУМ, передний привод',price:2949000,colors:['Белый','Чёрный','Серый','Оранжевый']},
+    h3_opt_awd:{label:'H3 ОПТИМУМ, полный привод',price:3099000,colors:['Белый','Чёрный','Серый','Оранжевый']},
+    h3_prem_awd:{label:'H3 ПРЕМИУМ, полный привод',price:3249000,colors:['Белый','Чёрный','Серый','Оранжевый']},
+    h3_tech_awd:{label:'H3 ТЕХНО +, полный привод',price:3549000,colors:['Белый','Чёрный','Серый','Оранжевый']},
+    h5_opt:{label:'H5 ОПТИМУМ',price:4049000,colors:['Чёрный','Белый','Фиолетовый','Серый']},
+    h5_prem:{label:'H5 ПРЕМИУМ',price:4349000,colors:['Чёрный','Белый','Фиолетовый','Серый']},
+    h7_prem:{label:'H7 ПРЕМИУМ',price:3999000,colors:['Белый','Чёрный','Серый','Оранжевый']},
+    h7_tech:{label:'H7 ТЕХНО +',price:4199000,colors:['Белый','Чёрный','Серый','Оранжевый']},
+    h9_prem:{label:'H9 ПРЕМИУМ',price:4799000,colors:['Белый','Чёрный','Серый','Зелёный','Матовый серый']},
+    h9_tech:{label:'H9 ТЕХНО +',price:5299000,colors:['Белый','Чёрный','Серый','Зелёный','Матовый серый']}
+  };
+  function vehiclePrice(model,color){const v=VEHICLE_CATALOG[model];return v?v.price+((model==='h9_tech'&&color==='Матовый серый')?100000:0):0;}
+  function vehicleDescription(model=carModel.value,color=carColor.value){const v=VEHICLE_CATALOG[model];return v?`${v.label}${color?`, ${color.toLowerCase()}`:''}`:'';}
+  function syncVehicleUI({setPrice=false}={}){
+    const model=carModel.value,v=VEHICLE_CATALOG[model];
+    carColor.disabled=!v;
+    if(v){const old=carColor.value;carColor.innerHTML='<option value="">Выбери цвет</option>'+v.colors.map(c=>`<option value="${c}">${c}</option>`).join('');if(v.colors.includes(old))carColor.value=old;}
+    else {carColor.innerHTML='<option value="">Сначала выбери автомобиль</option>';carColor.value='';}
+    carInterest.value=vehicleDescription();
+    const display=$('loanSelectedCar');if(display)display.textContent=carInterest.value||'Автомобиль не выбран';
+    if(setPrice&&v){price.value=Number(vehiclePrice(model,carColor.value)).toLocaleString('ru-RU');price.dataset.touched='0';price.dispatchEvent(new Event('input',{bubbles:true}));}
+    if(model&&v&&carColor.value&&model==='h9_tech'&&setPrice){price.value=Number(vehiclePrice(model,carColor.value)).toLocaleString('ru-RU');price.dataset.touched='0';}
+  }
+  carModel.addEventListener('change',()=>{syncVehicleUI({setPrice:true});carModel.blur();update();updateLoan(true);});
+  carColor.addEventListener('change',()=>{syncVehicleUI({setPrice:true});carColor.blur();update();updateLoan(true);});
+  price.addEventListener('input',()=>{price.dataset.touched='1';});
+  $('jumpTopBtn').addEventListener('click',()=> $('clientSection').scrollIntoView({behavior:'smooth',block:'start'}));
+  $('jumpOfferBtn').addEventListener('click',()=> $('offerSection').scrollIntoView({behavior:'smooth',block:'start'}));
+  $('jumpLoanBtn').addEventListener('click',()=> $('loanCalculator').scrollIntoView({behavior:'smooth',block:'start'}));
+  function getState(){ return {clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
   function applyState(s){
-    $('clientName').value=s.clientName||''; $('clientPhone').value=s.clientPhone||''; $('carInterest').value=s.carInterest||'';
+    $('clientName').value=s.clientName||''; $('clientPhone').value=s.clientPhone||''; carModel.value=s.carModel||''; carColor.value=''; syncVehicleUI(); if(s.carColor && VEHICLE_CATALOG[carModel.value]){carColor.value=s.carColor;syncVehicleUI();} if(!carModel.value && s.carInterest){ const found=Object.entries(VEHICLE_CATALOG).find(([key,v])=>String(s.carInterest).toLowerCase().includes(v.label.toLowerCase())); if(found){carModel.value=found[0];syncVehicleUI();const color=VEHICLE_CATALOG[found[0]].colors.find(c=>String(s.carInterest).toLowerCase().includes(c.toLowerCase()));if(color)carColor.value=color;syncVehicleUI();} else carInterest.value=s.carInterest||''; } else carInterest.value=vehicleDescription()||s.carInterest||'';
     $('tradeInValue').value=s.tradeInValue??''; $('tradeInCar').value=s.tradeInCar||'';
     price.value=s.carPrice??initial.carPrice; rate.value=s.marginRate??initial.marginRate; discount.value=s.discount??initial.discount; discountNumber.value=s.discountNumber??s.discount??initial.discountNumber; $('loyaltyTradeIn').checked=!!s.loyaltyTradeIn;
     extraIncome.value=s.extraIncome??initial.extraIncome; $('incomeSource').value=s.incomeSource??initial.incomeSource;
@@ -748,7 +807,7 @@
     if(s.downPaymentPercent!==undefined) downPaymentPercent.value=String(s.downPaymentPercent||''); else downPaymentPercent.value='';
     if(s.loanTerm!==undefined) loanTerm.value=s.loanTerm;
     if(s.loanProgram!==undefined){ const rawProgram=String(s.loanProgram||'alpha_h3_151'); loanProgram.value=RATE_TABLES[rawProgram]?rawProgram:(Object.keys(RATE_TABLES).find(key=>RATE_TABLES[key].label===rawProgram)||'alpha_h3_151'); } if(s.loanRate!==undefined) loanRate.value=s.loanRate; if(s.cascoInLoan!==undefined) cascoInLoan.checked=!!s.cascoInLoan; if(s.cascoPrice!==undefined) cascoPrice.value=formatInputMoney(s.cascoPrice); $('clientPhone').value=normalizePhone($('clientPhone').value);
-    loanCarPrice.dataset.touched=s.loanCarPrice?'1':'0'; update(); updateLoan(false);
+    loanCarPrice.dataset.touched=s.loanCarPrice?'1':'0'; syncVehicleUI(); update(); updateLoan(false);
   }
   function readHistory(){ try { const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); return Array.isArray(data)?data:[]; } catch { return []; } }
   function writeHistory(items){ try { localStorage.setItem(STORAGE_KEY,JSON.stringify(items)); return true; } catch { alert('Не удалось сохранить историю. Возможно, локальное хранилище браузера недоступно или заполнено.'); return false; } }
@@ -815,12 +874,12 @@
     $('lastSavedInfo').textContent=latest?(latest.savedAt||'Дата не указана'):'Пока нет сохранений';
   }
   function buildSummary(state){
-    const car=Math.max(0,numericValue(state.carPrice)), pct=Math.min(100,Math.max(0,Number(state.marginRate)||0)), extra=Math.max(0,numericValue(state.extraIncome)), disc=Math.max(0,numericValue(state.discountNumber??state.discount)), loyalty=state.loyaltyTradeIn?200000:0;
+    const car=Math.max(0,window.__calcNumericValue(state.carPrice)), pct=Math.min(100,Math.max(0,Number(state.marginRate)||0)), extra=Math.max(0,window.__calcNumericValue(state.extraIncome)), disc=Math.max(0,window.__calcNumericValue(state.discountNumber??state.discount)), loyalty=state.loyaltyTradeIn?200000:0;
     const hardware=car*pct/100, total=hardware+extra;
     const names=['Защитная сетка радиатора, антикоррозийная обработка, коврики, тонировка (если нет в комплектации)','Защита картера и брызговики','Шины зимние','Сигнализация','Три ТО'];
-    const customBonus=(state.customOptionSelected&&String(state.customOptionName||'').trim()&&numericValue(state.customOptionCost)>0)?`• ${String(state.customOptionName).trim()}: ${money(numericValue(state.customOptionCost))}`:'';
-    const bonuses=(state.checks||[]).map((on,i)=>on?`• ${names[i]||'Бонус'}: ${money(numericValue(state.costs?.[i]))}`:null).filter(Boolean).concat(customBonus?[customBonus]:[]).join('\n')||'Бонусы не выбраны';
-    const customSpend=(state.customOptionSelected && String(state.customOptionName||'').trim()&&numericValue(state.customOptionCost)>0)?numericValue(state.customOptionCost):0; const addonsSpend=(state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend; const spend=disc+loyalty+addonsSpend;
+    const customBonus=(state.customOptionSelected&&String(state.customOptionName||'').trim()&&window.__calcNumericValue(state.customOptionCost)>0)?`• ${String(state.customOptionName).trim()}: ${money(window.__calcNumericValue(state.customOptionCost))}`:'';
+    const bonuses=(state.checks||[]).map((on,i)=>on?`• ${names[i]||'Бонус'}: ${money(window.__calcNumericValue(state.costs?.[i]))}`:null).filter(Boolean).concat(customBonus?[customBonus]:[]).join('\n')||'Бонусы не выбраны';
+    const customSpend=(state.customOptionSelected && String(state.customOptionName||'').trim()&&window.__calcNumericValue(state.customOptionCost)>0)?window.__calcNumericValue(state.customOptionCost):0; const addonsSpend=(state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend; const spend=disc+loyalty+addonsSpend;
     const finalPrice=Math.max(0,car-disc-loyalty), trade=Math.max(0,numericValue(state.tradeInValue));
     let credit='';
     const loanCar=Math.max(0,numericValue(state.loanCarPrice)||finalPrice), down=Math.max(0,numericValue(state.downPayment)), rateValue=Number(state.loanRate);
@@ -831,7 +890,7 @@
       const totalPay=payment*months, overpay=Math.max(0,totalPay-principal);
       credit=`\nПредварительный расчёт кредита\nБанк / программа: ${RATE_TABLES[state.loanProgram||'alpha_h3_151']?.label||state.loanProgram||'не указано'}\nЦена автомобиля для кредита: ${money(loanCar)}\nПервоначальный взнос: ${money(down)}${state.downPaymentPercent?` (${String(state.downPaymentPercent).replace('.',',')}% от цены)`:''}\nПервоначальный взнос, %: ${state.downPaymentPercent||'не выбран'}\nКАСКО${state.cascoInLoan?' включено в кредит':''}: ${money(numericValue(state.cascoPrice||'140 000'))}\nСумма кредита: ${money(principal)}\nСрок кредита: ${months} мес.\nСтавка годовых: ${String(state.loanRate).replace('.',',')}%\nЕжемесячный платёж: ${money(payment)}\nОбщая сумма выплат банку: ${money(totalPay)}\nПереплата по процентам: ${money(overpay)}`;
     }
-    return `Расчёт сделки\nКлиент: ${state.clientName||'не указан'}\nТелефон: ${state.clientPhone||'не указан'}\nАвтомобиль, который рассматривает клиент: ${(state.carInterest||'').trim()||'не указан'}\nАвтомобиль клиента по трейд-ин: ${(state.tradeInCar||'').trim()||'не указан'}\nОценка трейд-ин: ${money(trade)}\nДоплата за новый автомобиль после скидки и трейд-ин: ${money(Math.max(0,finalPrice-trade))}\nИсходная цена: ${money(car)}\nМаржа от автомобиля (${state.marginRate||0}%): ${money(hardware)}\nДополнительный доход (${state.incomeSource||'не указан'}): ${money(extra)}\nОбщая маржа сделки: ${money(total)}\nЖивая скидка всего (включая лояльный Trade-in): ${money(disc+loyalty)}\n  • Ручная скидка: ${money(disc)}\n  • Лояльный Trade-in за счёт импортёра: ${money(loyalty)}\nБонусы:\n${bonuses}\nСебестоимость допов: ${money((state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend)}\nРасход на уступки (живая скидка + лояльный Trade-in + допы): ${money(spend)}\nОстаток маржи (лояльный Trade-in не уменьшает маржу): ${money(total-disc-addonsSpend)}\nФинальная цена клиенту: ${money(finalPrice)}${credit}`;
+    return `Расчёт сделки\nКлиент: ${state.clientName||'не указан'}\nТелефон: ${state.clientPhone||'не указан'}\nАвтомобиль, который рассматривает клиент: ${(state.carInterest||'').trim()||'не указан'}\nМодель из каталога: ${VEHICLE_CATALOG[state.carModel]?.label||'не выбрана'}\nЦвет автомобиля: ${state.carColor||'не выбран'}\nАвтомобиль клиента по трейд-ин: ${(state.tradeInCar||'').trim()||'не указан'}\nОценка трейд-ин: ${money(trade)}\nДоплата за новый автомобиль после скидки и трейд-ин: ${money(Math.max(0,finalPrice-trade))}\nИсходная цена: ${money(car)}\nМаржа от автомобиля (${state.marginRate||0}%): ${money(hardware)}\nДополнительный доход (${state.incomeSource||'не указан'}): ${money(extra)}\nОбщая маржа сделки: ${money(total)}\nЖивая скидка всего (включая лояльный Trade-in): ${money(disc+loyalty)}\n  • Ручная скидка: ${money(disc)}\n  • Лояльный Trade-in за счёт импортёра: ${money(loyalty)}\nБонусы:\n${bonuses}\nСебестоимость допов: ${money((state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend)}\nРасход на уступки (живая скидка + лояльный Trade-in + допы): ${money(spend)}\nОстаток маржи (лояльный Trade-in не уменьшает маржу): ${money(total-disc-addonsSpend)}\nФинальная цена клиенту: ${money(finalPrice)}${credit}`;
   }
   function update(){
     const car=Math.max(0,numericValue(price.value)), pct=Math.min(100,Math.max(0,numericValue(rate.value))), hardwareMargin=car*pct/100, extra=Math.max(0,numericValue(extraIncome.value)), budget=hardwareMargin+extra, disc=Math.max(0,numericValue(discountNumber.value)); const loyalty=$('loyaltyTradeIn').checked?200000:0;
@@ -958,11 +1017,14 @@
     const getLine=(label)=>{const suffix=(label==='Маржа от автомобиля'||label==='Дополнительный доход')?'(?:\\s*\\([^\\n]*?\\))?':'';const re=new RegExp('^'+escapeRegExp(label)+suffix+'\\s*:\\s*(.+)$','im');const m=src.match(re);return m?m[1].trim():'';};
     const moneyAfter=(label)=>{const v=getLine(label);const m=v.match(/-?\d[\d\s\u00A0]*/);return m?digitsOnly(m[0]):'';};
     const state={
-      clientName:getLine('Клиент')||'', clientPhone:getLine('Телефон')||'', carInterest:getLine('Автомобиль, который рассматривает клиент')||'',
+      clientName:getLine('Клиент')||'', clientPhone:getLine('Телефон')||'', carInterest:getLine('Автомобиль, который рассматривает клиент')||'', carModel:'', carColor:'',
       tradeInCar:getLine('Автомобиль клиента по трейд-ин')||'', tradeInValue:moneyAfter('Оценка трейд-ин'), carPrice:moneyAfter('Исходная цена'),
       discountNumber:moneyAfter('Живая скидка'), loyaltyTradeIn:/Лояльный Trade-in за счёт импортёра:\s*200\s*000\s*₽/i.test(src), marginRate:'', extraIncome:moneyAfter('Дополнительный доход'), incomeSource:'',
       checks:[false,false,false,false,false], costs:['15 000','10 000','50 000','25 000','62 000'], customOptionName:'', customOptionCost:'', cascoPrice:'140 000'
     };
+    const importedCar=String(state.carInterest||'');
+    const importedVehicle=Object.entries(VEHICLE_CATALOG).find(([key,v])=>importedCar.toLowerCase().includes(v.label.toLowerCase()));
+    if(importedVehicle){state.carModel=importedVehicle[0];state.carColor=VEHICLE_CATALOG[importedVehicle[0]].colors.find(c=>importedCar.toLowerCase().includes(c.toLowerCase()))||'';}
     const marginMatch=src.match(/^Маржа от автомобиля\s*\(([0-9]+(?:[.,][0-9]+)?)%\)\s*:/im); state.marginRate=marginMatch?marginMatch[1].replace(',','.'):'';
     const extraLine=getLine('Дополнительный доход'); const sourceMatch=extraLine.match(/^\((.*?)\)/); state.incomeSource=sourceMatch?sourceMatch[1]:'Кредит / страхование';
     const names=[
@@ -1040,7 +1102,7 @@
   $('clearImportBtn')?.addEventListener('click',()=>{$('importText').value='';$('importStatus').className='import-status';$('importStatus').textContent='Распознаются имя, телефон, автомобиль, Trade-in, цена, скидка, маржа, доп. доход и бонусы.';});
   $('importText')?.addEventListener('paste',()=>setTimeout(importDealText,50));
 
-  function resetDeal(){ currentHistoryId=null; applyState({clientName:'',clientPhone:'',carInterest:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial}); loanCarPrice.dataset.touched='0'; update(); updateLoan(true); renderLocalPanel(); renderHistory(); window.scrollTo({top:0,behavior:'smooth'}); }
+  function resetDeal(){ currentHistoryId=null; applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial}); loanCarPrice.dataset.touched='0'; update(); updateLoan(true); renderLocalPanel(); renderHistory(); window.scrollTo({top:0,behavior:'smooth'}); }
   function copyCalculation(){ const text=buildSummary(getState()); const done=()=>{}; try{ if(navigator.clipboard?.writeText){ navigator.clipboard.writeText(text).catch(()=>{ const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();document.execCommand('copy');area.remove(); }); } else { const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();document.execCommand('copy');area.remove(); } }catch(e){} }
   $('resetBtn')?.addEventListener('click',resetDeal);
   $('resetBtnOffer')?.addEventListener('click',resetDeal);
@@ -1073,7 +1135,7 @@ function saveCurrentDeal(){
       copyCalculation(); showSaveToast();
       currentHistoryId=null;
       renderHistory();
-      applyState({clientName:'',clientPhone:'',carInterest:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
+      applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
       renderLocalPanel();
       window.scrollTo({top:0,behavior:'smooth'});
     }
@@ -1085,7 +1147,7 @@ function saveCurrentDeal(){
     const car=Math.max(0,numericValue(state.carPrice)), disc=Math.max(0,numericValue(state.discountNumber??state.discount)), loyalty=state.loyaltyTradeIn?200000:0, finalPrice=Math.max(0,car-disc-loyalty), trade=Math.max(0,numericValue(state.tradeInValue));
     const selected=(state.checks||[]).map((on,i)=>on?['Защитная сетка радиатора, антикоррозийная обработка, коврики, тонировка (если нет в комплектации)','Защита картера и брызговики','Шины зимние','Сигнализация','Три ТО'][i]:null).filter(Boolean);
     const customName=String(state.customOptionName||'').trim();
-    const customCost=Math.max(0,numericValue(state.customOptionCost));
+    const customCost=Math.max(0,window.__calcNumericValue(state.customOptionCost));
     if(customName) selected.push(customName);
     const loanCar=Math.max(0,numericValue(state.loanCarPrice)||finalPrice), down=Math.max(0,numericValue(state.downPayment)), casco=state.cascoInLoan?Math.max(0,numericValue(state.cascoPrice)):0;
     const principal=Math.max(0,loanCar-down+casco), months=Math.max(1,numericValue(state.loanTerm)||60), annual=Math.max(0,numericValue(state.loanRate)), mr=annual/1200;
@@ -1124,8 +1186,14 @@ function saveCurrentDeal(){
   $('historySearch').addEventListener('input',renderHistory);
   $('historyDateFilter').addEventListener('change',renderHistory);
   ['clientPhone','clientName','carInterest'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='clientPhone')$('clientPhone').setCustomValidity('');renderLocalPanel();}));
+  [carModel,carColor].forEach(el=>el.addEventListener('change',renderLocalPanel));
   $('clearHistoryBtn').addEventListener('click',()=>{if(readHistory().length&&confirm('Полностью очистить историю расчётов на этом устройстве?')){if(writeHistory([]))renderHistory();}});
   $('clientPhone').addEventListener('blur',()=>{$('clientPhone').value=normalizePhone($('clientPhone').value);renderLocalPanel();});
+  $('clientName').addEventListener('blur',()=>{
+    const name=$('clientName').value.trim();
+    $('clientName').value=name.split(/\s+/).filter(Boolean).map(part=>part.split('-').map(piece=>piece ? piece.charAt(0).toLocaleUpperCase('ru-RU')+piece.slice(1).toLocaleLowerCase('ru-RU') : '').join('-')).join(' ');
+    renderLocalPanel();
+  });
   const scriptChecks=[...document.querySelectorAll('.script-done')];
   function updateScriptProgress(){const done=scriptChecks.filter(cb=>cb.checked).length;const progress=$('scriptProgress');if(progress)progress.textContent=`${done} из ${scriptChecks.length}`;}
   scriptChecks.forEach(cb=>cb.addEventListener('change',updateScriptProgress));
@@ -1135,8 +1203,106 @@ function saveCurrentDeal(){
   window.addEventListener('scroll',updateDealHeader,{passive:true});
   updateDealHeader();
   updateScriptProgress();
-  renderHistory(); update(); updateLoan(true); renderLocalPanel();
+  syncVehicleUI(); renderHistory(); update(); updateLoan(true); renderLocalPanel();
+  // Export bridge: Excel exporter lives outside the main calculator IIFE.
+  window.__calcGetState = getState;
+  window.__calcNumericValue = numericValue;
+  // Excel exporter compatibility: keep numericValue available globally too.
+  window.numericValue = numericValue;
 })();
+
+  const EXCEL_TEMPLATE_BASE64 = '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';
+  let excelJsPromise = null;
+  function loadExcelJS(){
+    if(window.ExcelJS)return Promise.resolve(window.ExcelJS);
+    if(excelJsPromise)return excelJsPromise;
+    excelJsPromise=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      script.src='https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js';
+      script.onload=()=>window.ExcelJS?resolve(window.ExcelJS):reject(new Error('ExcelJS не загрузился'));
+      script.onerror=()=>reject(new Error('Не удалось загрузить модуль Excel. Проверьте подключение к интернету.'));
+      document.head.appendChild(script);
+    });
+    return excelJsPromise;
+  }
+  function base64ToUint8Array(base64){
+    const binary=atob(base64), out=new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++)out[i]=binary.charCodeAt(i);
+    return out;
+  }
+  function selectedAddonNames(state){
+    const names=['Защитная сетка радиатора, антикоррозийная обработка, коврики, тонировка (если нет в комплектации)','Защита картера и брызговики','Шины зимние','Сигнализация','Три ТО'];
+    const list=(state.checks||[]).map((on,i)=>on?names[i]:null).filter(Boolean);
+    const custom=String(state.customOptionName||'').trim();
+    if(custom && state.customOptionSelected && window.__calcNumericValue(state.customOptionCost)>0) list.push(custom);
+    return list.join(', ');
+  }
+  async function exportToExcel(){
+    const btn=document.getElementById('exportExcelBtn');
+    const state=window.__calcGetState();
+    try{
+      if(btn){btn.disabled=true;btn.textContent='Готовлю Excel…';}
+      const ExcelJS=await loadExcelJS();
+      const workbook=new ExcelJS.Workbook();
+      await workbook.xlsx.load(base64ToUint8Array(EXCEL_TEMPLATE_BASE64));
+      const ws=workbook.getWorksheet('Расчет')||workbook.worksheets[0];
+      if(!ws)throw new Error('В шаблоне не найден лист «Расчет».');
+      const carPriceValue=Math.max(0,window.__calcNumericValue(state.carPrice));
+      const discountValue=Math.max(0,window.__calcNumericValue(state.discountNumber??state.discount));
+      const loyalty=state.loyaltyTradeIn?200000:0;
+      const pct=Math.min(100,Math.max(0,Number(state.marginRate)||0));
+      // Маржа по автомобилю — процент от РРЦ. Закупка = РРЦ - маржа.
+      const hardwareMargin=Math.round(carPriceValue*pct/100);
+      const purchaseCost=Math.max(0,Math.round(carPriceValue-hardwareMargin));
+      const extra=Math.max(0,window.__calcNumericValue(state.extraIncome));
+      // Себестоимость выбранных допов — сумма их закупочных цен.
+      const addonsCost=(state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,window.__calcNumericValue(state.costs?.[i])):0),0) + ((state.customOptionSelected&&String(state.customOptionName||'').trim()&&window.__calcNumericValue(state.customOptionCost)>0)?window.__calcNumericValue(state.customOptionCost):0);
+      const margin=Math.round(hardwareMargin+extra-discountValue-addonsCost);
+      // Заполняем только согласованные поля шаблона. Остальные ячейки не трогаем.
+      ws.getCell('D5').value=state.clientName||'';
+      ws.getCell('D6').value=state.carInterest||'';
+      ws.getCell('D10').value=state.carColor||'';
+      ws.getCell('D14').value=carPriceValue||0;
+      // D15 — закупочная стоимость = РРЦ - маржа. D16 — маржа на автомобиль.
+      ws.getCell('D15').value=purchaseCost;
+      ws.getCell('D16').value=hardwareMargin;
+      ws.getCell('D17').value=loyalty;
+      ws.getCell('D18').value=loyalty;
+      ws.getCell('D22').value=discountValue;
+      // В ExcelJS формулы шаблона не пересчитываются автоматически. Поэтому
+      // рассчитываем итоговые значения D25/D26/D27/D34 сами и записываем числа.
+      const d25=Math.round(carPriceValue-loyalty-discountValue);
+      const d26=Math.round(purchaseCost-loyalty);
+      const d27=Math.round(d25-d26);
+      ws.getCell('D25').value=d25;
+      ws.getCell('D26').value=d26;
+      ws.getCell('D27').value=d27;
+      // Доп продажа в шаблоне по заданию игнорируется, поэтому итоговая стоимость
+      // автомобиля для клиента равна стоимости автомобиля после скидок/компенсаций.
+      ws.getCell('D34').value=d25;
+      ws.getCell('F34').value=Math.round(d25-Math.max(0,window.__calcNumericValue(state.tradeInValue)));
+      // Выбранные допы: названия в E31:F32, их себестоимость в D32.
+      ws.getCell('E31').value=selectedAddonNames(state);
+      ws.getCell('D32').value=addonsCost;
+      // Дополнительный доход (кредит/страхование и т.п.) — в КСО.
+      ws.getCell('D33').value=extra;
+      // Трейд-ин: сумма оценки в D35, автомобиль — в объединённом E35:F36.
+      ws.getCell('D35').value=Math.max(0,window.__calcNumericValue(state.tradeInValue));
+      ws.getCell('E35').value=state.tradeInCar||'';
+      ws.getCell('D39').value=margin;
+      const buffer=await workbook.xlsx.writeBuffer();
+      const blob=new Blob([buffer],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download='Считалка_'+((state.clientName||'расчет').trim().replace(/[^\p{L}\p{N}_-]+/gu,'_'))+'.xlsx';
+      document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }catch(err){
+      console.error(err);
+      alert('Не удалось подготовить Excel: '+(err?.message||err));
+    }finally{
+      if(btn){btn.disabled=false;btn.textContent='Подставить в Excel';}
+    }
+  }
+  document.getElementById('exportExcelBtn')?.addEventListener('click',exportToExcel);
 </script>
   <div class="save-toast" id="saveToast" role="status" aria-live="polite"><span class="toast-icon">✓</span><span>Расчёт с клиентом сохранён и скопирован в буфер обмена</span></div>
 </body>
