@@ -1289,7 +1289,7 @@ function saveCurrentDeal(options={}){
       currentHistoryId=null;
       renderHistory();
       if(shouldReset){
-        applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
+        window.__calcApplyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
         renderLocalPanel();
         window.scrollTo({top:0,behavior:'smooth'});
       }
@@ -1427,6 +1427,7 @@ function saveCurrentDeal(options={}){
   window.__calcGetState = getState;
   window.__calcNumericValue = numericValue;
   window.__calcSaveCurrentDeal = saveCurrentDeal;
+  window.__calcApplyState = applyState;
   // Excel exporter compatibility: keep numericValue available globally too.
   window.numericValue = numericValue;
 })();
@@ -1524,7 +1525,7 @@ function saveCurrentDeal(options={}){
       // Excel успешно сформирован — теперь очищаем форму точно как после
       // обычного сохранения расчёта.
       currentHistoryId=null;
-      applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
+      window.__calcApplyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
       renderLocalPanel();
       renderHistory();
       window.scrollTo({top:0,behavior:'smooth'});
