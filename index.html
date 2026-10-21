@@ -1428,6 +1428,7 @@ function saveCurrentDeal(options={}){
   window.__calcNumericValue = numericValue;
   window.__calcSaveCurrentDeal = saveCurrentDeal;
   window.__calcApplyState = applyState;
+  window.__calcResetDeal = resetDeal;
   // Excel exporter compatibility: keep numericValue available globally too.
   window.numericValue = numericValue;
 })();
@@ -1524,11 +1525,10 @@ function saveCurrentDeal(options={}){
       document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
       // Excel успешно сформирован — теперь очищаем форму точно как после
       // обычного сохранения расчёта.
-      currentHistoryId=null;
-      window.__calcApplyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
-      renderLocalPanel();
-      renderHistory();
-      window.scrollTo({top:0,behavior:'smooth'});
+      // Полный сброс выполняем через основной калькулятор, чтобы использовать
+      // его штатные начальные значения и не зависеть от переменной initial,
+      // которая находится внутри основного IIFE.
+      window.__calcResetDeal();
     }catch(err){
       console.error(err);
       alert('Не удалось подготовить Excel: '+(err?.message||err));
