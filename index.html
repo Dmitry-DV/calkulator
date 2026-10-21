@@ -660,6 +660,30 @@ input[type="range"]{accent-color:#176b42!important}
 .loan-selected-car{color:#1b1f1d!important;background:#edf1ef!important;border-color:#cbd5cf!important}
 .side-jump-nav{background:rgba(255,255,255,.97)!important;border-color:#cfd8d3!important}
 .side-jump-nav button{background:#eef2f0!important;color:#1b1f1d!important;border-color:#c7d1cb!important}
+
+/* v16 — фикс фона остатка маржи после выбора автомобиля/подстановки маржи */
+.summary .metric.remaining-margin-card,
+.summary .metric.outline.remaining-margin-card {
+  background:#176b42 !important;
+  border:2px solid #145c38 !important;
+  color:#fff !important;
+  box-shadow:0 6px 18px rgba(23,107,66,.18) !important;
+}
+.summary .metric.remaining-margin-card .label,
+.summary .metric.remaining-margin-card #remainingMargin {
+  color:#fff !important;
+}
+.summary .metric.remaining-margin-card.is-danger,
+.summary .metric.outline.remaining-margin-card.is-danger {
+  background:#b42318 !important;
+  border-color:#8f1c13 !important;
+  color:#fff !important;
+  box-shadow:0 6px 18px rgba(180,35,24,.18) !important;
+}
+.summary .metric.remaining-margin-card.is-danger .label,
+.summary .metric.remaining-margin-card.is-danger #remainingMargin {
+  color:#fff !important;
+}
 </style>
 </head>
 <body class="access-locked">
@@ -1245,7 +1269,8 @@ input[type="range"]{accent-color:#176b42!important}
   window.__saveToastTimer=setTimeout(()=>toast.classList.remove('show'),2600);
 }
 
-function saveCurrentDeal(){
+function saveCurrentDeal(options={}){
+    const shouldReset=options.reset!==false;
     const state=getState(), phone=String(state.clientPhone||'').trim();
     if(phoneDigitCount(phone)!==11 || !phoneIsValid(phone)){
       updatePhoneHint();
@@ -1263,10 +1288,14 @@ function saveCurrentDeal(){
       copyCalculation(); showSaveToast();
       currentHistoryId=null;
       renderHistory();
-      applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
-      renderLocalPanel();
-      window.scrollTo({top:0,behavior:'smooth'});
+      if(shouldReset){
+        applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
+        renderLocalPanel();
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+      return true;
     }
+    return false;
   }
   $('saveBtn')?.addEventListener('click',saveCurrentDeal);
   $('saveBtnLoan')?.addEventListener('click',saveCurrentDeal);
@@ -1293,6 +1322,30 @@ function saveCurrentDeal(){
   body{overflow-x:visible!important;overflow-y:visible!important;animation:none!important;}
   .wrap{overflow:visible!important;align-self:start!important;}
   .heading-row{position:sticky!important;top:0!important;z-index:1000!important;}
+}
+
+/* v16 — фикс фона остатка маржи после выбора автомобиля/подстановки маржи */
+.summary .metric.remaining-margin-card,
+.summary .metric.outline.remaining-margin-card {
+  background:#176b42 !important;
+  border:2px solid #145c38 !important;
+  color:#fff !important;
+  box-shadow:0 6px 18px rgba(23,107,66,.18) !important;
+}
+.summary .metric.remaining-margin-card .label,
+.summary .metric.remaining-margin-card #remainingMargin {
+  color:#fff !important;
+}
+.summary .metric.remaining-margin-card.is-danger,
+.summary .metric.outline.remaining-margin-card.is-danger {
+  background:#b42318 !important;
+  border-color:#8f1c13 !important;
+  color:#fff !important;
+  box-shadow:0 6px 18px rgba(180,35,24,.18) !important;
+}
+.summary .metric.remaining-margin-card.is-danger .label,
+.summary .metric.remaining-margin-card.is-danger #remainingMargin {
+  color:#fff !important;
 }
 </style>
 </head><body>
@@ -1405,6 +1458,11 @@ function saveCurrentDeal(){
   }
   async function exportToExcel(){
     const btn=document.getElementById('exportExcelBtn');
+    // Кнопка Excel работает как «Сохранить расчёт»: сначала сохраняем сделку
+    // в историю, затем выгружаем именно сохранённое состояние и только после
+    // успешной выгрузки очищаем форму.
+    const saved=saveCurrentDeal({reset:false});
+    if(!saved) return;
     const state=window.__calcGetState();
     try{
       if(btn){btn.disabled=true;btn.textContent='Готовлю Excel…';}
@@ -1462,6 +1520,13 @@ function saveCurrentDeal(){
       const url=URL.createObjectURL(blob);
       const a=document.createElement('a');a.href=url;a.download='Считалка_'+((state.clientName||'расчет').trim().replace(/[^\p{L}\p{N}_-]+/gu,'_'))+'.xlsx';
       document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+      // Excel успешно сформирован — теперь очищаем форму точно как после
+      // обычного сохранения расчёта.
+      currentHistoryId=null;
+      applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
+      renderLocalPanel();
+      renderHistory();
+      window.scrollTo({top:0,behavior:'smooth'});
     }catch(err){
       console.error(err);
       alert('Не удалось подготовить Excel: '+(err?.message||err));
