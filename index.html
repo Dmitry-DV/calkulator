@@ -1426,6 +1426,7 @@ function saveCurrentDeal(options={}){
   // Export bridge: Excel exporter lives outside the main calculator IIFE.
   window.__calcGetState = getState;
   window.__calcNumericValue = numericValue;
+  window.__calcSaveCurrentDeal = saveCurrentDeal;
   // Excel exporter compatibility: keep numericValue available globally too.
   window.numericValue = numericValue;
 })();
@@ -1461,7 +1462,7 @@ function saveCurrentDeal(options={}){
     // Кнопка Excel работает как «Сохранить расчёт»: сначала сохраняем сделку
     // в историю, затем выгружаем именно сохранённое состояние и только после
     // успешной выгрузки очищаем форму.
-    const saved=saveCurrentDeal({reset:false});
+    const saved=window.__calcSaveCurrentDeal({reset:false});
     if(!saved) return;
     const state=window.__calcGetState();
     try{
