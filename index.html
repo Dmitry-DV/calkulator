@@ -433,8 +433,6 @@
   .side-jump-nav button{border:1px solid #b9d8c4;background:#eaf5ee;color:#176b42;border-radius:10px;padding:11px 12px;font:inherit;font-weight:700;font-size:12px;line-height:1.2;cursor:pointer;white-space:nowrap}
   .side-jump-nav button:hover{background:#d9efdf}
 
-  .side-jump-nav .work-sheet-btn{background:#176b42!important;color:#fff!important;border-color:#176b42!important;box-shadow:0 4px 12px rgba(23,107,66,.18)}
-  .side-jump-nav .work-sheet-btn:hover{background:#125a37!important;border-color:#125a37!important}
   @media(max-width:700px){.vehicle-picker{grid-template-columns:1fr;grid-template-rows:auto 48px auto 48px;gap:8px}.vehicle-picker>label{grid-column:1;grid-row:1;margin:0}.vehicle-picker>#carModel{grid-column:1;grid-row:2}#carColorWrap{grid-column:1;grid-row:3 / span 2;grid-template-rows:auto 48px}.main-step[data-step]::before{position:static;display:inline-flex;margin-bottom:10px}.main-step>h2{margin-top:0}.loan-selected-car{font-size:11px;max-width:100%;padding:6px 7px}.side-jump-nav{right:8px;bottom:10px;top:auto;transform:none;flex-direction:column;padding:5px;border-radius:12px}.side-jump-nav button{padding:9px 10px;font-size:11px}}
 
 
@@ -728,7 +726,7 @@ input[type="range"]{accent-color:#176b42!important}
     <div class="history-actions"><button class="btn" id="clearHistoryBtn" type="button">Очистить историю</button></div>
   </div>
 </aside>
-<nav class="side-jump-nav" aria-label="Быстрая навигация"><button type="button" id="createWorkSheetBtn" class="work-sheet-btn">Создать рабочий лист</button><button type="button" id="jumpTopBtn">↑ Данные клиента</button><button type="button" id="jumpOfferBtn">↕ Что предлагаем</button><button type="button" id="jumpLoanBtn">↓ Кредит</button></nav>
+<nav class="side-jump-nav" aria-label="Быстрая навигация"><button type="button" id="saveCalcSideBtn" class="btn primary save-btn">Сохранить расчёт</button><button type="button" id="jumpTopBtn">↑ Данные клиента</button><button type="button" id="jumpOfferBtn">↕ Что предлагаем</button><button type="button" id="jumpLoanBtn">↓ Кредит</button></nav>
 <div class="wrap">
   <div class="heading-row"><h1 class="heading">Калькулятор сделки</h1><div class="heading-actions"><button class="btn new-client-top-btn" id="newClientTopBtn" type="button">Новый клиент</button><details class="import-box import-box-top">
     <summary>Вставить готовый расчёт</summary>
@@ -942,40 +940,6 @@ input[type="range"]{accent-color:#176b42!important}
   carColor.addEventListener('change',()=>{syncVehicleUI({setPrice:true});carColor.blur();update();updateLoan(true);});
   price.addEventListener('input',()=>{price.dataset.touched='1';});
   $('jumpTopBtn').addEventListener('click',()=> $('clientSection').scrollIntoView({behavior:'smooth',block:'start'}));
-  $('createWorkSheetBtn')?.addEventListener('click', async ()=>{
-    const name=(document.getElementById('clientName')?.value||'').trim();
-    const phone=(document.getElementById('clientPhone')?.value||'').trim();
-    const copyText=[name,phone].filter(Boolean).join('\n');
-    if(!name && !phone){
-      alert('Сначала укажи имя клиента и номер телефона.');
-      return;
-    }
-    const btn=document.getElementById('createWorkSheetBtn');
-    try{
-      await navigator.clipboard.writeText(copyText);
-    }catch(err){
-      const ta=document.createElement('textarea');
-      ta.value=copyText; ta.setAttribute('readonly','');
-      ta.style.position='fixed'; ta.style.opacity='0';
-      document.body.appendChild(ta); ta.select();
-      try{document.execCommand('copy')}catch(e){}
-      ta.remove();
-    }
-    const oldText=btn.textContent;
-    btn.textContent='✓ Имя и номер скопированы';
-    btn.classList.add('copied');
-    setTimeout(()=>{
-      btn.textContent=oldText;
-      btn.classList.remove('copied');
-    },3000);
-    setTimeout(()=>{
-      const w=window.open('https://samara-avto.autocrm.ru/yii/retail/case/index/','_blank','noopener,noreferrer');
-      if(!w){
-        alert('Браузер заблокировал новое окно. Разреши всплывающие окна для этого сайта и нажми «Создать рабочий лист» ещё раз.');
-      }
-    },2500);
-  });
-
   $('jumpOfferBtn').addEventListener('click',()=> $('offerSection').scrollIntoView({behavior:'smooth',block:'start'}));
   $('jumpLoanBtn').addEventListener('click',()=> $('loanCalculator').scrollIntoView({behavior:'smooth',block:'start'}));
   function getState(){ return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
@@ -1337,6 +1301,7 @@ function saveCurrentDeal(options={}){
   }
   $('saveBtn')?.addEventListener('click',saveCurrentDeal);
   $('saveBtnLoan')?.addEventListener('click',saveCurrentDeal);
+  $('saveCalcSideBtn')?.addEventListener('click',saveCurrentDeal);
   function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
   function proposalDocument(state, includeCredit=false){
     const car=Math.max(0,numericValue(state.carPrice)), disc=Math.max(0,numericValue(state.discountNumber??state.discount)), loyalty=state.loyaltyTradeIn?200000:0, finalPrice=Math.max(0,car-disc-loyalty), trade=Math.max(0,numericValue(state.tradeInValue));
@@ -1425,7 +1390,7 @@ function saveCurrentDeal(options={}){
     renderLocalPanel();
   });
   const dealMode=$('dealMode');
-  const dealModeConfig={cash:{hint:'Наличные: остаются цена и маржа и блок «Что предлагаем клиенту». Trade-in и кредит скрыты.',visible:['clientSection','priceSection','offerSection']},trade_cash:{hint:'Трейд-ин и наличные: показываются цена и маржа, Trade-in и предложение. Кредит скрыт.',visible:['clientSection','priceSection','tradeInSection','offerSection']},credit:{hint:'Только кредит: Trade-in не нужен. Показываются цена и маржа, предложение и кредит.',visible:['clientSection','priceSection','offerSection','loanCalculator']},trade_credit:{hint:'Трейд-ин и кредит: показываются все блоки сделки.',visible:['clientSection','priceSection','tradeInSection','offerSection','loanCalculator']}};
+  const dealModeConfig={cash:{hint:'Наличные: остаются только цена и маржа и блок «Что предлагаем клиенту». Trade-in и кредит скрыты.',visible:['clientSection','priceSection','offerSection']},trade_cash:{hint:'Трейд-ин и наличные: показываются цена и маржа, Trade-in и предложение. Кредит скрыт.',visible:['clientSection','priceSection','tradeInSection','offerSection']},credit:{hint:'Только кредит: Trade-in не нужен. Показываются цена и маржа, предложение и кредит.',visible:['clientSection','priceSection','offerSection','loanCalculator']},trade_credit:{hint:'Трейд-ин и кредит: показываются все блоки сделки.',visible:['clientSection','priceSection','tradeInSection','offerSection','loanCalculator']}};
   const dealStepTitles={clientSection:'Данные клиента',priceSection:'Цена автомобиля и маржа',tradeInSection:'Оценка автомобиля по трейд-ин',offerSection:'Что предлагаем клиенту',loanCalculator:'Кредит для клиента',dealReadySection:'Сделка готова'};
   function updateDealMode(){
     const mode=dealMode?.value||'trade_credit', cfg=dealModeConfig[mode]||dealModeConfig.trade_credit;
@@ -1442,8 +1407,8 @@ function saveCurrentDeal(options={}){
     add('Клиент',String(state.clientName||'').trim()!==''&&phoneIsValid(state.clientPhone),phoneIsValid(state.clientPhone)?'Имя и телефон заполнены':'Нужны имя и корректный телефон');
     add('Автомобиль и цвет',!!state.carModel&&!!state.carColor,state.carModel&&state.carColor?'Модель и цвет выбраны':'Выбери модель и цвет');
     add('Цена и маржа',numericValue(state.carPrice)>0&&Number(state.marginRate)>=0,numericValue(state.carPrice)>0?'Цена заполнена':'Укажи цену автомобиля');
-    if(mode!=='cash') add('Trade-in',numericValue(state.tradeInValue)>0&&String(state.tradeInCar||'').trim()!=='',numericValue(state.tradeInValue)>0?'Оценка и автомобиль заполнены':'Нужны автомобиль клиента и оценка');
-    if(mode==='trade_credit') add('Кредит',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!=='',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!==''?'Цена, ПВ и ставка заполнены':'Нужны цена кредита, ПВ и ставка');
+    if(mode==='trade_cash' || mode==='trade_credit') add('Trade-in',numericValue(state.tradeInValue)>0&&String(state.tradeInCar||'').trim()!=='',numericValue(state.tradeInValue)>0?'Оценка и автомобиль заполнены':'Нужны автомобиль клиента и оценка');
+    if(mode==='credit' || mode==='trade_credit') add('Кредит',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!=='',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!==''?'Цена, ПВ и ставка заполнены':'Нужны цена кредита, ПВ и ставка');
     add('Предложение клиенту',true,'Блок доступен для выбора допов и скидки');
     const car=Math.max(0,numericValue(state.carPrice)), pct=Math.min(100,Math.max(0,Number(state.marginRate)||0)), hardware=car*pct/100, extra=Math.max(0,numericValue(state.extraIncome)), disc=Math.max(0,numericValue(state.discountNumber??state.discount)), addons=(state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0), custom=(state.customOptionSelected&&String(state.customOptionName||'').trim()&&numericValue(state.customOptionCost)>0)?numericValue(state.customOptionCost):0, remaining=hardware+extra-disc-addons-custom; const readyMargin=$('dealReadyMargin'), readyMarginBox=$('dealReadyMarginBox'); if(readyMargin) readyMargin.textContent=money(remaining); if(readyMarginBox) readyMarginBox.classList.toggle('is-danger',remaining<60000);
     const list=$('dealReadyList');if(list)list.innerHTML=items.map(x=>`<div class="deal-ready-item ${x.ok?'ok':''}"><span class="dot">${x.ok?'✓':'!'}</span><div class="text"><strong>${escapeHtml(x.label)}</strong><span>${escapeHtml(x.detail)}</span></div></div>`).join('');
