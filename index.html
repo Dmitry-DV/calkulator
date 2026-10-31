@@ -3769,7 +3769,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
       dealMode:parsedMode,
       clientName:getLine('Клиент')||'', clientPhone:getLine('Телефон')||'', carInterest:getLine('Автомобиль, который рассматривает клиент')||'', carModel:'', carColor:'',
       tradeInCar:getLine('Автомобиль клиента по трейд-ин')||'', tradeInValue:moneyAfter('Оценка трейд-ин'), carPrice:moneyAfter('Исходная цена'),
-      discountNumber:moneyAfter('Живая скидка'), loyaltyTradeIn:/Лояльный Trade-in за счёт импортёра:\s*200\s*000\s*₽/i.test(src), marginRate:'', extraIncome:moneyAfter('Дополнительный доход'), incomeSource:'',
+      discountNumber:((src.match(/^\s*[•-]\s*Ручная скидка\s*:\s*(-?\d[\d\s\u00A0]*)/im)||[])[1]?digitsOnly((src.match(/^\s*[•-]\s*Ручная скидка\s*:\s*(-?\d[\d\s\u00A0]*)/im)||[])[1]):(moneyAfter('Живая скидка')||'')), loyaltyTradeIn:/Лояльный Trade-in за счёт импортёра:\s*200\s*000\s*₽/i.test(src), marginRate:'', extraIncome:moneyAfter('Дополнительный доход'), incomeSource:'',
       checks:[false,false,false,false,false], costs:['15 000','10 000','50 000','25 000','62 000'], customOptionName:'', customOptionCost:'', cascoPrice:'140 000'
     };
     const importedCar=String(state.carInterest||'');
