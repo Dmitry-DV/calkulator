@@ -279,7 +279,7 @@ body{display:grid;grid-template-columns:330px minmax(0,760px);column-gap:30px;ro
 
   
 @media(max-width:1599px){.call-script{display:none}}
-n  @media(max-width:600px){body{padding:12px}.card{padding:16px;border-radius:18px}.customer-grid,.loan-grid,.summary,.tradein-grid{grid-template-columns:1fr}.price-grid,.discount-number-wrap{grid-template-columns:1fr}.item{grid-template-columns:24px 1fr 100px}.heading{font-size:24px}}
+n  @media(max-width:600px){body{padding:12px}.card{padding:16px;border-radius:18px}.customer-grid,.summary,.tradein-grid{grid-template-columns:1fr}.price-grid,.discount-number-wrap{grid-template-columns:1fr}.item{grid-template-columns:24px 1fr 100px}.heading{font-size:24px}}
 
 
 
@@ -323,21 +323,6 @@ input[type="checkbox"]:focus,input[type="checkbox"]:focus-visible{outline:none!i
 .custom-option input[type="checkbox"]{width:20px;height:20px;accent-color:#176b42;}
 
   
-.loan-grid-row{display:grid;gap:13px;width:100%;}
-
-  
-.loan-row-main{grid-template-columns:1fr 1fr;align-items:stretch;}
-
-  
-.loan-row-bank{grid-template-columns:1.35fr 1fr 1fr;align-items:stretch;margin-top:13px;}
-
-  
-.loan-grid-row>div{min-width:0;display:flex;flex-direction:column;}
-
-  
-.loan-grid-row>div>input,.loan-grid-row>div>select{min-height:48px;box-sizing:border-box;}
-
-  
 #carPrice:not(:placeholder-shown),#extraIncome:not(:placeholder-shown),#tradeInValue:not(:placeholder-shown),#loanCarPrice:not(:placeholder-shown),#downPayment:not(:placeholder-shown){color:#176b42;}
 
   
@@ -350,8 +335,7 @@ input[type="checkbox"]:focus,input[type="checkbox"]:focus-visible{outline:none!i
 .loan-results{grid-template-columns:1fr 1fr;}
 
   
-@media(max-width:700px){.loan-row-main,.loan-row-bank{grid-template-columns:1fr}
-.loan-row-bank{margin-top:13px}
+@media(max-width:700px){
 .loan-results{grid-template-columns:1fr}
 .custom-option{grid-template-columns:minmax(0,1fr) 95px!important;}}
 
@@ -402,9 +386,6 @@ body{background:#f3f5f4;color:#1c211f;font-family:-apple-system,BlinkMacSystemFo
 .loan-results .payment-metric .value{font-size:29px;color:#176b42}
 
   
-.rates-link{display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;text-align:center;line-height:1.3;white-space:normal;overflow-wrap:normal;word-break:normal;color:#315b4b!important;text-decoration:none!important;background:#f4f7f5!important;border-color:#ccd9d1!important}
-
-  
 .script-list li{background:#f8faf9;border-color:#dfe6e2;border-radius:13px;box-shadow:0 1px 3px rgba(20,30,25,.025)}
 
   
@@ -437,8 +418,7 @@ body{background:#f3f5f4;color:#1c211f;font-family:-apple-system,BlinkMacSystemFo
   
 @media(max-width:390px){.heading-row{align-items:flex-start}
 .heading{font-size:22px}
-.new-client-top-btn{font-size:12px;padding:9px 10px}
-.rates-link{font-size:13px;padding:10px 12px}}
+.new-client-top-btn{font-size:12px;padding:9px 10px}}
 
 
 
@@ -704,9 +684,6 @@ input[type="text"],input[type="tel"],input[type="number"]{border-radius:10px;pad
 #cascoPrice{max-width:260px}
 
   
-.rates-link{min-height:40px;font-size:12px;padding:8px 10px}
-
-  
 .card .note {font-size:10px}
 
   
@@ -760,7 +737,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
   
 .card{padding:22px 22px 20px;border-radius:18px;margin-bottom:14px}
 .card h2{font-size:19px;line-height:1.25;margin-bottom:7px}
-.section-intro{font-size:14px;line-height:1.5;color:#68716c;margin:-1px 0 17px}
 .field-label{font-size:14px;font-weight:650;margin-bottom:7px}
 input,select{font-size:16px!important;min-height:46px}
 .money-input{text-align:right}
@@ -813,16 +789,12 @@ input,select{font-size:16px!important;min-height:46px}
   
 .loan-grid .field-label{display:block}
 .loan-results{margin-top:16px;display:grid;grid-template-columns:1fr 1.25fr 1fr 1fr;gap:9px}
-.loan-result-title{font-size:15px;font-weight:750;margin:18px 0 8px}
 .loan-results .metric{padding:14px;border-radius:13px;background:#f7f8f8}
 .loan-results .payment-metric{background:#eaf5ee;border:1px solid #b8d8c2}
 .loan-results .payment-metric .label{font-size:13px}
 .loan-results .payment-metric .value{font-size:29px}
 .loan-toggle{display:flex;align-items:center;gap:9px;margin:14px 0 12px;padding:12px 13px;border:1px solid #e1e6e3;border-radius:12px;background:#fafbfa;font-size:14px}
 .loan-toggle input{min-height:20px;width:20px}
-
-  
-.rates-link{font-size:14px;min-height:44px}
 .loan-card-spacer{margin-top:14px}
 
   
@@ -833,7 +805,6 @@ input,select{font-size:16px!important;min-height:46px}
   
 @media(max-width:600px){.card{padding:18px 15px}
 .card h2{font-size:19px}
-.section-intro{font-size:14px}
 .item{grid-template-columns:24px 1fr;gap:8px}
 .item-cost{grid-column:2;max-width:130px;justify-self:end}
 .loan-results{grid-template-columns:1fr 1fr}
@@ -933,7 +904,7 @@ input[type="checkbox"]:focus,input[type="checkbox"]:focus-visible{outline:none!i
 .import-popover .import-credit-note{margin:9px 0 0;color:var(--muted)}
 
   
-.loan-toggle, .loan-results, .loan-result-title {width:100%}
+.loan-toggle, .loan-results {width:100%}
 
   
 @media(max-width:700px){.heading-actions{width:100%;justify-content:flex-start;margin-left:0}
@@ -1331,16 +1302,8 @@ input:focus,select:focus,textarea:focus{transform:none!important;}
 .deal-mode-wrap .field-label{margin-bottom:7px}
 .deal-mode-hint{font-size:12px;color:var(--muted);margin:6px 0 0;line-height:1.45}
 .deal-mode-wrap select{width:100%;min-height:48px;box-sizing:border-box;border:1px solid #cfdad3;border-radius:12px;padding:12px 14px;background:#fff;font:inherit;color:var(--ink);outline:none}
-.deal-ready-status{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
 .deal-ready-status.ready{background:#e6f5eb;color:#176b42;border:1px solid #b9ddc5}
 .deal-ready-status.not-ready{background:#fff5e8;color:#9a5a00;border:1px solid #efd2a5}
-.deal-ready-item{display:flex;align-items:flex-start;gap:9px;padding:10px 11px;border:1px solid #e3e9e5;border-radius:11px;background:#fff;font-size:13px;line-height:1.35}
-.deal-ready-item .dot{width:20px;height:20px;flex:0 0 20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eef2ef;color:#6f7b74;font-size:12px;font-weight:900}
-.deal-ready-item.ok{border-color:#c9e3d1;background:#f7fcf8}
-.deal-ready-item.ok .dot{background:#dff2e5;color:#176b42}
-.deal-ready-item .text strong{display:block;font-size:13px}
-.deal-ready-item .text span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
-@media(max-width:600px){.deal-ready-status{white-space:normal}}
 
 </style>
 
@@ -1662,7 +1625,7 @@ body{background:#f3f5f4!important;color:var(--ux-ink)!important}
 /* Весь пользовательский текст и ввод — чёрный/графитовый, без зелёного или фиолетового текста */
 
 
-.field-label, .section-intro, h2, h3, label, .item-name, .item-name small, .metric .label, .loan-selected-car, .deal-mode-hint, .note, .range-labels, .warning, .deal-ready-item, .deal-ready-item .text span {color:var(--ux-ink)!important}
+.field-label, h2, h3, label, .item-name, .item-name small, .metric .label, .loan-selected-car, .deal-mode-hint, .note, .range-labels, .warning {color:var(--ux-ink)!important}
 
 
 input[type="text"],input[type="tel"],input[type="number"],select,textarea,
@@ -1746,9 +1709,6 @@ input::placeholder,textarea::placeholder{color:#7b8580!important;font-weight:600
 
 
 .metric,.metric.outline,.loan-results .metric{background:rgba(255,255,255,.62)!important;border-color:rgba(86,103,94,.20)!important}
-
-
-.deal-ready-item{background:rgba(255,255,255,.7)!important;border-color:rgba(86,103,94,.20)!important}
 
 
 /* Зеленый оставляем только для действий/успешных состояний, а не для обычного текста */
@@ -2443,7 +2403,7 @@ input[type=checkbox],input[type=radio],input[type=range]{accent-color:var(--bran
 /* One consistent control system: same height, radius, weight and green primary action. */
 
 
-button,.btn,.heading-actions .import-box-top>summary{box-sizing:border-box!important;min-height:42px!important;border-radius:10px!important;font-weight:750!important;font-size:13px!important;line-height:1.2!important;box-shadow:none!important;transition:background-color .15s,border-color .15s!important}
+button,.btn,.heading-actions .import-box-top>summary{box-sizing:border-box!important;min-height:42px!important;border-radius:0!important;font-weight:750!important;font-size:13px!important;line-height:1.2!important;box-shadow:none!important;transition:background-color .15s,border-color .15s!important}
 
 
 button.btn.primary,.btn.primary,.heading-row .new-client-top-btn,.new-client-btn,.save-btn,.proposal-btn,#importBtn{background:#178650!important;border:1px solid #178650!important;color:#fff!important}
@@ -2452,10 +2412,10 @@ button.btn.primary,.btn.primary,.heading-row .new-client-top-btn,.new-client-btn
 button.btn.primary:hover,.btn.primary:hover,.heading-row .new-client-top-btn:hover,.new-client-btn:hover,.save-btn:hover,.proposal-btn:hover,#importBtn:hover{background:#126d40!important;border-color:#126d40!important;color:#fff!important;opacity:1!important}
 
 
-.btn:not(.primary),.history-delete,.heading-actions .import-box-top>summary,.excel-btn,.tradein-link .btn,.rates-link{background:#f1f7f3!important;border:1px solid #b7d8c3!important;color:#176b42!important}
+.btn:not(.primary),.history-delete,.heading-actions .import-box-top>summary,.excel-btn,.tradein-link .btn{background:#f1f7f3!important;border:1px solid #b7d8c3!important;color:#176b42!important}
 
 
-.btn:not(.primary):hover,.history-delete:hover,.heading-actions .import-box-top>summary:hover,.excel-btn:hover,.tradein-link .btn:hover,.rates-link:hover{background:#e4f1e8!important;border-color:#8ebda0!important;color:#145c38!important}
+.btn:not(.primary):hover,.history-delete:hover,.heading-actions .import-box-top>summary:hover,.excel-btn:hover,.tradein-link .btn:hover{background:#e4f1e8!important;border-color:#8ebda0!important;color:#145c38!important}
 
 
 /* Keep the two intentionally distinct deal-result treatments untouched. */
@@ -2689,9 +2649,6 @@ button.btn.primary:hover,.btn.primary:hover,.heading-row .new-client-top-btn:hov
 .side-jump-nav .side-jump-actions button{min-height:38px!important;white-space:normal!important;padding:8px 9px!important;border-radius:9px!important;font-size:11px!important;line-height:1.2!important;font-weight:700!important}
 
 
-.side-jump-divider{height:1px;background:#e4ece6;width:100%}
-
-
 
 
 .side-jump-links{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
@@ -2754,9 +2711,6 @@ button.btn.primary:hover,.btn.primary:hover,.heading-row .new-client-top-btn:hov
 .block-jump-nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:-4px 0 20px;padding:10px 2px 13px;border-bottom:1px solid #e4ebe6;background:transparent;}
 
 
-.block-jump-caption{flex:0 0 auto;color:#78867d;font-size:10px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;}
-
-
 .block-jump-nav .side-jump-links{display:flex!important;align-items:center;gap:8px 18px!important;flex:1;flex-wrap:wrap;min-width:0}
 
 
@@ -2787,9 +2741,6 @@ button.btn.primary:hover,.btn.primary:hover,.heading-row .new-client-top-btn:hov
 @media(max-width:700px){
  
 .block-jump-nav{align-items:flex-start;gap:7px;flex-direction:column;margin:-3px 0 15px;padding:8px 0 11px}
-
- 
-.block-jump-caption{font-size:9px}
 
  
 .block-jump-nav .side-jump-links{gap:7px 14px!important}
@@ -2826,9 +2777,6 @@ button.btn.primary:hover,.btn.primary:hover,.heading-row .new-client-top-btn:hov
 
 
 .block-jump-nav{position:static!important;inset:auto!important;transform:none!important;display:flex!important;align-items:center!important;gap:12px!important;flex-wrap:nowrap!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;padding:9px 0 0!important;border:0!important;border-top:1px solid #e5ece7!important;background:transparent!important;box-shadow:none!important;overflow:visible!important}
-
-
-.block-jump-caption{flex:0 0 auto!important;color:#78867d!important;font-size:10px!important;font-weight:750!important;white-space:nowrap!important}
 
 
 .block-jump-nav .side-jump-links{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;flex:1 1 auto!important;flex-wrap:nowrap!important;min-width:0!important;width:100%!important}
@@ -3060,9 +3008,6 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
 .side-jump-nav .side-jump-actions button{display:block!important;width:100%!important;box-sizing:border-box!important;}
 
 
-.side-jump-divider{display:none!important;}
-
-
 @media(max-width:600px){
   
 .heading-row .block-jump-nav{overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;}
@@ -3124,9 +3069,6 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   white-space:normal!important;overflow-wrap:anywhere!important;
   padding:8px 6px!important;font-size:11px!important;line-height:1.2!important;
 }
-
-
-.side-jump-divider{display:none!important}
 
 
 @media(max-width:600px){
@@ -3333,8 +3275,313 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
 #loanCalculator .loan-hidden-select,#loanCalculator .loan-hidden-rate,#loanCalculator .loan-hidden-term{display:none!important}
 #loanCalculator .loan-result-title,#loanCalculator .loan-results,#loanCalculator #loanNote{display:none!important}
 @media(max-width:900px){#loanCalculator .loan-bank-offers{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){#loanCalculator .loan-selected-car{max-width:100%!important;text-align:left!important}.loan-term-buttons{grid-template-columns:repeat(4,minmax(0,1fr))!important}.loan-bank-offers{grid-template-columns:1fr!important}.loan-bank-card{min-height:145px!important}.loan-bank-value{font-size:19px!important}.loan-extra-line{align-items:flex-start!important;flex-direction:column!important}.loan-casco-price{max-width:none!important;width:100%!important}.loan-bank-name{font-size:16px!important}}
+@media(max-width:600px){#loanCalculator .loan-selected-car{max-width:100%!important;text-align:left!important}.loan-term-buttons{grid-template-columns:repeat(4,minmax(0,1fr))!important}.loan-bank-offers{grid-template-columns:1fr!important}.loan-bank-card{min-height:145px!important}.loan-extra-line{align-items:flex-start!important;flex-direction:column!important}.loan-casco-price{max-width:none!important;width:100%!important}.loan-bank-name{font-size:16px!important}}
 </style>
+<style id="history-final-fit-fix">
+/* History cards: the two metrics must always fit inside the available card width. */
+.local-panel .history-entry{
+  grid-template-columns:minmax(0,1fr) 52px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:hidden!important;
+}
+.local-panel .history-open{
+  min-width:0!important;
+  width:100%!important;
+  overflow:hidden!important;
+}
+.local-panel .history-variant-meta{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:5px 8px!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+.local-panel .history-variant-meta>span{
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+}
+.local-panel .history-variant-meta>span:first-child b,
+.local-panel .history-variant-meta>span b{
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  text-overflow:clip!important;
+  font-size:11px!important;
+  line-height:1.2!important;
+}
+.local-panel .history-variant-meta small{
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  line-height:1.15!important;
+}
+.local-panel .history-delete{
+  width:52px!important;
+  min-width:52px!important;
+  max-width:52px!important;
+  padding-left:4px!important;
+  padding-right:4px!important;
+  white-space:normal!important;
+  box-sizing:border-box!important;
+}
+</style>
+
+<style id="history-cards-clean-v1">
+/* =========================================================
+   HISTORY — clean card system
+   One source of truth for saved-client cards.
+   ========================================================= */
+.local-panel .history-list{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+  min-width:0!important;
+  width:100%!important;
+  padding:2px 3px 10px 0!important;
+  box-sizing:border-box!important;
+}
+
+.local-panel .client-group{
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  overflow:visible!important;
+  padding:11px!important;
+  border:1px solid #dfe6e2!important;
+  border-radius:14px!important;
+  background:#fff!important;
+}
+
+.local-panel .client-group-head{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:start!important;
+  gap:8px!important;
+  margin:0 0 9px!important;
+  min-width:0!important;
+}
+
+.local-panel .client-group-head > div{
+  min-width:0!important;
+}
+
+.local-panel .client-group-head strong{
+  display:block!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  color:#18201c!important;
+  font-size:14px!important;
+  line-height:1.25!important;
+  font-weight:800!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+.local-panel .client-group-head > span{
+  color:#737c77!important;
+  font-size:11px!important;
+  line-height:1.3!important;
+  white-space:nowrap!important;
+}
+
+.local-panel .client-group-contact{
+  display:block!important;
+  min-width:0!important;
+  margin:3px 0 0!important;
+  color:#69736d!important;
+  font-size:12px!important;
+  line-height:1.3!important;
+}
+
+.local-panel .client-group-contact .client-phone{
+  display:block!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+
+.local-panel .client-variants{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  min-width:0!important;
+}
+
+.local-panel .client-group .history-entry{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:start!important;
+  gap:9px!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:11px!important;
+  box-sizing:border-box!important;
+  border:1px solid #e1e8e4!important;
+  border-radius:12px!important;
+  background:#fafcfb!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+
+.local-panel .client-group .history-entry:hover{
+  border-color:#bfd4c6!important;
+  background:#f7fbf8!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
+
+.local-panel .client-group .history-entry.is-current{
+  border-color:#8fc5a5!important;
+  background:#f0f8f3!important;
+  box-shadow:inset 0 0 0 1px rgba(23,134,80,.08)!important;
+}
+
+.local-panel .history-open{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:inherit!important;
+  text-align:left!important;
+  overflow:visible!important;
+  cursor:pointer!important;
+}
+
+.local-panel .history-variant-main{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+}
+
+.local-panel .history-variant-car,
+.local-panel .variant-label{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  color:#17201b!important;
+  font-size:14px!important;
+  line-height:1.3!important;
+  font-weight:750!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+.local-panel .history-variant-meta{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:10px!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:10px 0 0!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  color:#68736d!important;
+  font-size:12px!important;
+  line-height:1.25!important;
+}
+
+.local-panel .history-variant-meta > span{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:visible!important;
+  white-space:normal!important;
+}
+
+.local-panel .history-variant-meta small{
+  display:block!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0 0 3px!important;
+  color:#7b8580!important;
+  font-size:11px!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+  overflow:visible!important;
+}
+
+.local-panel .history-variant-meta b{
+  display:block!important;
+  min-width:0!important;
+  max-width:100%!important;
+  color:#18201c!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:800!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+.local-panel .history-variant-meta .margin-value b{
+  color:#176b42!important;
+}
+
+.local-panel .history-delete{
+  align-self:start!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  height:36px!important;
+  margin:0!important;
+  padding:0 10px!important;
+  border:1px solid #d5dfda!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#176b42!important;
+  font:700 12px/1 inherit!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+}
+
+.local-panel .history-delete:hover{
+  border-color:#9fc5ad!important;
+  background:#f2f8f4!important;
+}
+
+.local-panel .history-open:focus-visible{
+  outline:2px solid rgba(23,134,80,.28)!important;
+  outline-offset:3px!important;
+  border-radius:8px!important;
+}
+
+@media(max-width:600px){
+  .local-panel .client-group{padding:10px!important}
+  .local-panel .client-group-head{gap:7px!important;margin-bottom:8px!important}
+  .local-panel .client-group-head strong{font-size:14px!important}
+  .local-panel .client-group .history-entry{grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;padding:10px!important}
+  .local-panel .history-variant-car,.local-panel .variant-label{font-size:14px!important}
+  .local-panel .history-variant-meta{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:9px!important;margin-top:9px!important}
+  .local-panel .history-variant-meta small{font-size:10.5px!important}
+  .local-panel .history-variant-meta b{font-size:12.5px!important}
+  .local-panel .history-delete{height:34px!important;padding:0 8px!important;font-size:11px!important}
+}
+</style>
+
 </head>
 <body class="access-locked">
 <div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="accessGateTitle">
@@ -3612,7 +3859,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   $('jumpTradeInBtn').addEventListener('click',()=> scrollToSectionWithHeader($('tradeInSection')));
   $('jumpOfferBtn').addEventListener('click',()=> scrollToSectionWithHeader($('offerSection')));
   $('jumpLoanBtn').addEventListener('click',()=> scrollToSectionWithHeader($('loanCalculator')));
-  function getState(){ return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, loanOfferProduct:window.__selectedLoanOffer?.product||'', loanBank:window.__selectedLoanOffer?.bank||BANK_NAMES[Number(loanProgram.value)]||'', cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
+  function getState(){ return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, remainingMargin: $('remainingMargin') ? numericValue($('remainingMargin').textContent) : 0, loanOfferProduct:window.__selectedLoanOffer?.product||'', loanBank:window.__selectedLoanOffer?.bank||BANK_NAMES[Number(loanProgram.value)]||'', cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
   function applyState(s){
     if($('dealMode')) $('dealMode').value=['cash','trade_cash','credit','trade_credit'].includes(s.dealMode)?s.dealMode:'trade_credit';
     $('clientName').value=s.clientName||''; $('clientPhone').value=s.clientPhone||''; carModel.value=s.carModel||''; carColor.value=''; syncVehicleUI(); if(s.carColor && VEHICLE_CATALOG[carModel.value]){carColor.value=s.carColor;syncVehicleUI();} if(!carModel.value && s.carInterest){ const found=Object.entries(VEHICLE_CATALOG).find(([key,v])=>String(s.carInterest).toLowerCase().includes(v.label.toLowerCase())); if(found){carModel.value=found[0];syncVehicleUI();const color=VEHICLE_CATALOG[found[0]].colors.find(c=>String(s.carInterest).toLowerCase().includes(c.toLowerCase()));if(color)carColor.value=color;syncVehicleUI();} else carInterest.value=s.carInterest||''; } else carInterest.value=vehicleDescription()||s.carInterest||'';
@@ -3629,7 +3876,13 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     if(s.loanTerm!==undefined && ['12','24','36','48','60','72','84'].includes(String(s.loanTerm))) loanTerm.value=String(s.loanTerm); else loanTerm.value='60';
     const normalizedProgram=normalizeLoanProgramKey(s.loanProgram); loanProgram.value=normalizedProgram || '';
     if(s.loanRate!==undefined) loanRate.value=s.loanRate;
-    window.__selectedLoanOffer={bankKey:loanProgram.value,rate:Number(s.loanRate)||0,product:String(s.loanOfferProduct||''),bank:String(s.loanBank||BANK_NAMES[Number(loanProgram.value)]||'')}; if(s.cascoInLoan!==undefined) cascoInLoan.checked=!!s.cascoInLoan; if(s.cascoPrice!==undefined) cascoPrice.value=formatInputMoney(s.cascoPrice); $('clientPhone').value=normalizePhone($('clientPhone').value);
+    // История должна восстанавливать именно выбранный банк, а не заново выбирать лучший.
+    // updateLoan() иначе видит __loanSelectionManual=false и сразу заменяет сохранённый банк.
+    const savedBankIsPresent=!!normalizedProgram;
+    window.__loanSelectionManual=savedBankIsPresent;
+    window.__selectedLoanOffer=savedBankIsPresent
+      ? {bankKey:loanProgram.value,rate:Number(s.loanRate)||0,product:String(s.loanOfferProduct||''),bank:String(s.loanBank||BANK_NAMES[Number(loanProgram.value)]||'')}
+      : null; if(s.cascoInLoan!==undefined) cascoInLoan.checked=!!s.cascoInLoan; if(s.cascoPrice!==undefined) cascoPrice.value=formatInputMoney(s.cascoPrice); $('clientPhone').value=normalizePhone($('clientPhone').value);
     loanCarPrice.dataset.touched=s.loanCarPrice?'1':'0'; syncVehicleUI(); updateDealMode(); document.querySelectorAll('.loan-term-btn').forEach(x=>x.classList.toggle('is-active',x.dataset.term===String(loanTerm.value))); update(); updateLoan(false); updateDealReady();
   }
   function readHistory(){ try { const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); return Array.isArray(data)?data:[]; } catch { return []; } }
