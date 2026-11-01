@@ -5171,6 +5171,26 @@ function saveCurrentDeal(options={}){
 }
 </style>
 
+
+
+<style id="history-user-adjustments-v2">
+/* Финальные правки истории клиента. */
+
+/* Цена со скидкой — тем же зелёным цветом, что и остаток маржи. */
+.local-panel .history-variant-meta>span:first-child b {
+  color:#176b42!important;
+}
+
+/* У кнопки очистки истории такой же зелёный бордер, как у основных зелёных действий. */
+.local-panel #clearHistoryBtn {
+  border:1px solid #178650!important;
+}
+
+/* Немного увеличиваем расстояние между карточками разных клиентов. */
+.local-panel .history-list {
+  row-gap:12px!important;
+}
+</style>
 </body>
 </html>
 
@@ -5208,3 +5228,25 @@ function saveCurrentDeal(options={}){
   }
 }
 </style>
+
+<style id="history-final-user-adjustments-v1">
+/* Финальные правки карточек истории. */
+.local-panel .history-search-row .new-client-btn{
+  border-radius:8px!important;
+}
+
+/* Кнопка удаления центрируется относительно всей информации расчёта,
+   а не прижимается к верхнему краю карточки. */
+.local-panel .client-group .history-entry{
+  align-items:center!important;
+}
+.local-panel .client-group .history-delete{
+  align-self:center!important;
+}
+
+/* Цена со скидкой — обычным начертанием, как обычное значение в карточке. */
+.local-panel .history-variant-meta>span:first-child b{
+  font-weight:400!important;
+}
+</style>
+
