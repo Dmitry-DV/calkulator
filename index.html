@@ -500,7 +500,7 @@ body{grid-template-columns:360px minmax(0,760px);column-gap:26px}
 
     
 .local-panel .history-entry.is-current{border-color:#9bc9ad;background:#f1f8f3;box-shadow:0 0 0 2px #176b4212}
-.local-panel .client-group{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px}.local-panel .client-group-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:7px}.local-panel .client-group-head strong{font-size:13px}.local-panel .client-group-head span{font-size:11px;color:var(--muted)}.local-panel .client-variants{display:flex;flex-direction:column;gap:7px}.local-panel .client-group .history-entry{margin:0;background:#fbfcfb}.local-panel .client-group .history-entry.is-current{background:#f1f8f3}.local-panel .variant-label{font-weight:700}
+.local-panel .client-group{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px;min-width:0}.local-panel .client-group-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin-bottom:7px;min-width:0}.local-panel .client-group-head strong{font-size:13px;line-height:1.25;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.local-panel .client-group-head span{font-size:11px;color:var(--muted);white-space:nowrap}.local-panel .client-group-contact{display:flex;align-items:center;gap:7px;min-width:0;margin-top:2px;font-size:11px;color:var(--muted)}.local-panel .client-group-contact .client-phone{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.local-panel .client-variants{display:flex;flex-direction:column;gap:7px;min-width:0}.local-panel .client-group .history-entry{margin:0;background:#fbfcfb;min-width:0}.local-panel .client-group .history-entry.is-current{background:#f1f8f3}.local-panel .variant-label{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.local-panel .history-variant-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;min-width:0}.local-panel .history-variant-car{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.local-panel .history-variant-meta{display:grid;grid-template-columns:repeat(3,minmax(0,auto));gap:5px 10px;margin-top:5px;font-size:11px;color:var(--muted);line-height:1.25}.local-panel .history-variant-meta b{color:var(--ink);font-weight:700;white-space:nowrap}.local-panel .history-variant-meta span{white-space:nowrap}.local-panel .history-variant-meta .margin-value{color:#176b42}.local-panel .history-variant-date{font-size:10px;color:var(--muted);white-space:nowrap}
 
     
 .local-panel .history-open{padding:0}
@@ -3272,6 +3272,69 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
 }
 
 </style>
+
+<style id="history-client-card-fix">
+.local-panel .history-variant-meta{grid-template-columns:repeat(3,minmax(0,1fr));}
+@media(max-width:600px){
+  .local-panel .client-group{padding:9px}
+  .local-panel .client-group-head{gap:6px}
+  .local-panel .client-group-head strong{font-size:12px}
+  .local-panel .history-variant-main{grid-template-columns:minmax(0,1fr);gap:2px}
+  .local-panel .history-variant-date{font-size:10px}
+  .local-panel .history-variant-meta{grid-template-columns:1fr 1fr;gap:5px 8px}
+  .local-panel .history-variant-meta span:last-child{grid-column:1/-1}
+}
+</style>
+
+<style id="loan-bank-offers-v1">
+#loanCalculator .loan-price-line{margin-bottom:18px!important}
+#loanCalculator .loan-price-heading{display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:12px!important;flex-wrap:wrap!important}
+#loanCalculator .loan-price-heading .field-label{margin:0!important}
+#loanCalculator .loan-selected-car{max-width:68%!important;text-align:right!important;font-size:13px!important;line-height:1.3!important;font-weight:700!important;color:#176b42!important;background:#edf7f1!important;border:1px solid #b9d9c5!important;border-radius:10px!important;padding:6px 9px!important}
+#loanCalculator .loan-downpayment-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+#loanCalculator .loan-downpayment-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#loanCalculator .loan-downpayment-head .field-label{margin:0!important}
+#loanCalculator #downPaymentPercentLabel{font-size:13px;font-weight:700;color:#3d4641;white-space:nowrap}
+#loanCalculator #downPayment{font-size:15px!important;font-weight:700!important;color:#176b42!important;background:#fff!important}
+#loanCalculator .loan-downpayment-range{width:100%;margin:0;height:24px;accent-color:#222}
+#loanCalculator .loan-range-labels{display:flex;justify-content:space-between;gap:10px;color:#7a827e;font-size:11px}
+#loanCalculator .loan-term-block{margin-bottom:24px}
+#loanCalculator .loan-term-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;gap:10px}
+#loanCalculator .loan-term-head .field-label{margin:0!important}
+#loanCalculator .loan-term-buttons{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+#loanCalculator .loan-term-btn{min-width:0;min-height:48px;border:1px solid #e2e6e3;background:#fff;color:#222;border-radius:4px;padding:0 8px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:.15s ease}
+#loanCalculator .loan-term-btn:hover{border-color:#9ca7a1}
+#loanCalculator .loan-term-btn.is-active{border-color:#222;background:#fff;box-shadow:inset 0 0 0 1px #222}
+#loanCalculator .loan-offers-title{font-size:20px!important;font-weight:750!important;letter-spacing:.01em;text-transform:uppercase;margin:0 0 14px!important;color:#202522!important}
+#loanCalculator .loan-offers-note{font-size:11px;color:#6f7773;margin:-7px 0 14px;line-height:1.4}
+#loanCalculator .loan-bank-offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#loanCalculator .loan-bank-card{position:relative;min-width:0;border:1px solid #e2e6e3;border-radius:2px;background:#fff;padding:16px 15px 14px;cursor:pointer;transition:.15s ease;display:flex;flex-direction:column;min-height:154px}
+#loanCalculator .loan-bank-card:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(25,35,30,.07)}
+#loanCalculator .loan-bank-card.status-best{background:#e8f5eb;border-color:#b8d9c1}
+#loanCalculator .loan-bank-card.status-alt{background:#fff4c9;border-color:#e4d47d}
+#loanCalculator .loan-bank-card.is-selected{box-shadow:inset 0 0 0 2px #222}
+#loanCalculator .loan-bank-card.is-unavailable{cursor:default;opacity:.62;background:#fff}
+#loanCalculator .loan-bank-name{font-size:17px;font-weight:800;line-height:1.05;text-transform:uppercase;min-height:36px;padding-right:44px}
+#loanCalculator .loan-bank-badge{position:absolute;right:10px;top:10px;font-size:9px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;border-radius:999px;padding:4px 6px;background:#fff;border:1px solid #d8dedb;color:#555}
+#loanCalculator .status-best .loan-bank-badge{background:#176b42;color:#fff;border-color:#176b42}
+#loanCalculator .status-alt .loan-bank-badge{background:#c49a00;color:#fff;border-color:#c49a00}
+#loanCalculator .loan-bank-grid{display:grid;grid-template-columns:1.35fr .8fr;gap:10px;margin-top:10px;align-items:end}
+#loanCalculator .loan-bank-label{display:block;font-size:12px;color:#717975;margin-bottom:3px}
+#loanCalculator .loan-bank-value{display:block;font-size:20px;font-weight:800;line-height:1.05;color:#202522;white-space:nowrap}
+#loanCalculator .loan-bank-rate{font-size:17px}
+#loanCalculator .loan-bank-overpay{margin-top:auto;padding-top:12px;font-size:12px;color:#656d69}
+#loanCalculator .loan-bank-overpay strong{font-size:13px;color:#202522}
+#loanCalculator .loan-bank-product{margin-top:6px;font-size:9px;color:#7b827f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#loanCalculator .loan-selected-summary{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border-radius:8px;background:#f2f5f3;border:1px solid #dbe2de;font-size:12px}
+#loanCalculator .loan-selected-summary strong{color:#176b42}
+#loanCalculator .loan-extra-line{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid #dfe4e1}
+#loanCalculator .loan-extra-line .loan-toggle{margin:0!important;background:transparent!important;border:0!important;padding:0!important}
+#loanCalculator .loan-casco-price{max-width:180px}
+#loanCalculator .loan-hidden-select,#loanCalculator .loan-hidden-rate,#loanCalculator .loan-hidden-term{display:none!important}
+#loanCalculator .loan-result-title,#loanCalculator .loan-results,#loanCalculator #loanNote{display:none!important}
+@media(max-width:900px){#loanCalculator .loan-bank-offers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#loanCalculator .loan-selected-car{max-width:100%!important;text-align:left!important}.loan-term-buttons{grid-template-columns:repeat(4,minmax(0,1fr))!important}.loan-bank-offers{grid-template-columns:1fr!important}.loan-bank-card{min-height:145px!important}.loan-bank-value{font-size:19px!important}.loan-extra-line{align-items:flex-start!important;flex-direction:column!important}.loan-casco-price{max-width:none!important;width:100%!important}.loan-bank-name{font-size:16px!important}}
+</style>
 </head>
 <body class="access-locked">
 <div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="accessGateTitle">
@@ -3397,43 +3460,54 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn no-credit-proposal" type="button">Сделать КП без кредита</button></div>
   </section>
   <section class="card main-step loan-card-spacer" id="loanCalculator" data-step="5">
-    <h2>5. Кредит для клиента</h2><div class="section-intro">Заполни сверху вниз. Банк и ставка подберутся автоматически по ПВ и сроку.</div>
+    <h2>5. Кредит для клиента</h2>
     <div class="loan-price-line">
-      <div class="loan-price-heading"><label class="field-label" for="loanCarPrice">Цена автомобиля, ₽</label><span id="loanSelectedCar" class="loan-selected-car">Автомобиль не выбран</span></div>
+      <div class="loan-price-heading"><label class="field-label" for="loanCarPrice">Цена автомобиля для кредита, ₽</label><span id="loanSelectedCar" class="loan-selected-car">Автомобиль не выбран</span></div>
       <input id="loanCarPrice" class="money-input" type="text" value="" placeholder="Цена автомобиля" inputmode="numeric" />
     </div>
-    <div class="loan-grid-row loan-row-main">
-      <div><label class="field-label" for="downPaymentPercent">Первоначальный взнос</label><select id="downPaymentPercent" style="width:100%;border:1px solid #ddd;border-radius:12px;padding:13px 14px;font:inherit;background:#fff;margin-bottom:8px"><option value="">Сумма вручную</option><option value="10">10%</option><option value="15">15%</option><option value="20">20%</option><option value="25">25%</option><option value="30">30%</option><option value="40">40%</option><option value="50">50%</option><option value="60">60%</option><option value="70">70%</option><option value="80">80%</option></select><input id="downPayment" class="money-input" type="text" value="" placeholder="1 000 000" inputmode="numeric" /><div id="downPaymentHint" class="note" style="margin-top:6px">Можно выбрать процент от цены автомобиля или указать сумму вручную.</div></div>
+
+    <div class="loan-downpayment-wrap">
+      <div class="loan-downpayment-head"><label class="field-label" for="downPayment">Первый взнос, ₽</label><span id="downPaymentPercentLabel">—</span></div>
+      <input id="downPayment" class="money-input" type="text" value="" placeholder="Сумма первого взноса" inputmode="numeric" />
+      <input id="downPaymentRange" class="loan-downpayment-range" type="range" min="10" max="80" step="0.1" value="10" aria-label="Первоначальный взнос в процентах" />
+      <div class="loan-range-labels"><span id="downPaymentMinLabel">10%</span><span id="downPaymentMaxLabel">80%</span></div>
+      <div class="loan-downpayment-presets" id="downPaymentPresets" aria-label="Быстрый выбор первоначального взноса">
+        <button type="button" class="downpayment-preset" data-percent="10">10%</button>
+        <button type="button" class="downpayment-preset" data-percent="20">20%</button>
+        <button type="button" class="downpayment-preset" data-percent="30">30%</button>
+        <button type="button" class="downpayment-preset" data-percent="40">40%</button>
+        <button type="button" class="downpayment-preset" data-percent="50">50%</button>
+        <button type="button" class="downpayment-preset" data-percent="60">60%</button>
+        <button type="button" class="downpayment-preset" data-percent="70">70%</button>
+        <button type="button" class="downpayment-preset" data-percent="80">80%</button>
+      </div>
+      <div id="downPaymentHint" class="note">Если есть Trade-in, первый взнос подставится автоматически из оценки автомобиля.</div>
     </div>
-    <div class="loan-grid-row loan-row-bank">
-      <div><label class="field-label" for="loanProgram">Банк / программа</label><select id="loanProgram" style="width:100%;border:1px solid #ddd;border-radius:12px;padding:13px 14px;font:inherit;background:#fff"><option value="alpha_h3_151" selected>Альфа-Банк — Н3, продукт 1.5.1</option><option value="otp_h3_142">ОТП Банк — Н3, продукт 1.4.2</option><option value="alpha_h579_25">Альфа-Банк — Н5/Н7/Н9, продукт 2.5</option></select></div>
-      <div><label class="field-label" for="loanTerm">Срок кредита</label><select id="loanTerm" style="width:100%;border:1px solid #ddd;border-radius:12px;padding:13px 14px;font:inherit;background:#fff"><option value="12">1 год</option><option value="24">2 года</option><option value="36">3 года</option><option value="48">4 года</option><option value="60" selected>5 лет</option><option value="72">6 лет</option><option value="84">7 лет</option></select></div>
-      <div><label class="field-label" for="loanRate">Ставка годовых, %</label><input id="loanRate" type="number" min="0" max="1000" step="0.1" value="" placeholder="Автоматически по таблице" inputmode="decimal" /><div id="loanRateHint" class="note" style="margin-top:6px">Ставка подставляется автоматически по банку, ПВ и сроку.</div></div>
+
+    <div class="loan-term-block">
+      <div class="loan-term-head"><label class="field-label">Срок кредита, мес</label></div>
+      <div class="loan-term-buttons" id="loanTermButtons">
+        <button type="button" class="loan-term-btn" data-term="12">12</button><button type="button" class="loan-term-btn" data-term="24">24</button><button type="button" class="loan-term-btn" data-term="36">36</button><button type="button" class="loan-term-btn" data-term="48">48</button><button type="button" class="loan-term-btn is-active" data-term="60">60</button><button type="button" class="loan-term-btn" data-term="72">72</button><button type="button" class="loan-term-btn" data-term="84">84</button>
+      </div>
     </div>
-    <div class="loan-casco-line"><label class="loan-toggle"><input id="cascoInLoan" type="checkbox" /> <span>Включить КАСКО в тело кредита</span></label><div><label class="field-label" for="cascoPrice">Стоимость КАСКО, ₽</label><input id="cascoPrice" class="money-input" type="text" value="140 000" inputmode="numeric" /></div></div>
-    <div class="loan-result-title">Результат для клиента</div><div class="loan-results">
-      <div class="metric payment-metric"><div class="label">Ежемесячный платёж для клиента</div><div class="value" id="loanMonthly">0 ₽</div></div>
-      <div class="metric"><div class="label">Сумма кредита</div><div class="value" id="loanPrincipal">0 ₽</div></div>
-      <div class="metric outline"><div class="label">Общая сумма выплат банку</div><div class="value" id="loanTotal">0 ₽</div></div>
-      <div class="metric outline"><div class="label">Переплата по процентам</div><div class="value" id="loanOverpay">0 ₽</div></div>
+
+    <h3 class="loan-offers-title">Предложения банков</h3>
+    <p class="loan-offers-note">Ставка и платёж подбираются автоматически по выбранному автомобилю, первоначальному взносу и сроку кредита.</p>
+    <div id="loanBankOffers" class="loan-bank-offers" aria-live="polite"></div>
+    <div id="loanSelectedSummary" class="loan-selected-summary"><span>Выбрано предложение</span><strong>—</strong></div>
+
+    <div class="loan-extra-line">
+      <label class="loan-toggle"><input id="cascoInLoan" type="checkbox" /> <span>Включить КАСКО в тело кредита</span></label>
+      <div class="loan-casco-price"><label class="field-label" for="cascoPrice">Стоимость КАСКО, ₽</label><input id="cascoPrice" class="money-input" type="text" value="140 000" inputmode="numeric" /></div>
     </div>
-    <p id="loanNote" class="note">Расчёт предварительный: аннуитетный платёж, без комиссий и дополнительных банковских условий.</p>
-    <div style="margin-top:16px;padding-top:16px;border-top:1px solid #eee">
-      <a class="btn rates-link"
 
-   id="downloadRatesBtn"
-
-   href="./credit.pdf"
-
-   target="_blank"
-
-   rel="noopener">
-
-   Открыть актуальные ставки по кредиту (PDF) ↗
-
-</a>
-      
-    </div>
+    <select id="downPaymentPercent" class="loan-hidden-select" aria-hidden="true"><option value=""></option><option value="10">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option><option value="60">60</option><option value="70">70</option><option value="80">80</option></select>
+    <select id="loanProgram" class="loan-hidden-select" aria-hidden="true"><option value="1">Сбер</option><option value="2">Т-Банк</option><option value="3">ВТБ</option><option value="4">ОТП Банк</option><option value="5">Альфа-Банк</option></select>
+    <select id="loanTerm" class="loan-hidden-term" aria-hidden="true"><option value="12">12</option><option value="24">24</option><option value="36">36</option><option value="48">48</option><option value="60">60</option><option value="72">72</option><option value="84">84</option></select>
+    <input id="loanRate" class="loan-hidden-rate" type="hidden" value="" />
+    <div class="loan-results"><div class="metric payment-metric"><div class="label">Ежемесячный платёж для клиента</div><div class="value" id="loanMonthly">0 ₽</div></div><div class="metric"><div class="label">Сумма кредита</div><div class="value" id="loanPrincipal">0 ₽</div></div><div class="metric outline"><div class="label">Общая сумма выплат банку</div><div class="value" id="loanTotal">0 ₽</div></div><div class="metric outline"><div class="label">Переплата по процентам</div><div class="value" id="loanOverpay">0 ₽</div></div></div>
+    <p id="loanNote" class="note">Расчёт предварительный.</p>
+    
     <div class="buttons" style="margin-top:18px"><button class="btn primary proposal-btn credit-proposal" type="button">Сделать КП с кредитом</button></div>
   </section>
 
@@ -3494,7 +3568,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   document.addEventListener('keydown',e=>{ if(e.key==='Escape' && importDetails?.open) importDetails.open=false; });
   const STORAGE_KEY = 'havalProDealCalculatorHistory_v1';
   let currentHistoryId = null;
-  const initial = {carPrice: price.value, marginRate: rate.value, discount: discount.value, discountNumber: discountNumber.value, extraIncome: extraIncome.value, incomeSource: $('incomeSource').value, checks: checks.map(x=>x.checked), costs: costInputs.map(x=>x.value), customOptionName:'', customOptionCost:'', customOptionSelected:false, loyaltyTradeIn:false, loanRate: '', downPaymentPercent:'', loanProgram:'alpha_h3_151'};
+  const initial = {carPrice: price.value, marginRate: rate.value, discount: discount.value, discountNumber: discountNumber.value, extraIncome: extraIncome.value, incomeSource: $('incomeSource').value, checks: checks.map(x=>x.checked), costs: costInputs.map(x=>x.value), customOptionName:'', customOptionCost:'', customOptionSelected:false, loyaltyTradeIn:false, loanRate: '', downPaymentPercent:'', loanProgram:'', loanOfferProduct:'', loanBank:'', loanTerm:'60'};
 
   const carModel=$('carModel'), carColor=$('carColor'), carColorWrap=$('carColorWrap'), carInterest=$('carInterest');
   const VEHICLE_CATALOG={
@@ -3538,7 +3612,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   $('jumpTradeInBtn').addEventListener('click',()=> scrollToSectionWithHeader($('tradeInSection')));
   $('jumpOfferBtn').addEventListener('click',()=> scrollToSectionWithHeader($('offerSection')));
   $('jumpLoanBtn').addEventListener('click',()=> scrollToSectionWithHeader($('loanCalculator')));
-  function getState(){ return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
+  function getState(){ return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, loanOfferProduct:window.__selectedLoanOffer?.product||'', loanBank:window.__selectedLoanOffer?.bank||BANK_NAMES[Number(loanProgram.value)]||'', cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
   function applyState(s){
     if($('dealMode')) $('dealMode').value=['cash','trade_cash','credit','trade_credit'].includes(s.dealMode)?s.dealMode:'trade_credit';
     $('clientName').value=s.clientName||''; $('clientPhone').value=s.clientPhone||''; carModel.value=s.carModel||''; carColor.value=''; syncVehicleUI(); if(s.carColor && VEHICLE_CATALOG[carModel.value]){carColor.value=s.carColor;syncVehicleUI();} if(!carModel.value && s.carInterest){ const found=Object.entries(VEHICLE_CATALOG).find(([key,v])=>String(s.carInterest).toLowerCase().includes(v.label.toLowerCase())); if(found){carModel.value=found[0];syncVehicleUI();const color=VEHICLE_CATALOG[found[0]].colors.find(c=>String(s.carInterest).toLowerCase().includes(c.toLowerCase()));if(color)carColor.value=color;syncVehicleUI();} else carInterest.value=s.carInterest||''; } else carInterest.value=vehicleDescription()||s.carInterest||'';
@@ -3552,9 +3626,11 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     [price,extraIncome,discountNumber,tradeInValue,downPayment,loanCarPrice,cascoPrice,...costInputs,customOptionCost].forEach(el=>{ if(el) el.value=formatInputMoney(el.value); });
     if(s.downPayment!==undefined) downPayment.value=formatInputMoney(s.downPayment); else downPayment.value=$('tradeInValue').value||'';
     if(s.downPaymentPercent!==undefined) downPaymentPercent.value=String(s.downPaymentPercent||''); else downPaymentPercent.value='';
-    if(s.loanTerm!==undefined) loanTerm.value=s.loanTerm;
-    if(s.loanProgram!==undefined){ const rawProgram=String(s.loanProgram||'alpha_h3_151'); loanProgram.value=RATE_TABLES[rawProgram]?rawProgram:(Object.keys(RATE_TABLES).find(key=>RATE_TABLES[key].label===rawProgram)||'alpha_h3_151'); } if(s.loanRate!==undefined) loanRate.value=s.loanRate; if(s.cascoInLoan!==undefined) cascoInLoan.checked=!!s.cascoInLoan; if(s.cascoPrice!==undefined) cascoPrice.value=formatInputMoney(s.cascoPrice); $('clientPhone').value=normalizePhone($('clientPhone').value);
-    loanCarPrice.dataset.touched=s.loanCarPrice?'1':'0'; syncVehicleUI(); updateDealMode(); update(); updateLoan(false); updateDealReady();
+    if(s.loanTerm!==undefined && ['12','24','36','48','60','72','84'].includes(String(s.loanTerm))) loanTerm.value=String(s.loanTerm); else loanTerm.value='60';
+    const normalizedProgram=normalizeLoanProgramKey(s.loanProgram); loanProgram.value=normalizedProgram || '';
+    if(s.loanRate!==undefined) loanRate.value=s.loanRate;
+    window.__selectedLoanOffer={bankKey:loanProgram.value,rate:Number(s.loanRate)||0,product:String(s.loanOfferProduct||''),bank:String(s.loanBank||BANK_NAMES[Number(loanProgram.value)]||'')}; if(s.cascoInLoan!==undefined) cascoInLoan.checked=!!s.cascoInLoan; if(s.cascoPrice!==undefined) cascoPrice.value=formatInputMoney(s.cascoPrice); $('clientPhone').value=normalizePhone($('clientPhone').value);
+    loanCarPrice.dataset.touched=s.loanCarPrice?'1':'0'; syncVehicleUI(); updateDealMode(); document.querySelectorAll('.loan-term-btn').forEach(x=>x.classList.toggle('is-active',x.dataset.term===String(loanTerm.value))); update(); updateLoan(false); updateDealReady();
   }
   function readHistory(){ try { const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); return Array.isArray(data)?data:[]; } catch { return []; } }
   function writeHistory(items){ try { localStorage.setItem(STORAGE_KEY,JSON.stringify(items)); return true; } catch { alert('Не удалось сохранить историю. Возможно, локальное хранилище браузера недоступно или заполнено.'); return false; } }
@@ -3635,7 +3711,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
       const principal=Math.max(0,loanCar-down+casco), monthlyRate=Math.max(0,rateValue)/1200;
       const payment=monthlyRate?principal*monthlyRate/(1-Math.pow(1+monthlyRate,-months)):(principal/months);
       const totalPay=payment*months, overpay=Math.max(0,totalPay-principal);
-      credit=`\nПредварительный расчёт кредита\nБанк / программа: ${RATE_TABLES[state.loanProgram||'alpha_h3_151']?.label||state.loanProgram||'не указано'}\nЦена автомобиля для кредита: ${money(loanCar)}\nПервоначальный взнос: ${money(down)}${state.downPaymentPercent?` (${String(state.downPaymentPercent).replace('.',',')}% от цены)`:''}\nПервоначальный взнос, %: ${state.downPaymentPercent||'не выбран'}\nКАСКО${state.cascoInLoan?' включено в кредит':''}: ${money(numericValue(state.cascoPrice||'140 000'))}\nСумма кредита: ${money(principal)}\nСрок кредита: ${months} мес.\nСтавка годовых: ${String(state.loanRate).replace('.',',')}%\nЕжемесячный платёж: ${money(payment)}\nОбщая сумма выплат банку: ${money(totalPay)}\nПереплата по процентам: ${money(overpay)}`;
+      credit=`\nПредварительный расчёт кредита\nБанк / программа: ${BANK_NAMES[Number(state.loanProgram)]||RATE_TABLES[state.loanProgram||'']?.label||state.loanBank||'не указано'}\nЦена автомобиля для кредита: ${money(loanCar)}\nПервоначальный взнос: ${money(down)}${state.downPaymentPercent?` (${String(state.downPaymentPercent).replace('.',',')}% от цены)`:''}\nПервоначальный взнос, %: ${state.downPaymentPercent||'не выбран'}\nКАСКО${state.cascoInLoan?' включено в кредит':''}: ${money(numericValue(state.cascoPrice||'140 000'))}\nСумма кредита: ${money(principal)}\nСрок кредита: ${months} мес.\nСтавка годовых: ${String(state.loanRate).replace('.',',')}%\nЕжемесячный платёж: ${money(payment)}\nОбщая сумма выплат банку: ${money(totalPay)}\nПереплата по процентам: ${money(overpay)}`;
     }
     return `Расчёт сделки\nПараметр сделки: ${state.dealMode==='cash'?'Наличные':(state.dealMode==='trade_cash'?'Трейд-ин и наличные':(state.dealMode==='credit'?'Только кредит':'Трейд-ин и кредит'))}\nКлиент: ${state.clientName||'не указан'}\nТелефон: ${state.clientPhone||'не указан'}\nАвтомобиль, который рассматривает клиент: ${(state.carInterest||'').trim()||'не указан'}\nМодель из каталога: ${VEHICLE_CATALOG[state.carModel]?.label||'не выбрана'}\nЦвет автомобиля: ${state.carColor||'не выбран'}\nАвтомобиль клиента по трейд-ин: ${(state.tradeInCar||'').trim()||'не указан'}\nОценка трейд-ин: ${money(trade)}\nДоплата за новый автомобиль после скидки и трейд-ин: ${money(Math.max(0,finalPrice-trade))}\nИсходная цена: ${money(car)}\nМаржа от автомобиля (${state.marginRate||0}%): ${money(hardware)}\nДополнительный доход (${state.incomeSource||'не указан'}): ${money(extra)}\nОбщая маржа сделки: ${money(total)}\nЖивая скидка всего (включая лояльный Trade-in): ${money(disc+loyalty)}\n  • Ручная скидка: ${money(disc)}\n  • Лояльный Trade-in за счёт импортёра: ${money(loyalty)}\nБонусы:\n${bonuses}\nСебестоимость допов: ${money((state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend)}\nРасход на уступки (живая скидка + лояльный Trade-in + допы): ${money(spend)}\nОстаток маржи (лояльный Trade-in не уменьшает маржу): ${money(total-disc-addonsSpend)}\nФинальная цена клиенту: ${money(finalPrice)}${credit}`;
   }
@@ -3651,6 +3727,51 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     const warning=$('warning'); if(remaining<0){warning.className='warning';warning.textContent='СТОП: уступки превышают бюджет маржи на '+money(Math.abs(remaining))+'. Сделка уходит в минус по заложенной марже.';} else if(remaining<30000){warning.className='warning';warning.textContent='Остаток низкий: проверь, оправдана ли такая уступка и какие ещё расходы не учтены.';} else {warning.className='warning good';warning.textContent='По заданным расходам остаётся '+money(remaining)+' маржи. Проверь, учтены ли все затраты по сделке.';}
   }
   const loanCarPrice=$('loanCarPrice'), downPayment=$('downPayment'), downPaymentPercent=$('downPaymentPercent'), loanProgram=$('loanProgram'), loanTerm=$('loanTerm'), loanRate=$('loanRate'), cascoInLoan=$('cascoInLoan'), cascoPrice=$('cascoPrice');
+  const BANK_NAMES={1:'Сбер',2:'Т-Банк',3:'ВТБ',4:'ОТП Банк',5:'Альфа-Банк'};
+  const BANK_RATE_DATA={"h3":{"1":{"label":"Сбер","rows":{"10-19.99":[[0.01,"1.1.2"],[7.7,"1.1.2"],[10.5,"1.1.2"],[12,"1.1.2"],[13,"1.1.2"],[13.7,"1.1.2"],[14.1,"1.1.2"]],"20-29.99":[[0.01,"1.1.2"],[6.5,"1.1.2"],[9.6,"1.1.2"],[11.3,"1.1.2"],[12.4,"1.1.2"],[13.1,"1.1.2"],[13.5,"1.1.2"]],"30-39.99":[[0.01,"1.1.2"],[5,"1.1.2"],[8.5,"1.1.2"],[10.4,"1.1.2"],[11.6,"1.1.2"],[12.5,"1.1.2"],[12.9,"1.1.2"]],"40-49.99":[[0.01,"1.1.1"],[3.2,"1.1.2"],[7,"1.1.2"],[9.2,"1.1.2"],[10.6,"1.1.2"],[11.6,"1.1.2"],[12.1,"1.1.2"]],"50-59.99":[[0.01,"1.1.1"],[0.5,"1.1.2"],[5,"1.1.2"],[7.5,"1.1.2"],[9.2,"1.1.2"],[10.3,"1.1.2"],[11,"1.1.2"]],"60-69.99":[[0.01,"1.1.1"],[0.01,"1.1.2"],[2.4,"1.1.2"],[5,"1.1.2"],[7,"1.1.2"],[8.4,"1.1.2"],[9.3,"1.1.2"]],"70-80":[[0.01,"1.1.1"],[0.01,"1.1.1"],[0.01,"1.1.2"],[1.7,"1.1.2"],[4.3,"1.1.2"],[5.2,"1.1.2"],[6.5,"1.1.2"]]}},"2":{"label":"Т-Банк","rows":{"10-19.99":[[2,"1.2.3"],[9,"1.2.3"],[11.4,"1.2.3"],[12.5,"1.2.3"],[13.5,"1.2.3"],[14,"1.2.3"],[14.5,"1.2.3"]],"20-29.99":[[0.5,"1.2.3"],[7.6,"1.2.3"],[10.3,"1.2.3"],[11.5,"1.2.3"],[12.9,"1.2.3"],[13.5,"1.2.3"],[14,"1.2.3"]],"30-39.99":[[0.01,"1.2.3"],[5.5,"1.2.3"],[8.6,"1.2.3"],[10.5,"1.2.3"],[11.5,"1.2.3"],[12.3,"1.2.3"],[12.8,"1.2.3"]],"40-49.99":[[0,"1.2.7"],[3.6,"1.2.3"],[6.6,"1.2.3"],[8.9,"1.2.3"],[10.1,"1.2.3"],[11,"1.2.3"],[11.6,"1.2.3"]],"50-59.99":[[0,"1.2.7"],[1,"1.2.3"],[4.7,"1.2.3"],[6.4,"1.2.3"],[7.9,"1.2.3"],[8.8,"1.2.3"],[9.6,"1.2.3"]],"60-69.99":[[0,"1.2.7"],[0,"1.2.8"],[1,"1.2.3"],[4,"1.2.3"],[5.1,"1.2.3"],[6.5,"1.2.3"],[7,"1.2.3"]],"70-80":[[0,"1.2.7"],[0,"1.2.7"],[0,"1.2.8"],[0.5,"1.2.3"],[1.5,"1.2.3"],[3,"1.2.3"],[4,"1.2.3"]]}},"3":{"label":"ВТБ","rows":{"10-19.99":[[0.01,"1.3.3"],[7.5,"1.3.3"],[10.5,"1.3.3"],[12,"1.3.3"],[13,"1.3.3"],[13.5,"1.3.3"],[14,"1.3.3"]],"20-29.99":[[0.01,"1.3.3"],[6,"1.3.3"],[9.5,"1.3.3"],[11,"1.3.3"],[12.5,"1.3.3"],[13,"1.3.3"],[13.5,"1.3.3"]],"30-39.99":[[0.01,"1.3.1"],[4.5,"1.3.3"],[8.5,"1.3.3"],[10,"1.3.3"],[11.5,"1.3.3"],[12.5,"1.3.3"],[13,"1.3.3"]],"40-49.99":[[0.01,"1.3.1"],[2,"1.3.3"],[7,"1.3.3"],[9.5,"1.3.3"],[10.5,"1.3.3"],[11.5,"1.3.3"],[12.5,"1.3.3"]],"50-59.99":[[0.01,"1.3.1"],[0.01,"1.3.3"],[4.5,"1.3.3"],[7.5,"1.3.3"],[9.5,"1.3.3"],[10.5,"1.3.3"],[11,"1.3.3"]],"60-69.99":[[0.01,"1.3.1"],[0.01,"1.3.1"],[1.5,"1.3.3"],[4.5,"1.3.3"],[7,"1.3.3"],[9,"1.3.3"],[9.5,"1.3.3"]],"70-80":[[0.01,"1.3.1"],[0.01,"1.3.1"],[0.01,"1.3.3"],[1.5,"1.3.3"],[3.5,"1.3.3"],[5.5,"1.3.3"],[6,"1.3.3"]]}},"4":{"label":"ОТП Банк","rows":{"10-19.99":[[0.01,"1.4.2"],[6,"1.4.2"],[9,"1.4.2"],[10.5,"1.4.2"],[11.5,"1.4.2"],[12,"1.4.2"],[12.5,"1.4.2"]],"20-29.99":[[0.01,"1.4.1"],[4.3,"1.4.2"],[8,"1.4.2"],[9.5,"1.4.2"],[10.9,"1.4.2"],[11.5,"1.4.2"],[11.7,"1.4.2"]],"30-39.99":[[0.01,"1.4.1"],[2.7,"1.4.2"],[7,"1.4.2"],[8.5,"1.4.2"],[10,"1.4.2"],[10.8,"1.4.2"],[11.2,"1.4.2"]],"40-49.99":[[0.01,"1.4.1"],[0.01,"1.4.2"],[5.1,"1.4.2"],[7.2,"1.4.3"],[8.6,"1.4.2"],[9.5,"1.4.2"],[10.1,"1.4.2"]],"50-59.99":[[0.01,"1.4.1"],[0.01,"1.4.2"],[3,"1.4.2"],[4.4,"1.4.3"],[6.4,"1.4.2"],[7.3,"1.4.2"],[8.1,"1.4.2"]],"60-69.99":[[0.01,"1.4.1"],[0.01,"1.4.1"],[0.01,"1.4.2"],[2.9,"1.4.2"],[4.1,"1.4.2"],[5.4,"1.4.2"],[5.5,"1.4.2"]],"70-80":[[0.01,"1.4.1"],[0.01,"1.4.1"],[0.01,"1.4.1"],[0.01,"1.4.2"],[0.01,"1.4.2"],[2,"1.4.2"],[2.5,"1.4.2"]]}},"5":{"label":"Альфа-Банк","rows":{"10-19.99":[[3.8,"1.5.1"],[9.1,"1.5.1"],[11.5,"1.5.1"],[12.5,"1.5.1"],[13.3,"1.5.1"],[13.9,"1.5.1"],[14.1,"1.5.1"]],"20-29.99":[[1.8,"1.5.1"],[7.8,"1.5.1"],[10.6,"1.5.1"],[11.8,"1.5.1"],[12.6,"1.5.1"],[13,"1.5.1"],[13.2,"1.5.1"]],"30-39.99":[[0.01,"1.5.1"],[6.1,"1.5.1"],[9.3,"1.5.1"],[10.6,"1.5.1"],[11.6,"1.5.1"],[12.6,"1.5.1"],[12.7,"1.5.1"]],"40-49.99":[[0.01,"1.5.1"],[4,"1.5.1"],[7.7,"1.5.1"],[9.2,"1.5.1"],[10.3,"1.5.1"],[11.5,"1.5.1"],[12,"1.5.1"]],"50-59.99":[[0.01,"1.5.1"],[1.4,"1.5.1"],[5.7,"1.5.1"],[7.6,"1.5.2"],[8.7,"1.5.2"],[10.2,"1.5.1"],[10.7,"1.5.1"]],"60-69.99":[[0.01,"1.5.1"],[0.01,"1.5.1"],[2.7,"1.5.1"],[4.8,"1.5.1"],[6.9,"1.5.1"],[8,"1.5.1"],[8.4,"1.5.1"]],"70-80":[[0.01,"1.5.1"],[0.01,"1.5.1"],[0.01,"1.5.1"],[0.01,"1.5.1"],[3.3,"1.5.1"],[4.1,"1.5.1"],[4.8,"1.5.1"]]}}},"h5":{"1":{"label":"Сбер","rows":{"10-19.99":[[4.2,"1.1.1"],[12.6,"1.1.1"],[14.2,"1.1.1"],[15.1,"1.1.1"],[15.7,"1.1.1"],[16.2,"1.1.1"],[16.5,"1.1.1"]],"20-29.99":[[1.85,"1.1.1"],[11.6,"1.1.1"],[13.5,"1.1.1"],[14.5,"1.1.1"],[15.2,"1.1.1"],[15.7,"1.1.1"],[16.1,"1.1.1"]],"30-39.99":[[1,"1.1.1"],[10.4,"1.1.1"],[12.6,"1.1.1"],[13.8,"1.1.1"],[14.6,"1.1.1"],[15.2,"1.1.1"],[15.6,"1.1.1"]],"40-49.99":[[0.01,"1.1.1"],[6.4,"1.1.1"],[11.4,"1.1.1"],[12.9,"1.1.1"],[13.8,"1.1.1"],[14.5,"1.1.1"],[15,"1.1.1"]],"50-59.99":[[0.01,"1.1.1"],[5,"1.1.1"],[9.8,"1.1.1"],[11.6,"1.1.1"],[12.7,"1.1.1"],[13.5,"1.1.1"],[14.1,"1.1.1"]],"60-69.99":[[0.01,"1.1.1"],[1.3,"1.1.1"],[6.2,"1.1.1"],[9.7,"1.1.1"],[11,"1.1.1"],[12,"1.1.1"],[12.7,"1.1.1"]],"70-80":[[0.01,"1.1.1"],[0.01,"1.1.1"],[2.4,"1.1.1"],[6.6,"1.1.1"],[8.3,"1.1.1"],[9.7,"1.1.1"],[10.6,"1.1.1"]]}},"2":{"label":"Т-Банк","rows":{"10-19.99":[[5.5,"1.2.1"],[13.8,"1.2.1"],[15,"1.2.1"],[15.8,"1.2.1"],[16.3,"1.2.1"],[16.7,"1.2.1"],[17,"1.2.1"]],"20-29.99":[[4.8,"1.2.1"],[12.7,"1.2.1"],[14,"1.2.1"],[14.8,"1.2.1"],[15.3,"1.2.1"],[15.5,"1.2.1"],[16,"1.2.1"]],"30-39.99":[[2.2,"1.2.1"],[11,"1.2.1"],[12.7,"1.2.1"],[13.8,"1.2.1"],[14.5,"1.2.1"],[15,"1.2.1"],[15.2,"1.2.1"]],"40-49.99":[[0,"1.2.7"],[6.5,"1.2.1"],[11.2,"1.2.1"],[12.6,"1.2.1"],[13.4,"1.2.1"],[13.9,"1.2.1"],[14.4,"1.2.1"]],"50-59.99":[[0,"1.2.7"],[4.2,"1.2.1"],[8.9,"1.2.1"],[10.8,"1.2.1"],[11.7,"1.2.1"],[12.4,"1.2.1"],[12.9,"1.2.1"]],"60-69.99":[[0,"1.2.7"],[0.5,"1.2.1"],[4.5,"1.2.1"],[8,"1.2.1"],[9.5,"1.2.1"],[10.5,"1.2.1"],[11,"1.2.1"]],"70-80":[[0,"1.2.7"],[0,"1.2.7"],[1,"1.2.1"],[4.6,"1.2.1"],[5.1,"1.2.1"],[5.5,"1.2.1"],[6.3,"1.2.1"]]}},"3":{"label":"ВТБ","rows":{"10-19.99":[[3,"1.3.1"],[12.5,"1.3.1"],[14.5,"1.3.1"],[15,"1.3.1"],[15.5,"1.3.1"],[16,"1.3.1"],[16,"1.3.1"]],"20-29.99":[[1,"1.3.1"],[11.5,"1.3.1"],[13.5,"1.3.1"],[14.5,"1.3.1"],[15,"1.3.1"],[15.5,"1.3.1"],[15.5,"1.3.1"]],"30-39.99":[[0.01,"1.3.1"],[10,"1.3.1"],[12.5,"1.3.1"],[13.5,"1.3.1"],[14.5,"1.3.1"],[15,"1.3.1"],[15,"1.3.1"]],"40-49.99":[[0.01,"1.3.1"],[5.5,"1.3.1"],[11.5,"1.3.1"],[12.5,"1.3.1"],[13.5,"1.3.1"],[14,"1.3.1"],[14.5,"1.3.1"]],"50-59.99":[[0.01,"1.3.1"],[3,"1.3.1"],[9.5,"1.3.1"],[11.5,"1.3.1"],[12.5,"1.3.1"],[13,"1.3.1"],[13.5,"1.3.1"]],"60-69.99":[[0.01,"1.3.1"],[0.01,"1.3.1"],[4.5,"1.3.1"],[9.5,"1.3.1"],[11,"1.3.1"],[12,"1.3.1"],[12,"1.3.1"]],"70-80":[[0.01,"1.3.1"],[0.01,"1.3.1"],[1,"1.3.1"],[5.5,"1.3.1"],[8,"1.3.1"],[8.5,"1.3.1"],[9.5,"1.3.1"]]}},"4":{"label":"ОТП Банк","rows":{"10-19.99":[[1.5,"1.4.1"],[10,"1.4.1"],[13,"1.4.1"],[13.5,"1.4.1"],[14,"1.4.1"],[14.2,"1.4.1"],[14.5,"1.4.1"]],"20-29.99":[[0.01,"1.4.1"],[9.9,"1.4.1"],[12,"1.4.1"],[12.9,"1.4.1"],[13.5,"1.4.1"],[13.6,"1.4.1"],[14,"1.4.1"]],"30-39.99":[[0.01,"1.4.1"],[8.5,"1.4.1"],[11,"1.4.1"],[12.1,"1.4.1"],[12.7,"1.4.1"],[12.9,"1.4.1"],[13.2,"1.4.1"]],"40-49.99":[[0.01,"1.4.1"],[4,"1.4.1"],[9.8,"1.4.1"],[10.8,"1.4.1"],[11.5,"1.4.1"],[12.2,"1.4.1"],[12.5,"1.4.1"]],"50-59.99":[[0.01,"1.4.1"],[1.5,"1.4.1"],[8,"1.4.1"],[9.8,"1.4.1"],[10.5,"1.4.1"],[11,"1.4.1"],[11.6,"1.4.1"]],"60-69.99":[[0.01,"1.4.1"],[0.01,"1.4.1"],[3.9,"1.4.1"],[8.2,"1.4.1"],[9.4,"1.4.1"],[10.4,"1.4.1"],[10.7,"1.4.1"]],"70-80":[[0.01,"1.4.1"],[0.01,"1.4.1"],[0.01,"1.4.1"],[4.2,"1.4.1"],[5.9,"1.4.1"],[7.2,"1.4.1"],[8.2,"1.4.1"]]}},"5":{"label":"Альфа-Банк","rows":{"10-19.99":[[6.3,"2.5"],[10.6,"2.5"],[12.6,"2.5"],[13.5,"2.5"],[14.1,"2.5"],[14.6,"2.5"],[15.1,"2.5"]],"20-29.99":[[5,"2.5"],[9.7,"2.5"],[11.9,"2.5"],[13,"2.5"],[13.7,"2.5"],[14.5,"2.5"],[15,"2.5"]],"30-39.99":[[2.8,"2.5"],[8.2,"2.5"],[10.8,"2.5"],[12,"2.5"],[12.8,"2.5"],[13.6,"2.5"],[14.3,"2.5"]],"40-49.99":[[0.01,"2.5"],[6.3,"2.5"],[9.4,"2.5"],[10.8,"2.5"],[11.7,"2.5"],[12.7,"2.5"],[13.4,"2.5"]],"50-59.99":[[0.01,"2.5"],[4,"2.5"],[7.8,"2.5"],[9.3,"2.5"],[10.4,"2.5"],[11.6,"2.5"],[12.4,"2.5"]],"60-69.99":[[0.01,"2.5"],[0.01,"2.5"],[5.3,"2.5"],[7.3,"2.5"],[8.6,"2.5"],[9.9,"2.5"],[11,"2.5"]],"70-80":[[0.01,"2.5"],[0.01,"2.5"],[1.6,"2.5"],[4.1,"2.5"],[5.9,"2.5"],[7.5,"2.5"],[8.8,"2.5"]]}}},"h7":{"1":{"label":"Сбер","rows":{"10-19.99":[[4.2,"1.1.1"],[12.6,"1.1.1"],[14.2,"1.1.1"],[15.1,"1.1.1"],[15.7,"1.1.1"],[16.2,"1.1.1"],[16.5,"1.1.1"]],"20-29.99":[[1.85,"1.1.1"],[11.6,"1.1.1"],[13.5,"1.1.1"],[14.5,"1.1.1"],[15.2,"1.1.1"],[15.7,"1.1.1"],[16.1,"1.1.1"]],"30-39.99":[[1,"1.1.1"],[10.4,"1.1.1"],[12.6,"1.1.1"],[13.8,"1.1.1"],[14.6,"1.1.1"],[15.2,"1.1.1"],[15.6,"1.1.1"]],"40-49.99":[[0.01,"1.1.1"],[6.4,"1.1.1"],[11.4,"1.1.1"],[12.9,"1.1.1"],[13.8,"1.1.1"],[14.5,"1.1.1"],[15,"1.1.1"]],"50-59.99":[[0.01,"1.1.1"],[5,"1.1.1"],[9.8,"1.1.1"],[11.6,"1.1.1"],[12.7,"1.1.1"],[13.5,"1.1.1"],[14.1,"1.1.1"]],"60-69.99":[[0.01,"1.1.1"],[1.3,"1.1.1"],[6.2,"1.1.1"],[9.7,"1.1.1"],[11,"1.1.1"],[12,"1.1.1"],[12.7,"1.1.1"]],"70-80":[[0.01,"1.1.1"],[0.01,"1.1.1"],[2.4,"1.1.1"],[6.6,"1.1.1"],[8.3,"1.1.1"],[9.7,"1.1.1"],[10.6,"1.1.1"]]}},"2":{"label":"Т-Банк","rows":{"10-19.99":[[5.5,"1.2.1"],[13.8,"1.2.1"],[15,"1.2.1"],[15.8,"1.2.1"],[16.3,"1.2.1"],[16.7,"1.2.1"],[17,"1.2.1"]],"20-29.99":[[4.8,"1.2.1"],[12.7,"1.2.1"],[14,"1.2.1"],[14.8,"1.2.1"],[15.3,"1.2.1"],[15.5,"1.2.1"],[16,"1.2.1"]],"30-39.99":[[2.2,"1.2.1"],[11,"1.2.1"],[12.7,"1.2.1"],[13.8,"1.2.1"],[14.5,"1.2.1"],[15,"1.2.1"],[15.2,"1.2.1"]],"40-49.99":[[0,"1.2.7"],[6.5,"1.2.1"],[11.2,"1.2.1"],[12.6,"1.2.1"],[13.4,"1.2.1"],[13.9,"1.2.1"],[14.4,"1.2.1"]],"50-59.99":[[0,"1.2.7"],[4.2,"1.2.1"],[8.9,"1.2.1"],[10.8,"1.2.1"],[11.7,"1.2.1"],[12.4,"1.2.1"],[12.9,"1.2.1"]],"60-69.99":[[0,"1.2.7"],[0.5,"1.2.1"],[4.5,"1.2.1"],[8,"1.2.1"],[9.5,"1.2.1"],[10.5,"1.2.1"],[11,"1.2.1"]],"70-80":[[0,"1.2.7"],[0,"1.2.7"],[1,"1.2.1"],[4.6,"1.2.1"],[5.1,"1.2.1"],[5.5,"1.2.1"],[6.3,"1.2.1"]]}},"3":{"label":"ВТБ","rows":{"10-19.99":[[3,"1.3.1"],[12.5,"1.3.1"],[14.5,"1.3.1"],[15,"1.3.1"],[15.5,"1.3.1"],[16,"1.3.1"],[16,"1.3.1"]],"20-29.99":[[1,"1.3.1"],[11.5,"1.3.1"],[13.5,"1.3.1"],[14.5,"1.3.1"],[15,"1.3.1"],[15.5,"1.3.1"],[15.5,"1.3.1"]],"30-39.99":[[0.01,"1.3.1"],[10,"1.3.1"],[12.5,"1.3.1"],[13.5,"1.3.1"],[14.5,"1.3.1"],[15,"1.3.1"],[15,"1.3.1"]],"40-49.99":[[0.01,"1.3.1"],[5.5,"1.3.1"],[11.5,"1.3.1"],[12.5,"1.3.1"],[13.5,"1.3.1"],[14,"1.3.1"],[14.5,"1.3.1"]],"50-59.99":[[0.01,"1.3.1"],[3,"1.3.1"],[9.5,"1.3.1"],[11.5,"1.3.1"],[12.5,"1.3.1"],[13,"1.3.1"],[13.5,"1.3.1"]],"60-69.99":[[0.01,"1.3.1"],[0.01,"1.3.1"],[4.5,"1.3.1"],[9.5,"1.3.1"],[11,"1.3.1"],[12,"1.3.1"],[12,"1.3.1"]],"70-80":[[0.01,"1.3.1"],[0.01,"1.3.1"],[1,"1.3.1"],[5.5,"1.3.1"],[8,"1.3.1"],[8.5,"1.3.1"],[9.5,"1.3.1"]]}},"4":{"label":"ОТП Банк","rows":{"10-19.99":[[0.01,"1.4.4"],[3.5,"1.4.4"],[7.8,"1.4.4"],[10.1,"1.4.4"],[11.5,"1.4.4"],[11.9,"1.4.4"],[12.5,"1.4.4"]],"20-29.99":[[0.01,"1.4.1"],[1.5,"1.4.4"],[6.3,"1.4.4"],[8.9,"1.4.4"],[10.5,"1.4.4"],[11.4,"1.4.4"],[11.7,"1.4.4"]],"30-39.99":[[0.01,"1.4.1"],[0.01,"1.4.4"],[4.5,"1.4.4"],[7.4,"1.4.4"],[9.3,"1.4.4"],[10.2,"1.4.4"],[11.2,"1.4.4"]],"40-49.99":[[0.01,"1.4.1"],[0.01,"1.4.4"],[2.1,"1.4.4"],[5.4,"1.4.4"],[7.6,"1.4.4"],[8.8,"1.4.4"],[10,"1.4.4"]],"50-59.99":[[0.01,"1.4.1"],[0.01,"1.4.4"],[0.01,"1.4.4"],[2.8,"1.4.4"],[5.3,"1.4.4"],[7,"1.4.4"],[8.1,"1.4.4"]],"60-69.99":[[0.01,"1.4.1"],[0.01,"1.4.1"],[0.01,"1.4.4"],[0.01,"1.4.4"],[2,"1.4.4"],[3.9,"1.4.4"],[5.5,"1.4.4"]],"70-80":[[0.01,"1.4.1"],[0.01,"1.4.1"],[0.01,"1.4.1"],[0.01,"1.4.4"],[0.01,"1.4.4"],[0.01,"1.4.4"],[1.8,"1.4.4"]]}},"5":{"label":"Альфа-Банк","rows":{"10-19.99":[[6.3,"2.5"],[10.6,"2.5"],[12.6,"2.5"],[13.5,"2.5"],[14.1,"2.5"],[14.6,"2.5"],[15.1,"2.5"]],"20-29.99":[[5,"2.5"],[9.7,"2.5"],[11.9,"2.5"],[13,"2.5"],[13.7,"2.5"],[14.5,"2.5"],[15,"2.5"]],"30-39.99":[[2.8,"2.5"],[8.2,"2.5"],[10.8,"2.5"],[12,"2.5"],[12.8,"2.5"],[13.6,"2.5"],[14.3,"2.5"]],"40-49.99":[[0.01,"2.5"],[6.3,"2.5"],[9.4,"2.5"],[10.8,"2.5"],[11.7,"2.5"],[12.7,"2.5"],[13.4,"2.5"]],"50-59.99":[[0.01,"2.5"],[4,"2.5"],[7.8,"2.5"],[9.3,"2.5"],[10.4,"2.5"],[11.6,"2.5"],[12.4,"2.5"]],"60-69.99":[[0.01,"2.5"],[0.01,"2.5"],[5.3,"2.5"],[7.3,"2.5"],[8.6,"2.5"],[9.9,"2.5"],[11,"2.5"]],"70-80":[[0.01,"2.5"],[0.01,"2.5"],[1.6,"2.5"],[4.1,"2.5"],[5.9,"2.5"],[7.5,"2.5"],[8.8,"2.5"]]}}},"h9":{"1":{"label":"Сбер","rows":{"10-19.99":[[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]],"20-29.99":[[1.85,"2.1"],[9.2,"2.1"],[11.8,"2.1"],[13.1,"2.1"],[14,"2.1"],[14.7,"2.1"],[15.1,"2.1"]],"30-39.99":[[0.3,"2.1"],[8,"2.1"],[10.9,"2.1"],[12.4,"2.1"],[13.4,"2.1"],[14.1,"2.1"],[14.6,"2.1"]],"40-49.99":[[0.01,"2.1"],[6.4,"2.1"],[9.7,"2.1"],[11.5,"2.1"],[12.6,"2.1"],[13.4,"2.1"],[14,"2.1"]],"50-59.99":[[0.01,"2.1"],[4.5,"2.1"],[8.1,"2.1"],[10.1,"2.1"],[11.5,"2.1"],[12.4,"2.1"],[13.1,"2.1"]],"60-69.99":[[0.01,"2.1"],[1.3,"2.1"],[5.6,"2.1"],[8.2,"2.1"],[9.8,"2.1"],[10.9,"2.1"],[11.7,"2.1"]],"70-80":[[0.01,"2.1"],[0.01,"2.1"],[2.5,"2.1"],[5.1,"2.1"],[7.1,"2.1"],[8.5,"2.1"],[9.5,"2.1"]]}},"2":{"label":"Т-Банк","rows":{"10-19.99":[[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]],"20-29.99":[[4,"2.2.1"],[9.9,"2.2.1"],[12,"2.2.1"],[13.3,"2.2.1"],[14.1,"2.2.1"],[14.3,"2.2.1"],[14.7,"2.2.1"]],"30-39.99":[[1,"2.2.1"],[8.1,"2.2.1"],[10.5,"2.2.1"],[12.1,"2.2.1"],[12.9,"2.2.1"],[13.5,"2.2.1"],[14,"2.2.1"]],"40-49.99":[[0,"2.2.3"],[6.1,"2.2.1"],[8.9,"2.2.1"],[10.8,"2.2.1"],[11.8,"2.2.1"],[12.5,"2.2.1"],[13,"2.2.1"]],"50-59.99":[[0,"2.2.3"],[3.8,"2.2.1"],[6.5,"2.2.1"],[8.8,"2.2.1"],[9.9,"2.2.1"],[10.7,"2.2.1"],[11.3,"2.2.1"]],"60-69.99":[[0,"2.2.3"],[0.5,"2.2.1"],[4.5,"2.2.1"],[6,"2.2.1"],[7.5,"2.2.1"],[8,"2.2.1"],[8.5,"2.2.1"]],"70-80":[[0,"2.2.3"],[0,"2.2.3"],[0.5,"2.2.1"],[2.5,"2.2.1"],[4.5,"2.2.1"],[5.1,"2.2.1"],[5.5,"2.2.1"]]}},"3":{"label":"ВТБ","rows":{"10-19.99":[[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]],"20-29.99":[[0.5,"2.3.1"],[8.5,"2.3.1"],[11,"2.3.1"],[12.5,"2.3.1"],[13.5,"2.3.1"],[13.5,"2.3.1"],[14,"2.3.1"]],"30-39.99":[[0.01,"2.3.1"],[7,"2.3.1"],[10,"2.3.1"],[11.5,"2.3.1"],[12.5,"2.3.1"],[13,"2.3.1"],[13.5,"2.3.1"]],"40-49.99":[[0.01,"2.3.1"],[5,"2.3.1"],[8.5,"2.3.1"],[10.5,"2.3.1"],[11.5,"2.3.1"],[12.5,"2.3.1"],[13,"2.3.1"]],"50-59.99":[[0.01,"2.3.1"],[2,"2.3.1"],[6.5,"2.3.1"],[9,"2.3.1"],[10.5,"2.3.1"],[11.5,"2.3.1"],[12,"2.3.1"]],"60-69.99":[[0.01,"2.3.1"],[0.01,"2.3.1"],[3.5,"2.3.1"],[6.5,"2.3.1"],[8.5,"2.3.1"],[10,"2.3.1"],[10.5,"2.3.1"]],"70-80":[[0.01,"2.3.1"],[0.01,"2.3.1"],[0.01,"2.3.1"],[3,"2.3.1"],[5.5,"2.3.1"],[7,"2.3.1"],[8.5,"2.3.1"]]}},"4":{"label":"ОТП Банк","rows":{"10-19.99":[[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]],"20-29.99":[[0.01,"2.4"],[7,"2.4"],[9.5,"2.4"],[11,"2.4"],[11.9,"2.4"],[12,"2.4"],[12.5,"2.4"]],"30-39.99":[[0.01,"2.4"],[5.5,"2.4"],[8.5,"2.4"],[10,"2.4"],[11,"2.4"],[11.5,"2.4"],[12,"2.4"]],"40-49.99":[[0.01,"2.4"],[3.5,"2.4"],[7,"2.4"],[9,"2.4"],[10,"2.4"],[11,"2.4"],[11.5,"2.4"]],"50-59.99":[[0.01,"2.4"],[0.01,"2.4"],[5,"2.4"],[7.3,"2.4"],[8.4,"2.4"],[9.2,"2.4"],[9.8,"2.4"]],"60-69.99":[[0.01,"2.4"],[0.01,"2.4"],[2.9,"2.4"],[5.4,"2.4"],[6.9,"2.4"],[7,"2.4"],[7,"2.4"]],"70-80":[[0.01,"2.4"],[0.01,"2.4"],[0.01,"2.4"],[1.9,"2.4"],[3.9,"2.4"],[4,"2.4"],[4,"2.4"]]}},"5":{"label":"Альфа-Банк","rows":{"10-19.99":[[6.3,"2.5"],[10.6,"2.5"],[12.6,"2.5"],[13.5,"2.5"],[14.1,"2.5"],[14.6,"2.5"],[15.1,"2.5"]],"20-29.99":[[5,"2.5"],[9.7,"2.5"],[11.9,"2.5"],[13,"2.5"],[13.7,"2.5"],[14.5,"2.5"],[15,"2.5"]],"30-39.99":[[2.8,"2.5"],[8.2,"2.5"],[10.8,"2.5"],[12,"2.5"],[12.8,"2.5"],[13.6,"2.5"],[14.3,"2.5"]],"40-49.99":[[0.01,"2.5"],[6.3,"2.5"],[9.4,"2.5"],[10.8,"2.5"],[11.7,"2.5"],[12.7,"2.5"],[13.4,"2.5"]],"50-59.99":[[0.01,"2.5"],[4,"2.5"],[7.8,"2.5"],[9.3,"2.5"],[10.4,"2.5"],[11.6,"2.5"],[12.4,"2.5"]],"60-69.99":[[0.01,"2.5"],[0.01,"2.5"],[5.3,"2.5"],[7.3,"2.5"],[8.6,"2.5"],[9.9,"2.5"],[11,"2.5"]],"70-80":[[0.01,"2.5"],[0.01,"2.5"],[1.6,"2.5"],[4.1,"2.5"],[5.9,"2.5"],[7.5,"2.5"],[8.8,"2.5"]]}}}};
+  const BANK_RATE_KEYS={h3:['1','2','3','4','5'],h5:['1','2','3','4','5'],h7:['1','2','3','4','5'],h9:['1','2','3','4','5']};
+  const MODEL_RATE_GROUP=model=>{if(/^h3_/.test(model))return 'h3';if(/^h5_/.test(model))return 'h5';if(/^h7_/.test(model))return 'h7';if(/^h9_/.test(model))return 'h9';return null;};
+  const BANK_KEY_TO_OLD_PROGRAM={1:'alpha_h3_151',2:'otp_h3_142',3:'alpha_h3_151',4:'otp_h3_142',5:'alpha_h3_151'};
+  function normalizeLoanProgramKey(value){const v=String(value||'');if(BANK_RATE_DATA.h3?.[v]||BANK_RATE_DATA.h5?.[v]||BANK_RATE_DATA.h7?.[v]||BANK_RATE_DATA.h9?.[v])return v; if(/alpha_h3_151/i.test(v))return '5'; if(/otp_h3_142/i.test(v))return '4'; if(/alpha_h579_25/i.test(v))return '5'; return '';}
+  function rateForBank(modelGroup,bankKey,pct,months){const band=rateBand(pct);const idx=RATE_TERMS.indexOf(Number(months));const table=BANK_RATE_DATA[modelGroup]?.[bankKey];if(!table||!band||idx<0)return null;const cell=table.rows?.[band]?.[idx];if(!cell||cell[0]===null||cell[0]===undefined)return null;return {rate:Number(cell[0]),product:String(cell[1]||'')};}
+  function calculateLoanOffer(modelGroup,bankKey,pct,months,principal){const r=rateForBank(modelGroup,bankKey,pct,months);if(!r)return null;const annual=r.rate,monthlyRate=annual/1200;const payment=monthlyRate===0?principal/months:principal*monthlyRate/(1-Math.pow(1+monthlyRate,-months));const total=payment*months;return {...r,bankKey,bank:BANK_NAMES[Number(bankKey)],payment,total,overpay:Math.max(0,total-principal)};}
+  function chooseOfferStatus(offers){
+    const sorted=[...offers].sort((a,b)=>a.rate-b.rate||a.payment-b.payment||a.overpay-b.overpay||Number(a.bankKey)-Number(b.bankKey));
+    if(!sorted.length)return {best:null,alt:null,sorted:[]};
+    const best=sorted[0];
+    const alt=sorted.find(x=>x.bankKey!==best.bankKey)||null;
+    return {best,alt,sorted};
+  }
+  function setLoanOfferSelection(bankKey,offer){if(!offer)return;loanProgram.value=String(bankKey);loanRate.value=String(offer.rate);loanRate.dataset.manualRate='';window.__selectedLoanOffer={bankKey:String(bankKey),rate:offer.rate,product:offer.product,bank:offer.bank};}
+  function renderLoanBankOffers(offers,status){
+    const wrap=$('loanBankOffers');if(!wrap)return;wrap.replaceChildren();
+    const selected=String(loanProgram.value||'');
+    const offerMap=new Map(offers.map(x=>[String(x.bankKey),x]));
+    const bankKeys=[...(status?.sorted?.map(x=>String(x.bankKey))||[])];
+    for(const bankKey of BANK_RATE_KEYS[MODEL_RATE_GROUP(carModel.value)||'h3']){if(!bankKeys.includes(String(bankKey)))bankKeys.push(String(bankKey));}
+    bankKeys.forEach(bankKey=>{
+      const offer=offerMap.get(String(bankKey));
+      const card=document.createElement('button');card.type='button';
+      const isBest=!!offer&&offer.bankKey===status?.best?.bankKey;
+      const isAlt=!!offer&&offer.bankKey===status?.alt?.bankKey;
+      card.className='loan-bank-card '+(isBest?'status-best ':'')+(isAlt?'status-alt ':'')+(String(bankKey)===selected?' is-selected':'')+(!offer?' is-unavailable':'');
+      if(!offer){
+        card.disabled=true;
+        card.innerHTML=`<span class="loan-bank-name">${BANK_NAMES[Number(bankKey)]}</span><span class="loan-bank-overpay">Нет доступной ставки</span>`;
+      }else{
+        card.innerHTML=`<span class="loan-bank-name">${offer.bank}</span><span class="loan-bank-grid"><span><span class="loan-bank-label">В месяц</span><strong class="loan-bank-value">${money(offer.payment)}</strong></span><span><span class="loan-bank-label">Ставка</span><strong class="loan-bank-value loan-bank-rate">${String(offer.rate).replace('.',',')}%</strong></span></span><span class="loan-bank-overpay">Переплата <strong>${money(offer.overpay)}</strong></span>`;
+        card.addEventListener('click',()=>{window.__loanSelectionManual=true;setLoanOfferSelection(offer.bankKey,offer);renderLoanBankOffers(offers,status);updateLoanResultsFromSelected();});
+      }
+      wrap.appendChild(card);
+    });
+    const summary=$('loanSelectedSummary');
+    if(summary){
+      const chosen=offers.find(x=>x.bankKey===selected)||status.best;
+      if(chosen)summary.innerHTML=`<span>Выбрано</span><strong>${chosen.bank} · ${String(chosen.rate).replace('.',',')}% · ${money(chosen.payment)}/мес.</strong>`;
+      else summary.innerHTML='<span>Выбрано</span><strong>—</strong>';
+    }
+  }
+  function updateLoanResultsFromSelected(){const selected=String(loanProgram.value||'');const offers=window.__loanOffers||[];const offer=offers.find(x=>x.bankKey===selected)||offers[0];if(offer){loanRate.value=String(offer.rate);$('loanMonthly').textContent=money(offer.payment);$('loanTotal').textContent=money(offer.total);$('loanOverpay').textContent=money(offer.overpay);const principal=Math.max(0,numericValue(loanCarPrice.value)-numericValue(downPayment.value)+(cascoInLoan.checked?Math.max(0,numericValue(cascoPrice.value)):0));$('loanPrincipal').textContent=money(principal);}}
   const RATE_TABLES={
     alpha_h3_151:{label:'Альфа-Банк — Н3, продукт 1.5.1',rows:{'10-19.99':[3.8,9.1,11.5,12.5,13.3,13.9,14.1],'20-29.99':[1.8,7.8,10.6,11.8,12.6,13.0,13.2],'30-39.99':[0.01,6.1,9.3,10.6,11.6,12.6,12.7],'40-49.99':[0.01,4.0,7.7,9.2,10.3,11.5,12.0],'50-59.99':[0.01,1.4,5.7,7.7,8.9,10.2,10.7],'60-69.99':[0.01,0.01,2.7,4.8,6.9,8.0,8.4],'70-80':[0.01,0.01,0.01,0.01,3.3,4.1,4.8]}},
     otp_h3_142:{label:'ОТП Банк — Н3, продукт 1.4.2',rows:{'10-19.99':[0.01,6.0,9.0,10.5,11.5,12.0,12.5],'20-29.99':[null,4.3,8.0,9.5,10.9,11.5,11.7],'30-39.99':[null,2.7,7.0,8.5,10.0,10.8,11.2],'40-49.99':[null,0.01,5.1,7.4,8.6,9.5,10.1],'50-59.99':[null,0.01,3.0,4.9,6.4,7.3,8.1],'60-69.99':[null,null,0.01,2.9,4.1,5.4,5.5],'70-80':[null,null,null,0.01,0.01,2.0,2.5]}},
@@ -3659,64 +3780,82 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   const RATE_TERMS=[12,24,36,48,60,72,84];
   function rateBand(percent){ if(percent<10||percent>80)return null; if(percent<20)return '10-19.99'; if(percent<30)return '20-29.99'; if(percent<40)return '30-39.99'; if(percent<50)return '40-49.99'; if(percent<60)return '50-59.99'; if(percent<70)return '60-69.99'; return '70-80'; }
   function lookupRate(percent,months,program){ const table=RATE_TABLES[program]; const band=rateBand(percent); const idx=RATE_TERMS.indexOf(Number(months)); if(!table||!band||idx<0)return null; const value=table.rows[band]?.[idx]; return value==null?null:Number(value); }
+  function syncDownPaymentFromTradeIn(force=false){
+    const car=numericValue(loanCarPrice.value), trade=numericValue($('tradeInValue').value);
+    if(car<=0)return;
+    if(trade>0 && (force || downPayment.dataset.autoTradeIn==='1' || !downPayment.value)){
+      const capped=Math.min(trade,car*.8);
+      downPayment.value=formatInputMoney(Math.round(capped));
+      downPayment.dataset.autoTradeIn='1';
+      downPaymentPercent.value=(capped/car*100).toFixed(1).replace(/\.0$/,'');
+      if($('downPaymentRange'))$('downPaymentRange').value=String(Math.max(10,Math.min(80,capped/car*100)));
+    }
+  }
+  function syncDownPaymentControls(){
+    const car=numericValue(loanCarPrice.value), down=numericValue(downPayment.value);
+    const pct=car>0&&down>0?Math.min(80,Math.max(0,down/car*100)):0;
+    if($('downPaymentRange')) $('downPaymentRange').value=String(Math.max(10,Math.min(80,pct||10)));
+    document.querySelectorAll('#downPaymentPresets .downpayment-preset').forEach(btn=>{
+      const active=pct>0 && Math.abs(pct-Number(btn.dataset.percent))<0.15;
+      btn.classList.toggle('is-active',active);
+      btn.setAttribute('aria-pressed',active?'true':'false');
+    });
+    if($('downPaymentPercentLabel')) $('downPaymentPercentLabel').textContent=pct>0?`${pct.toLocaleString('ru-RU',{maximumFractionDigits:1})}%`:'—';
+    if($('downPaymentMinLabel')) $('downPaymentMinLabel').textContent=car?money(car*.1):'10%';
+    if($('downPaymentMaxLabel')) $('downPaymentMaxLabel').textContent=car?money(car*.8):'80%';
+    if($('downPaymentHint')) $('downPaymentHint').textContent=down>0&&car>0?`${pct.toLocaleString('ru-RU',{maximumFractionDigits:1})}% от ${money(car)}${downPayment.dataset.autoTradeIn==='1'?' · взнос подставлен из Trade-in':''}`:'Если есть Trade-in, первый взнос подставится автоматически из оценки автомобиля.';
+  }
+  window.__loanSelectionManual=false;
   function updateLoan(syncPrice=false){
     if(syncPrice || loanCarPrice.dataset.touched!=='1'){
       const car=numericValue(price.value), disc=numericValue(discountNumber.value), loyalty=$('loyaltyTradeIn').checked?200000:0;
       loanCarPrice.value=car?formatInputMoney(Math.max(0,car-disc-loyalty)):'';
+      loanCarPrice.dataset.touched='0';
     }
-    const car=numericValue(loanCarPrice.value);
-    const percent=String(downPaymentPercent.value||'').trim();
-    if(percent!=='' && car>0){
-      const calculatedDown=Math.round(car*Number(percent)/100);
-      downPayment.value=formatInputMoney(calculatedDown);
-      $('downPaymentHint').textContent=percent+'% от '+money(car)+' = '+money(calculatedDown);
-    } else {
-      const manualDown=numericValue(downPayment.value);
-      if(car>0 && manualDown>0){
-        const manualPercent=manualDown/car*100;
-        $('downPaymentHint').textContent=manualPercent.toLocaleString('ru-RU',{minimumFractionDigits:0,maximumFractionDigits:1})+'% от '+money(car)+' (цена с учётом скидки)';
-      } else {
-        $('downPaymentHint').textContent='Можно выбрать процент от цены автомобиля или указать сумму вручную.';
-      }
+    syncDownPaymentFromTradeIn(false);
+    syncDownPaymentControls();
+    const car=numericValue(loanCarPrice.value), down=numericValue(downPayment.value), effectivePercent=car>0&&down>0?down/car*100:0, months=Math.max(1,Number(loanTerm.value)||60), modelGroup=MODEL_RATE_GROUP(carModel.value);
+    document.querySelectorAll('#loanCalculator .loan-term-btn').forEach(btn=>btn.classList.toggle('is-active',Number(btn.dataset.term)===months));
+    const principal=Math.max(0,car-down+(cascoInLoan.checked?Math.max(0,numericValue(cascoPrice.value)):0));
+    const offers=[];
+    if(modelGroup && effectivePercent>=10 && effectivePercent<=80 && principal>0){
+      for(const bankKey of BANK_RATE_KEYS[modelGroup]){const offer=calculateLoanOffer(modelGroup,bankKey,effectivePercent,months,principal);if(offer)offers.push(offer);}
     }
-    const down=numericValue(downPayment.value);
-    const effectivePercent=car>0&&down>0?down/car*100:0;
-    const band=rateBand(effectivePercent);
-    const autoRate=lookupRate(effectivePercent,loanTerm.value,loanProgram.value);
-    if(autoRate!==null){
-      if(loanRate.dataset.manualRate!=='1') loanRate.value=String(autoRate);
-      $('loanRateHint').textContent=(loanRate.dataset.manualRate==='1'?'Введена вручную: ':'Автоматически: ')+RATE_TABLES[loanProgram.value].label+' · фактический ПВ '+effectivePercent.toLocaleString('ru-RU',{minimumFractionDigits:0,maximumFractionDigits:1})+'% → диапазон '+band+'% · срок '+(Number(loanTerm.value)/12)+' '+(Number(loanTerm.value)===12?'год':'года')+'.';
-    } else if(car>0&&down>0){
-      const bandText=band?(' · диапазон ПВ '+band+'%'):'';
-      if(loanRate.dataset.manualRate!=='1') loanRate.value='';
-      $('loanRateHint').textContent='Для такого ПВ и срока в выбранной программе ставки в таблице нет'+bandText+'. Можно указать ставку вручную.';
-    } else {
-      $('loanRateHint').textContent='Ставка подставляется автоматически по банку, ПВ и сроку.';
-    }
-    const rateValue=String(loanRate.value||'').trim();
-    const hasRequired=car>0 && down>0 && rateValue!=='' && Number.isFinite(Number(rateValue));
-    const casco=cascoInLoan.checked?Math.max(0,numericValue(cascoPrice.value)):0;
-    if(!hasRequired){
-      $('loanPrincipal').textContent='—'; $('loanMonthly').textContent='—'; $('loanTotal').textContent='—'; $('loanOverpay').textContent='—';
-      $('loanNote').textContent='Для расчёта укажи цену автомобиля, первоначальный взнос и ставку годовых.';
-    } else {
-      const principal=Math.max(0,car-down+casco), months=Math.max(1,Number(loanTerm.value)||60), annual=Math.max(0,Number(rateValue)), monthlyRate=annual/1200;
-      const payment=monthlyRate===0?principal/months:principal*monthlyRate/(1-Math.pow(1+monthlyRate,-months));
-      const total=payment*months, interest=Math.max(0,total-principal);
-      $('loanPrincipal').textContent=money(principal); $('loanMonthly').textContent=money(payment); $('loanTotal').textContent=money(total); $('loanOverpay').textContent=money(interest);
-      $('loanNote').textContent='Предварительный аннуитетный расчёт на '+months+' мес. Сумма кредита = цена − первоначальный взнос'+(cascoInLoan.checked?' + КАСКО':'')+'. Банк может рассчитать платёж иначе из-за округления и индивидуальных условий.';
-    }
-    cascoPrice.disabled=!cascoInLoan.checked; cascoPrice.style.opacity=cascoInLoan.checked?'1':'.55';
+    window.__loanOffers=offers;
+    const status=chooseOfferStatus(offers);
+    let selectedKey=String(loanProgram.value||'');
+    if(!window.__loanSelectionManual || !offers.some(o=>o.bankKey===selectedKey)) selectedKey=status.best?.bankKey||'';
+    if(selectedKey){const selected=offers.find(o=>o.bankKey===selectedKey)||status.best;setLoanOfferSelection(selectedKey,selected);}
+    else {loanProgram.value='';loanRate.value='';window.__selectedLoanOffer=null;}
+    renderLoanBankOffers(offers,status);
+    updateLoanResultsFromSelected();
+    if(!modelGroup){$('loanSelectedSummary').innerHTML='<span>Выбрано предложение</span><strong>Сначала выбери автомобиль</strong>';}
+    else if(!offers.length){$('loanSelectedSummary').innerHTML='<span>Выбрано предложение</span><strong>Для этого ПВ и срока ставок нет</strong>';}
+    cascoPrice.disabled=!cascoInLoan.checked;cascoPrice.style.opacity=cascoInLoan.checked?'1':'.55';
   }
-  loanCarPrice.addEventListener('input',()=>{loanCarPrice.dataset.touched='1';loanRate.dataset.manualRate='';updateLoan();});
-  downPaymentPercent.addEventListener('change',()=>{loanRate.dataset.manualRate='';updateLoan();});
-  downPayment.addEventListener('input',()=>{downPaymentPercent.value='';loanRate.dataset.manualRate='';updateLoan();});
-  $('tradeInValue').addEventListener('input',()=>{downPayment.value=$('tradeInValue').value||'';downPaymentPercent.value='';update();updateLoan();});
-  loanRate.addEventListener('input',()=>{loanRate.dataset.manualRate='1';updateLoan();});
-  [loanProgram,loanTerm].forEach(el=>el.addEventListener('change',()=>{loanRate.dataset.manualRate='';updateLoan();}));
-  [loanProgram,loanTerm,cascoInLoan,cascoPrice].forEach(el=>el.addEventListener('input',()=>{if(el===loanProgram||el===loanTerm) loanRate.dataset.manualRate='';updateLoan();}));
-  price.addEventListener('input',()=>{loanRate.dataset.manualRate='';update();updateLoan(true);});
-  discountNumber.addEventListener('input',()=>{loanRate.dataset.manualRate='';updateLoan(true);});
+  loanCarPrice.addEventListener('input',()=>{window.__loanSelectionManual=false;loanCarPrice.dataset.touched='1';downPayment.dataset.autoTradeIn='';updateLoan(false);});
+  downPayment.addEventListener('input',()=>{window.__loanSelectionManual=false;downPayment.value=formatInputMoney(downPayment.value);downPaymentPercent.value='';downPayment.dataset.autoTradeIn='';updateLoan(false);});
+  $('downPaymentRange')?.addEventListener('input',()=>{window.__loanSelectionManual=false;const car=numericValue(loanCarPrice.value),pct=Number($('downPaymentRange').value)||10;if(car>0){downPayment.value=formatInputMoney(Math.round(car*pct/100));downPaymentPercent.value=String(pct);downPayment.dataset.autoTradeIn='';}updateLoan(false);});
+  $('downPaymentPresets')?.addEventListener('click',e=>{
+    const btn=e.target.closest('.downpayment-preset'); if(!btn)return;
+    const car=numericValue(loanCarPrice.value),pct=Number(btn.dataset.percent);
+    if(!(car>0))return;
+    window.__loanSelectionManual=false;
+    downPayment.value=formatInputMoney(Math.round(car*pct/100));
+    downPaymentPercent.value=String(pct);
+    downPayment.dataset.autoTradeIn='';
+    updateLoan(false);
+  });
+  $('tradeInValue').addEventListener('input',()=>{window.__loanSelectionManual=false;const trade=numericValue($('tradeInValue').value),car=numericValue(loanCarPrice.value);if(trade>0&&car>0){const capped=Math.min(trade,car*.8);downPayment.value=formatInputMoney(Math.round(capped));downPaymentPercent.value=(capped/car*100).toFixed(1).replace(/\.0$/,'');downPayment.dataset.autoTradeIn='1';}else if(!trade){downPayment.value='';downPaymentPercent.value='';downPayment.dataset.autoTradeIn='';}update();updateLoan(false);});
+  $('loanTermButtons')?.addEventListener('click',e=>{window.__loanSelectionManual=false;const btn=e.target.closest('.loan-term-btn');if(!btn)return;loanTerm.value=btn.dataset.term;document.querySelectorAll('.loan-term-btn').forEach(x=>x.classList.toggle('is-active',x===btn));updateLoan(false);});
+  [loanProgram,loanTerm].forEach(el=>el.addEventListener('change',()=>updateLoan(false)));
+  cascoInLoan.addEventListener('change',()=>{window.__loanSelectionManual=false;updateLoan(false);});
+  cascoPrice.addEventListener('input',()=>{cascoPrice.value=formatInputMoney(cascoPrice.value);updateLoan(false);});
+  price.addEventListener('input',()=>{update();updateLoan(true);});
+  discountNumber.addEventListener('input',()=>{updateLoan(true);});
+  discount.addEventListener('input',()=>{discountNumber.value=Number(discount.value).toLocaleString('ru-RU');update();updateLoan(true);});
+  $('loyaltyTradeIn').addEventListener('change',()=>{update();updateLoan(true);});
+  carModel.addEventListener('change',()=>setTimeout(updateLoan,false));
   function renderHistory(){
     const list=$('historyList'), items=readHistory(); list.replaceChildren();
     const rawQuery=String($('historySearch')?.value||'').trim().toLowerCase();
@@ -3731,10 +3870,13 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     }).sort((a,b)=>(b.savedAtTs||0)-(a.savedAtTs||0));
     renderLocalPanel();
     $('historyFilteredCount').textContent=filtered.length===items.length?String(items.length):`${filtered.length} из ${items.length}`;
-    if(!filtered.length){const p=document.createElement('p');p.className='history-empty';p.textContent=items.length?'По выбранному поиску и фильтру клиентов не найдено.':'Сохранённых расчётов пока нет.';list.appendChild(p);return;}
+    if(!filtered.length){
+      const p=document.createElement('p');p.className='history-empty';
+      p.textContent=items.length?'По выбранному поиску и фильтру клиентов не найдено.':'Сохранённых расчётов пока нет.';
+      list.appendChild(p);return;
+    }
 
-    // Один клиент может иметь несколько независимых расчётов.
-    // Группируем варианты по телефону, чтобы история не превращалась в дубли клиентов.
+    // Один телефон = один клиент. Внутри клиента показываем отдельные варианты расчёта.
     const groups=new Map();
     filtered.forEach(entry=>{
       const phone=digitsOnly(entry.state?.clientPhone||'');
@@ -3742,23 +3884,67 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
       if(!groups.has(key)) groups.set(key,[]);
       groups.get(key).push(entry);
     });
+
+    const calcHistoryMargin=(state)=>{
+      const car=Math.max(0,numericValue(state?.carPrice));
+      const marginRate=Math.min(100,Math.max(0,Number(state?.marginRate)||0));
+      const hardware=car*marginRate/100;
+      const extra=Math.max(0,numericValue(state?.extraIncome));
+      const discount=Math.max(0,numericValue(state?.discountNumber??state?.discount));
+      const loyalty=state?.loyaltyTradeIn?200000:0;
+      const addons=(state?.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state?.costs?.[i])):0),0);
+      const custom=(String(state?.customOptionName||'').trim()&&numericValue(state?.customOptionCost)>0)?numericValue(state?.customOptionCost):0;
+      return Math.max(0,hardware+extra-discount-addons-custom-loyalty);
+    };
+    const calcHistoryPrice=(state)=>{
+      const car=Math.max(0,numericValue(state?.carPrice));
+      const discount=Math.max(0,numericValue(state?.discountNumber??state?.discount));
+      const loyalty=state?.loyaltyTradeIn?200000:0;
+      return Math.max(0,car-discount-loyalty);
+    };
+    const calcHistoryPayment=(state)=>{
+      const loanCar=Math.max(0,numericValue(state?.loanCarPrice));
+      const down=Math.max(0,numericValue(state?.downPayment));
+      const rate=Number(state?.loanRate);
+      const months=Math.max(1,Number(state?.loanTerm)||60);
+      const casco=state?.cascoInLoan?Math.max(0,numericValue(state?.cascoPrice)):0;
+      if(!(loanCar>0&&down>0&&Number.isFinite(rate)&&rate>=0)) return '';
+      const principal=Math.max(0,loanCar-down+casco);
+      const monthlyRate=rate/1200;
+      const payment=monthlyRate===0?principal/months:principal*monthlyRate/(1-Math.pow(1+monthlyRate,-months));
+      return Number.isFinite(payment)?money(payment):'';
+    };
+
     groups.forEach(entries=>{
       const first=entries[0], firstState=first.state||{};
       const group=document.createElement('div');group.className='client-group';
       const head=document.createElement('div');head.className='client-group-head';
-      const name=document.createElement('strong');name.textContent=firstState.clientName||'Клиент без имени';
-      const meta=document.createElement('span');meta.textContent=`${firstState.clientPhone||'телефон не указан'} · ${entries.length} ${entries.length===1?'расчёт':entries.length<5?'расчёта':'расчётов'}`;
-      head.append(name,meta);group.appendChild(head);
+      const identity=document.createElement('div');identity.style.minWidth='0';
+      const name=document.createElement('strong');name.textContent=firstState.clientName||'Клиент без имени';name.title=name.textContent;
+      const contact=document.createElement('div');contact.className='client-group-contact';
+      const phone=document.createElement('span');phone.className='client-phone';phone.textContent=firstState.clientPhone||'Телефон не указан';phone.title=phone.textContent;
+      contact.appendChild(phone);
+      identity.append(name,contact);
+      const count=document.createElement('span');count.textContent=`${entries.length} ${entries.length===1?'расчёт':entries.length<5?'расчёта':'расчётов'}`;
+      head.append(identity,count);group.appendChild(head);
+
       const variants=document.createElement('div');variants.className='client-variants';
       entries.forEach(entry=>{
+        const state=entry.state||{};
         const row=document.createElement('div');row.className='history-entry'+(entry.id===currentHistoryId?' is-current':'');
         const open=document.createElement('button');open.type='button';open.className='history-open';
-        const title=document.createElement('strong');title.className='variant-label';title.textContent=entry.state?.carInterest||'Автомобиль не указан';
-        const histCar=Math.max(0,numericValue(entry.state?.carPrice)), histHardware=histCar*Math.min(100,Math.max(0,Number(entry.state?.marginRate)||0))/100, histExtra=Math.max(0,numericValue(entry.state?.extraIncome)), histDiscount=Math.max(0,numericValue(entry.state?.discountNumber??entry.state?.discount)), histLoyalty=entry.state?.loyaltyTradeIn?200000:0, histAddons=(entry.state?.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(entry.state?.costs?.[i])):0),0), histCustom=(String(entry.state?.customOptionName||'').trim()&&numericValue(entry.state?.customOptionCost)>0)?numericValue(entry.state?.customOptionCost):0, histRemaining=histHardware+histExtra-histDiscount-histAddons-histCustom;
-        const details=document.createElement('span');details.textContent=`${entry.savedAt||'дата не указана'} · ${money(Math.max(0,histCar-histDiscount-histLoyalty))} · маржа ${money(histRemaining)}`;
-        open.append(title,details);
+        const main=document.createElement('div');main.className='history-variant-main';
+        const title=document.createElement('strong');title.className='variant-label history-variant-car';title.textContent=state.carInterest||'Автомобиль не указан';title.title=title.textContent;
+        main.append(title);
+        const meta=document.createElement('div');meta.className='history-variant-meta';
+        const makeMetric=(label,value,extraClass='')=>{const box=document.createElement('span');if(extraClass)box.className=extraClass;const l=document.createElement('small');l.textContent=label;const v=document.createElement('b');v.textContent=value||'—';box.append(l,v);return box;};
+        const price=makeMetric('Цена со скидкой',money(calcHistoryPrice(state)));
+        const margin=makeMetric('Остаток маржи',money(calcHistoryMargin(state)),'margin-value');
+        meta.append(price,margin);
+        open.append(main,meta);
         open.addEventListener('click',()=>{currentHistoryId=entry.id;$('historySearch').value='';applyState(entry.state);renderHistory();window.scrollTo({top:0,behavior:'smooth'});});
-        const del=document.createElement('button');del.type='button';del.className='history-delete';del.textContent='Удалить';del.setAttribute('aria-label','Удалить расчёт из истории');del.addEventListener('click',()=>{if(confirm('Удалить этот расчёт из истории?')){writeHistory(readHistory().filter(x=>x.id!==entry.id));if(currentHistoryId===entry.id)currentHistoryId=null;renderHistory();}});
+        const del=document.createElement('button');del.type='button';del.className='history-delete';del.textContent='Удалить';del.setAttribute('aria-label','Удалить расчёт из истории');
+        del.addEventListener('click',()=>{if(confirm('Удалить этот расчёт из истории?')){writeHistory(readHistory().filter(x=>x.id!==entry.id));if(currentHistoryId===entry.id)currentHistoryId=null;renderHistory();}});
         row.append(open,del);variants.appendChild(row);
       });
       group.appendChild(variants);list.appendChild(group);
@@ -3826,8 +4012,8 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
       const creditText=src.slice(creditStart);
       const cm=(label)=>{const re=new RegExp('^'+escapeRegExp(label)+'\\s*:\\s*(.+)$','im');const m=creditText.match(re);return m?m[1].trim():'';};
       const programText=cm('Банк / программа');
-      const programKey=Object.keys(RATE_TABLES).find(key=>RATE_TABLES[key].label.trim()===programText.trim()) || (Object.keys(RATE_TABLES).find(key=>programText.toLowerCase().includes(RATE_TABLES[key].label.toLowerCase())) || 'alpha_h3_151');
-      state.loanProgram=programKey; state.loanProgramLabel=programText; state.loanCarPrice=digitsOnly(cm('Цена автомобиля для кредита')); state.downPayment=digitsOnly(cm('Первоначальный взнос')); state.downPaymentPercent=(cm('Первоначальный взнос, %').match(/[0-9]+(?:[.,][0-9]+)?/)||[''])[0]; state.loanTerm=(cm('Срок кредита').match(/\d+/)||['60'])[0];
+      const bankKey=Object.keys(BANK_NAMES).find(k=>programText.toLowerCase().includes(BANK_NAMES[k].toLowerCase())) || normalizeLoanProgramKey(programText) || '';
+      state.loanProgram=bankKey; state.loanProgramLabel=programText; state.loanBank=BANK_NAMES[Number(bankKey)]||programText; state.loanCarPrice=digitsOnly(cm('Цена автомобиля для кредита')); state.downPayment=digitsOnly(cm('Первоначальный взнос')); state.downPaymentPercent=(cm('Первоначальный взнос, %').match(/[0-9]+(?:[.,][0-9]+)?/)||[''])[0]; state.loanTerm=(cm('Срок кредита').match(/\d+/)||['60'])[0];
       state.loanRate=(cm('Ставка годовых').match(/[0-9]+(?:[.,][0-9]+)?/)||[''])[0].replace(',','.'); state.cascoPrice=digitsOnly(cm('КАСКО'))||'140 000'; state.cascoInLoan=/КАСКО включено в кредит/i.test(creditText);
     }
     if(!state.clientName && !state.clientPhone && !state.carInterest && !state.carPrice) return {error:'Не удалось найти данные расчёта. Проверь, что вставлен текст из «Скопировать расчёт».'};
@@ -3875,11 +4061,11 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   $('clearImportBtn')?.addEventListener('click',()=>{$('importText').value='';$('importStatus').className='import-status';$('importStatus').textContent='Распознаются имя, телефон, автомобиль, Trade-in, цена, скидка, маржа, доп. доход и бонусы.';});
   $('importText')?.addEventListener('paste',()=>setTimeout(importDealText,50));
 
-  function resetDeal(){ currentHistoryId=null; applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial}); loanCarPrice.dataset.touched='0'; update(); updateLoan(true); renderLocalPanel(); renderHistory(); window.scrollTo({top:0,behavior:'smooth'}); }
+  function resetDeal(){ currentHistoryId=null; applyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'',loanOfferProduct:'',loanBank:'',cascoInLoan:false,cascoPrice:'140 000',...initial}); loanCarPrice.dataset.touched='0'; update(); updateLoan(true); renderLocalPanel(); renderHistory(); window.scrollTo({top:0,behavior:'smooth'}); }
   function newCalculationForSameClient(){
     const clientName=$('clientName').value||'', clientPhone=$('clientPhone').value||'';
     currentHistoryId=null;
-    applyState({clientName,clientPhone,carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',downPaymentPercent:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
+    applyState({clientName,clientPhone,carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',downPaymentPercent:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'',loanOfferProduct:'',loanBank:'',cascoInLoan:false,cascoPrice:'140 000',...initial});
     loanCarPrice.dataset.touched='0'; update(); updateLoan(true); renderLocalPanel(); renderHistory(); window.scrollTo({top:0,behavior:'smooth'});
     $('carModel')?.focus();
   }
@@ -3918,7 +4104,7 @@ function saveCurrentDeal(options={}){
       currentHistoryId=record.id;
       renderHistory();
       if(shouldReset){
-        window.__calcApplyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'alpha_h3_151',cascoInLoan:false,cascoPrice:'140 000',...initial});
+        window.__calcApplyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'',loanOfferProduct:'',loanBank:'',cascoInLoan:false,cascoPrice:'140 000',...initial});
         renderLocalPanel();
         window.scrollTo({top:0,behavior:'smooth'});
       }
@@ -4104,8 +4290,151 @@ function saveCurrentDeal(options={}){
 </style>
 
 
+
+<style id="v37-credit-history-polish">
+@media(min-width:1200px){
+  .local-panel{height:auto!important;min-height:calc(100vh - 44px)!important;max-height:none!important;overflow:visible!important;}
+  .local-panel .history-section{flex:none!important;min-height:0!important;}
+  .local-panel .history-list{height:auto!important;max-height:none!important;overflow:visible!important;flex:none!important;}
+}
+.local-panel .client-group{overflow:visible!important;}
+.local-panel .client-group-head{align-items:start!important;}
+.local-panel .client-group-head strong{display:block!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;}
+.local-panel .history-variant-main{display:block!important;min-width:0!important;}
+.local-panel .history-variant-car{display:block!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;}
+.local-panel .history-variant-meta{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:8px!important;}
+.local-panel .history-variant-meta>span{display:flex!important;flex-direction:column!important;gap:2px!important;min-width:0!important;white-space:normal!important;}
+.local-panel .history-variant-meta small{font-size:9px!important;line-height:1.2!important;color:#7a827e!important;white-space:normal!important;}
+.local-panel .history-variant-meta b{font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+.local-panel .history-variant-meta .margin-value b{color:#176b42!important;}
+#loanCalculator #downPaymentRange{outline:none!important;box-shadow:none!important;border:0!important;-webkit-tap-highlight-color:transparent!important;}
+#loanCalculator #downPaymentRange:focus,#loanCalculator #downPaymentRange:focus-visible{outline:none!important;box-shadow:none!important;border:0!important;}
+#loanCalculator .loan-term-btn{border:1px solid #dde5df!important;background:#fff!important;color:#202522!important;box-shadow:none!important;}
+#loanCalculator .loan-term-btn:hover{border-color:#a7cdb4!important;background:#f6faf7!important;}
+#loanCalculator .loan-term-btn.is-active{border:1.5px solid #178650!important;background:#edf7f1!important;color:#176b42!important;box-shadow:inset 0 0 0 1px #178650!important;}
+#loanCalculator .loan-offers-title{display:inline-flex!important;align-items:center!important;width:auto!important;margin:4px 0 14px!important;padding:7px 11px!important;border-radius:10px!important;border:1px solid #cfe4d6!important;background:#edf7f1!important;color:#176b42!important;font-size:17px!important;font-weight:800!important;letter-spacing:0!important;text-transform:none!important;}
+#loanCalculator .loan-offers-note{margin:-6px 0 16px!important;font-size:12px!important;color:#6b746f!important;}
+#loanCalculator .loan-bank-offers{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;}
+#loanCalculator .loan-bank-card{position:relative!important;min-height:148px!important;padding:15px!important;border:1px solid #dfe6e2!important;border-radius:14px!important;background:#fff!important;box-shadow:0 1px 2px rgba(25,35,30,.03)!important;transform:none!important;display:flex!important;flex-direction:column!important;text-align:left!important;}
+#loanCalculator .loan-bank-card:hover{transform:none!important;box-shadow:0 5px 14px rgba(25,35,30,.07)!important;border-color:#bfcfc5!important;}
+#loanCalculator .loan-bank-card.status-best{background:#edf7f1!important;border-color:#9dceb0!important;}
+#loanCalculator .loan-bank-card.status-alt{background:#fff8dc!important;border-color:#e3cf77!important;}
+#loanCalculator .loan-bank-card.is-selected{box-shadow:inset 0 0 0 2px #178650,0 3px 10px rgba(23,134,80,.10)!important;border-color:#178650!important;}
+#loanCalculator .loan-bank-card.status-alt.is-selected{box-shadow:inset 0 0 0 2px #b99500,0 3px 10px rgba(185,149,0,.10)!important;border-color:#b99500!important;}
+#loanCalculator .loan-bank-name{display:block!important;min-height:0!important;padding:0!important;font-size:18px!important;line-height:1.15!important;font-weight:800!important;text-transform:none!important;color:#202522!important;margin-bottom:14px!important;}
+#loanCalculator .loan-bank-grid{display:grid!important;grid-template-columns:1.25fr .8fr!important;gap:12px!important;margin-top:0!important;align-items:end!important;}
+#loanCalculator .loan-bank-label{font-size:11px!important;color:#737c77!important;margin-bottom:4px!important;}
+#loanCalculator .loan-bank-value{font-size:20px!important;line-height:1.05!important;font-weight:800!important;color:#202522!important;}
+#loanCalculator .loan-bank-rate{font-size:18px!important;color:#176b42!important;}
+#loanCalculator .loan-bank-overpay{margin-top:auto!important;padding-top:13px!important;font-size:11px!important;color:#717975!important;border-top:1px solid #e8ece9!important;}
+#loanCalculator .loan-bank-overpay strong{font-size:12px!important;color:#202522!important;}
+#loanCalculator .loan-bank-product,#loanCalculator .loan-bank-badge{display:none!important;}
+#loanCalculator .loan-selected-summary{margin-top:12px!important;padding:10px 12px!important;border-radius:10px!important;background:#f4f7f5!important;border:1px solid #dce5e0!important;}
+@media(max-width:900px){#loanCalculator .loan-bank-offers{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
+@media(max-width:600px){#loanCalculator .loan-bank-offers{grid-template-columns:1fr!important;}#loanCalculator .loan-bank-card{min-height:140px!important;}#loanCalculator .loan-bank-name{font-size:17px!important;}#loanCalculator .loan-bank-value{font-size:19px!important;}}
+</style>
 </head><body>
-  <div class="actions"><button class="main" onclick="window.print()">Печать / сохранить в PDF</button><button onclick="window.close()">Закрыть</button></div><main class="page"><div class="top"><div class="eyebrow">Ваше предложение</div><h1>${escapeHtml(state.carInterest||'Автомобиль Haval')}</h1><div class="muted">Подготовлено ${new Date().toLocaleDateString('ru-RU')}</div></div><p class="hello">${safeName}, подготовили для вас предложение по автомобилю. Ниже — основные условия покупки.</p><section><h2>Стоимость автомобиля</h2><div class="total"><span>Цена автомобиля</span><strong>${money(car)}</strong></div><div class="total"><span>Скидка</span><strong>− ${money(disc)}</strong></div>${loyalty?`<div class="total"><span>Лояльный Trade-in (компенсация импортёра)</span><strong>− ${money(loyalty)}</strong></div>`:''}<div class="price"><span>Итоговая цена после скидки</span><strong>${money(finalPrice)}</strong></div></section><section><h2>Дополнительные преимущества</h2>${bonuses}</section>${trade>0?`<section><h2>Trade-in</h2><div class="grid"><div><span>Автомобиль клиента</span><strong>${escapeHtml(state.tradeInCar||'Автомобиль не указан')}</strong></div><div><span>Предварительная оценка</span><strong>${money(trade)}</strong></div><div><span>Доплата после скидки и Trade-in</span><strong>${money(Math.max(0,finalPrice-trade))}</strong></div></div><p class="muted">Оценка Trade-in предварительная и уточняется после осмотра автомобиля.</p></section>`:''}${credit}<footer><p class="note">Предложение носит информационный характер. Наличие автомобиля, комплектация, окончательная стоимость, условия Trade-in и кредитования подтверждаются менеджером на момент оформления.</p></footer></main></body></html>`;
+  <div class="actions"><button class="main" onclick="window.print()">Печать / сохранить в PDF</button><button onclick="window.close()">Закрыть</button></div><main class="page"><div class="top"><div class="eyebrow">Ваше предложение</div><h1>${escapeHtml(state.carInterest||'Автомобиль Haval')}</h1><div class="muted">Подготовлено ${new Date().toLocaleDateString('ru-RU')}</div></div><p class="hello">${safeName}, подготовили для вас предложение по автомобилю. Ниже — основные условия покупки.</p><section><h2>Стоимость автомобиля</h2><div class="total"><span>Цена автомобиля</span><strong>${money(car)}</strong></div><div class="total"><span>Скидка</span><strong>− ${money(disc)}</strong></div>${loyalty?`<div class="total"><span>Лояльный Trade-in (компенсация импортёра)</span><strong>− ${money(loyalty)}</strong></div>`:''}<div class="price"><span>Итоговая цена после скидки</span><strong>${money(finalPrice)}</strong></div></section><section><h2>Дополнительные преимущества</h2>${bonuses}</section>${trade>0?`<section><h2>Trade-in</h2><div class="grid"><div><span>Автомобиль клиента</span><strong>${escapeHtml(state.tradeInCar||'Автомобиль не указан')}</strong></div><div><span>Предварительная оценка</span><strong>${money(trade)}</strong></div><div><span>Доплата после скидки и Trade-in</span><strong>${money(Math.max(0,finalPrice-trade))}</strong></div></div><p class="muted">Оценка Trade-in предварительная и уточняется после осмотра автомобиля.</p></section>`:''}${credit}<footer><p class="note">Предложение носит информационный характер. Наличие автомобиля, комплектация, окончательная стоимость, условия Trade-in и кредитования подтверждаются менеджером на момент оформления.</p></footer></main>
+
+<style id="ui-polish-history-downpayment-selected-bank">
+/* History: keep each metric in its own predictable cell; never let text collide with Delete. */
+@media (min-width:1200px) {
+  .local-panel .history-entry {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:start!important;
+    gap:8px!important;
+    padding:12px!important;
+  }
+  .local-panel .history-open {
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    justify-content:flex-start!important;
+    width:100%!important;
+    min-width:0!important;
+    padding:0!important;
+    gap:0!important;
+  }
+  .local-panel .history-variant-main {display:block!important;min-width:0!important;}
+  .local-panel .history-variant-car {
+    display:block!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    line-height:1.3!important;
+    margin:0!important;
+  }
+  .local-panel .history-variant-meta {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px 10px!important;
+    margin-top:10px!important;
+    min-width:0!important;
+  }
+  .local-panel .history-variant-meta>span {
+    display:flex!important;
+    flex-direction:column!important;
+    min-width:0!important;
+    gap:2px!important;
+    white-space:normal!important;
+  }
+  .local-panel .history-variant-meta>span:last-child {grid-column:1/-1!important;}
+  .local-panel .history-variant-meta small {font-size:10px!important;line-height:1.2!important;}
+  .local-panel .history-variant-meta b {
+    display:block!important;
+    font-size:12px!important;
+    line-height:1.25!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+  }
+  .local-panel .history-delete {
+    align-self:start!important;
+    white-space:nowrap!important;
+    margin:0!important;
+  }
+}
+@media (max-width:1199px) {
+  .local-panel .history-entry {display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:start!important;}
+  .local-panel .history-open {display:flex!important;flex-direction:column!important;min-width:0!important;}
+  .local-panel .history-variant-meta {grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+  .local-panel .history-variant-meta>span {display:flex!important;flex-direction:column!important;white-space:normal!important;min-width:0!important;}
+  .local-panel .history-variant-meta>span:last-child {grid-column:1/-1!important;}
+  .local-panel .history-variant-meta b {white-space:normal!important;overflow-wrap:anywhere!important;}
+}
+/* Quick percentage choices follow the same light-green selection language. */
+#loanCalculator .loan-downpayment-presets {
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important;margin-top:3px!important;
+}
+#loanCalculator .downpayment-preset {
+  min-height:36px!important;border:1px solid #dce6df!important;border-radius:9px!important;
+  background:#fff!important;color:#344139!important;font:inherit!important;font-size:13px!important;font-weight:700!important;cursor:pointer!important;
+}
+#loanCalculator .downpayment-preset:hover {background:#f3f8f4!important;border-color:#a7cdb4!important;}
+#loanCalculator .downpayment-preset.is-active {
+  background:#e8f5ed!important;border-color:#178650!important;color:#176b42!important;
+  box-shadow:inset 0 0 0 1px #178650!important;
+}
+/* Credit term: selected option has a clearly visible pale-green fill. */
+#loanCalculator .loan-term-btn.is-active {
+  border:1.5px solid #178650!important;background:#e8f5ed!important;color:#176b42!important;
+  box-shadow:inset 0 0 0 1px #178650!important;
+}
+/* Selected bank is always marked green, including when it is an alternate offer. */
+#loanCalculator .loan-bank-card.is-selected,
+#loanCalculator .loan-bank-card.status-alt.is-selected {
+  border:2px solid #178650!important;
+  background:#edf7f1!important;
+  box-shadow:inset 0 0 0 1px #178650,0 4px 13px rgba(23,134,80,.13)!important;
+}
+#loanCalculator .loan-bank-card.is-selected::after {
+  content:"ВЫБРАНО";position:absolute;top:9px;right:10px;
+  padding:4px 7px;border-radius:6px;background:#d9eee1;color:#176b42;
+  font-size:9px;font-weight:800;letter-spacing:.04em;
+}
+</style>
+
+</body></html>`;
   }
   function makeCommercialProposal(includeCredit=false){
     const state=getState(), phone=String(state.clientPhone||'').trim();
@@ -4344,6 +4673,251 @@ function saveCurrentDeal(options={}){
   document.getElementById('exportExcelBtn')?.addEventListener('click',exportToExcel);
 </script>
   <div class="save-toast" id="saveToast" role="status" aria-live="polite"><span class="toast-icon">✓</span><span>Расчёт с клиентом сохранён и скопирован в буфер обмена</span></div>
+
+<style id="actual-app-visual-fix-v2">
+/* CLIENT HISTORY: each row has a flexible content column and a separate delete column. */
+.local-panel .client-group {min-width:0!important; overflow:visible!important;}
+.local-panel .client-variants {display:flex!important;flex-direction:column!important;gap:10px!important;min-width:0!important;}
+.local-panel .history-entry {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:start!important;
+  gap:10px!important;
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  padding:12px!important;
+}
+.local-panel .history-open {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:0!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  padding:0!important;
+  overflow:hidden!important;
+  text-align:left!important;
+  box-sizing:border-box!important;
+}
+.local-panel .history-variant-main {display:block!important;min-width:0!important;width:100%!important;}
+.local-panel .history-variant-car {
+  display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0 0 8px!important;white-space:normal!important;overflow:visible!important;
+  text-overflow:clip!important;overflow-wrap:anywhere!important;line-height:1.3!important;
+}
+.local-panel .history-variant-meta {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px 10px!important;
+  width:100%!important;min-width:0!important;margin-top:0!important;
+  font-size:11px!important;line-height:1.25!important;
+}
+.local-panel .history-variant-meta>span {
+  display:flex!important;flex-direction:column!important;gap:3px!important;
+  min-width:0!important;white-space:normal!important;overflow:visible!important;
+}
+.local-panel .history-variant-meta>span:last-child {grid-column:1/-1!important;}
+.local-panel .history-variant-meta small {
+  display:block!important;font-size:10px!important;line-height:1.2!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;color:#707a74!important;
+}
+.local-panel .history-variant-meta b {
+  display:block!important;min-width:0!important;font-size:12px!important;line-height:1.25!important;
+  white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
+  overflow-wrap:anywhere!important;color:#202522!important;
+}
+.local-panel .history-variant-meta .margin-value b {color:#176b42!important;}
+.local-panel .history-delete {
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  align-self:start!important;flex:0 0 auto!important;white-space:nowrap!important;
+  margin:0!important;min-width:0!important;max-width:100%!important;
+}
+@media(max-width:600px) {
+ .local-panel .history-entry {grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;padding:9px!important;}
+ .local-panel .history-variant-meta {grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important;}
+ .local-panel .history-delete {padding:7px!important;font-size:11px!important;}
+}
+/* Down-payment quick picks deliberately match the loan-term button family. */
+#loanCalculator .loan-downpayment-presets {
+ display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important;margin-top:7px!important;
+}
+#loanCalculator .downpayment-preset {
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ min-width:0!important;min-height:48px!important;padding:0 8px!important;
+ border:1px solid #dde5df!important;border-radius:4px!important;
+ background:#fff!important;color:#202522!important;
+ font:inherit!important;font-size:14px!important;font-weight:600!important;
+ cursor:pointer!important;transition:.15s ease!important;
+}
+#loanCalculator .downpayment-preset:hover {border-color:#a7cdb4!important;background:#f6faf7!important;}
+#loanCalculator .downpayment-preset.is-active {
+ border:1.5px solid #178650!important;background:#178650!important;color:#fff!important;
+ box-shadow:inset 0 0 0 1px #178650!important;
+}
+/* Reassert selected loan term after every older / more specific stylesheet rule. */
+#loanCalculator .loan-term-buttons .loan-term-btn.is-active,
+#loanCalculator .loan-term-btn.is-active {
+ border:1.5px solid #178650!important;background:#178650!important;color:#fff!important;
+ box-shadow:inset 0 0 0 1px #178650!important;
+}
+/* All selected banks use green, including an alternate bank offer. */
+#loanCalculator .loan-bank-offers .loan-bank-card.is-selected,
+#loanCalculator .loan-bank-offers .loan-bank-card.status-best.is-selected,
+#loanCalculator .loan-bank-offers .loan-bank-card.status-alt.is-selected {
+ border:2px solid #178650!important;
+ background:#e8f5ed!important;
+ box-shadow:inset 0 0 0 1px #178650,0 4px 13px rgba(23,134,80,.15)!important;
+}
+#loanCalculator .loan-bank-offers .loan-bank-card.is-selected::after {
+ content:"ВЫБРАНО"!important;position:absolute!important;top:9px!important;right:10px!important;
+ padding:4px 7px!important;border-radius:6px!important;background:#178650!important;color:#fff!important;
+ font-size:9px!important;font-weight:800!important;letter-spacing:.04em!important;
+}
+</style>
+
+
+<style id="history-compact-and-presets-match-terms-v3">
+/* Compact client history: only discounted price + remaining margin. */
+.local-panel .history-entry {
+  grid-template-columns:minmax(0,1fr) auto!important;
+  gap:7px!important;padding:9px!important;align-items:center!important;
+}
+.local-panel .history-variant-car {margin-bottom:5px!important;}
+.local-panel .history-variant-meta {
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:5px 9px!important;margin:0!important;
+}
+.local-panel .history-variant-meta>span,
+.local-panel .history-variant-meta>span:last-child {
+  grid-column:auto!important;gap:1px!important;
+}
+.local-panel .history-variant-meta small {font-size:9px!important;line-height:1.1!important;}
+.local-panel .history-variant-meta b {font-size:11px!important;line-height:1.15!important;}
+.local-panel .history-delete {
+  height:30px!important;min-height:30px!important;padding:0 8px!important;
+  border-radius:7px!important;font-size:10px!important;line-height:1!important;
+  font-weight:600!important;
+}
+@media(max-width:600px){
+ .local-panel .history-entry {padding:8px!important;gap:6px!important;}
+ .local-panel .history-delete {height:28px!important;min-height:28px!important;padding:0 7px!important;font-size:10px!important;}
+}
+/* Same geometry, typography, border radius and states as loan term buttons. */
+#loanCalculator .loan-downpayment-presets {
+ display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important;margin-top:7px!important;
+}
+#loanCalculator .loan-downpayment-presets .downpayment-preset {
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ min-width:0!important;min-height:48px!important;height:48px!important;
+ padding:0 8px!important;border:1px solid #e2e6e3!important;
+ border-radius:4px!important;background:#fff!important;color:#222!important;
+ font-family:inherit!important;font-size:14px!important;font-weight:600!important;
+ line-height:normal!important;box-shadow:none!important;cursor:pointer!important;
+ transition:.15s ease!important;
+}
+#loanCalculator .loan-downpayment-presets .downpayment-preset:hover {
+ border-color:#9ca7a1!important;background:#fff!important;
+}
+#loanCalculator .loan-downpayment-presets .downpayment-preset.is-active {
+ border:1.5px solid #178650!important;background:#178650!important;color:#fff!important;
+ box-shadow:inset 0 0 0 1px #178650!important;
+}
+</style>
+
+
+<style id="history-padding-fit-price-v4">
+/* Slightly tighter history cards so the discounted vehicle price has room. */
+.local-panel .history-entry {
+  padding:6px!important;
+  column-gap:6px!important;
+}
+.local-panel .history-open {
+  padding:0!important;
+}
+.local-panel .history-variant-meta {
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)!important;
+  column-gap:6px!important;
+}
+.local-panel .history-variant-meta>span:first-child {
+  min-width:0!important;
+}
+.local-panel .history-variant-meta>span:first-child b {
+  font-size:10.5px!important;
+  letter-spacing:-.015em!important;
+  white-space:nowrap!important;
+}
+.local-panel .history-variant-meta>span:first-child small {
+  white-space:normal!important;
+}
+.local-panel .history-delete {
+  padding-left:7px!important;padding-right:7px!important;
+}
+@media(max-width:600px) {
+ .local-panel .history-entry {padding:6px!important;column-gap:5px!important;}
+ .local-panel .history-variant-meta {column-gap:5px!important;}
+}
+</style>
+
+
+<style id="history-no-clipped-price-v5">
+/* Prevent intrinsic grid widths from pushing history metrics outside the card. */
+.local-panel,
+.local-panel .client-group,
+.local-panel .client-variants,
+.local-panel .history-entry,
+.local-panel .history-open {
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+.local-panel .history-entry {
+  grid-template-columns:minmax(0,1fr) auto!important;
+  overflow:hidden!important;
+}
+.local-panel .history-open {
+  width:100%!important;
+  overflow:hidden!important;
+}
+.local-panel .history-variant-meta {
+  display:grid!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:5px 8px!important;
+  box-sizing:border-box!important;
+}
+.local-panel .history-variant-meta>span {
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+}
+.local-panel .history-variant-meta>span b {
+  display:block!important;
+  min-width:0!important;
+  max-width:100%!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  text-overflow:clip!important;
+}
+.local-panel .history-variant-meta>span small {
+  display:block!important;
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+.local-panel .history-variant-car {
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+</style>
+
 </body>
 </html>
 
