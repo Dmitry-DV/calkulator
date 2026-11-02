@@ -3582,6 +3582,86 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
 }
 </style>
 
+
+<style id="final-fixes-20261102">
+/* Final button polish: restore the rounded shape where the global button reset removed it. */
+#clearHistoryBtn,
+.tradein-link .btn,
+.proposal-btn{
+  border-radius:8px!important;
+}
+
+/* Adaptive header: on small screens keep all three actions equal in size and give
+   the long import label enough room to wrap instead of overflowing. */
+@media(max-width:700px){
+  .heading-row{
+    overflow:visible!important;
+    padding:9px 10px 10px!important;
+  }
+
+  .heading-row .heading-topline{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:8px!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+
+  .heading-row .heading{
+    flex:0 0 auto!important;
+    width:100%!important;
+    min-width:0!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+
+  .heading-row .heading-actions{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    align-items:stretch!important;
+    width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    gap:6px!important;
+  }
+
+  .heading-row .heading-actions > .new-client-top-btn,
+  .heading-row .heading-actions > .new-calc-top-btn,
+  .heading-row .heading-actions > .import-box-top{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:42px!important;
+    min-height:42px!important;
+    margin:0!important;
+  }
+
+  .heading-row .heading-actions > .new-client-top-btn,
+  .heading-row .heading-actions > .new-calc-top-btn,
+  .heading-row .heading-actions > .import-box-top > summary{
+    width:100%!important;
+    height:42px!important;
+    min-height:42px!important;
+    padding:4px 5px!important;
+    border-radius:8px!important;
+    font-size:12px!important;
+    line-height:1.12!important;
+    white-space:normal!important;
+    text-align:center!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow-wrap:break-word!important;
+    word-break:normal!important;
+  }
+
+  .heading-row .heading-actions > .import-box-top{
+    display:block!important;
+  }
+}
+</style>
 </head>
 <body class="access-locked">
 <div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="accessGateTitle">
@@ -3859,7 +3939,16 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   $('jumpTradeInBtn').addEventListener('click',()=> scrollToSectionWithHeader($('tradeInSection')));
   $('jumpOfferBtn').addEventListener('click',()=> scrollToSectionWithHeader($('offerSection')));
   $('jumpLoanBtn').addEventListener('click',()=> scrollToSectionWithHeader($('loanCalculator')));
-  function getState(){ return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:downPaymentPercent.value, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, remainingMargin: $('remainingMargin') ? numericValue($('remainingMargin').textContent) : 0, loanOfferProduct:window.__selectedLoanOffer?.product||'', loanBank:window.__selectedLoanOffer?.bank||BANK_NAMES[Number(loanProgram.value)]||'', cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value}; }
+  function getState(){
+    const loanCar=numericValue(loanCarPrice.value), down=numericValue(downPayment.value);
+    // В select есть только шаги 10/20/30…%, поэтому при ручном ПВ значение
+    // вроде 21,6% превращается в пустую строку. Для истории и экспорта всегда
+    // сохраняем фактический процент, рассчитанный из суммы ПВ и цены кредита.
+    const calculatedDownPaymentPercent=loanCar>0&&down>0
+      ? (down/loanCar*100).toFixed(1).replace(/\.0$/,'')
+      : '';
+    return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:calculatedDownPaymentPercent, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, downPaymentAutoTradeIn:downPayment.dataset.autoTradeIn==='1', remainingMargin: $('remainingMargin') ? numericValue($('remainingMargin').textContent) : 0, loanOfferProduct:window.__selectedLoanOffer?.product||'', loanBank:window.__selectedLoanOffer?.bank||BANK_NAMES[Number(loanProgram.value)]||'', cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value};
+  }
   function applyState(s){
     if($('dealMode')) $('dealMode').value=['cash','trade_cash','credit','trade_credit'].includes(s.dealMode)?s.dealMode:'trade_credit';
     $('clientName').value=s.clientName||''; $('clientPhone').value=s.clientPhone||''; carModel.value=s.carModel||''; carColor.value=''; syncVehicleUI(); if(s.carColor && VEHICLE_CATALOG[carModel.value]){carColor.value=s.carColor;syncVehicleUI();} if(!carModel.value && s.carInterest){ const found=Object.entries(VEHICLE_CATALOG).find(([key,v])=>String(s.carInterest).toLowerCase().includes(v.label.toLowerCase())); if(found){carModel.value=found[0];syncVehicleUI();const color=VEHICLE_CATALOG[found[0]].colors.find(c=>String(s.carInterest).toLowerCase().includes(c.toLowerCase()));if(color)carColor.value=color;syncVehicleUI();} else carInterest.value=s.carInterest||''; } else carInterest.value=vehicleDescription()||s.carInterest||'';
@@ -3871,8 +3960,17 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     customOptionName.value=s.customOptionName??initial.customOptionName; customOptionCost.value=s.customOptionCost??initial.customOptionCost; if(customOptionCheck){const legacySelected=(s.customOptionSelected!==undefined)?!!s.customOptionSelected:(String(customOptionName.value||'').trim()!==''&&numericValue(customOptionCost.value)>0); customOptionCheck.checked=legacySelected; customOptionCheck.dataset.touched=legacySelected?'1':'';} syncCustomOptionAvailability();
     if(s.loanCarPrice!==undefined) loanCarPrice.value=s.loanCarPrice; else loanCarPrice.value=price.value;
     [price,extraIncome,discountNumber,tradeInValue,downPayment,loanCarPrice,cascoPrice,...costInputs,customOptionCost].forEach(el=>{ if(el) el.value=formatInputMoney(el.value); });
-    if(s.downPayment!==undefined) downPayment.value=formatInputMoney(s.downPayment); else downPayment.value=$('tradeInValue').value||'';
-    if(s.downPaymentPercent!==undefined) downPaymentPercent.value=String(s.downPaymentPercent||''); else downPaymentPercent.value='';
+    if(s.downPayment!==undefined){
+      downPayment.value=formatInputMoney(s.downPayment);
+      downPayment.dataset.autoTradeIn=s.downPaymentAutoTradeIn?'1':'';
+    } else {
+      downPayment.value=$('tradeInValue').value||'';
+      downPayment.dataset.autoTradeIn='';
+    }
+    if(s.downPaymentPercent!==undefined){
+      const savedPercent=String(s.downPaymentPercent||'');
+      downPaymentPercent.value=[...downPaymentPercent.options].some(o=>o.value===savedPercent)?savedPercent:'';
+    } else downPaymentPercent.value='';
     if(s.loanTerm!==undefined && ['12','24','36','48','60','72','84'].includes(String(s.loanTerm))) loanTerm.value=String(s.loanTerm); else loanTerm.value='60';
     const normalizedProgram=normalizeLoanProgramKey(s.loanProgram); loanProgram.value=normalizedProgram || '';
     if(s.loanRate!==undefined) loanRate.value=s.loanRate;
@@ -4144,10 +4242,9 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
       const hardware=car*marginRate/100;
       const extra=Math.max(0,numericValue(state?.extraIncome));
       const discount=Math.max(0,numericValue(state?.discountNumber??state?.discount));
-      const loyalty=state?.loyaltyTradeIn?200000:0;
       const addons=(state?.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state?.costs?.[i])):0),0);
       const custom=(String(state?.customOptionName||'').trim()&&numericValue(state?.customOptionCost)>0)?numericValue(state?.customOptionCost):0;
-      return Math.max(0,hardware+extra-discount-addons-custom-loyalty);
+      return Math.max(0,hardware+extra-discount-addons-custom);
     };
     const calcHistoryPrice=(state)=>{
       const car=Math.max(0,numericValue(state?.carPrice));
@@ -4266,8 +4363,21 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
       const cm=(label)=>{const re=new RegExp('^'+escapeRegExp(label)+'\\s*:\\s*(.+)$','im');const m=creditText.match(re);return m?m[1].trim():'';};
       const programText=cm('Банк / программа');
       const bankKey=Object.keys(BANK_NAMES).find(k=>programText.toLowerCase().includes(BANK_NAMES[k].toLowerCase())) || normalizeLoanProgramKey(programText) || '';
-      state.loanProgram=bankKey; state.loanProgramLabel=programText; state.loanBank=BANK_NAMES[Number(bankKey)]||programText; state.loanCarPrice=digitsOnly(cm('Цена автомобиля для кредита')); state.downPayment=digitsOnly(cm('Первоначальный взнос')); state.downPaymentPercent=(cm('Первоначальный взнос, %').match(/[0-9]+(?:[.,][0-9]+)?/)||[''])[0]; state.loanTerm=(cm('Срок кредита').match(/\d+/)||['60'])[0];
-      state.loanRate=(cm('Ставка годовых').match(/[0-9]+(?:[.,][0-9]+)?/)||[''])[0].replace(',','.'); state.cascoPrice=digitsOnly(cm('КАСКО'))||'140 000'; state.cascoInLoan=/КАСКО включено в кредит/i.test(creditText);
+      // В строке ПВ процент хранится рядом с суммой, например:
+      // «Первоначальный взнос: 100 000 ₽ (10% от цены)».
+      // Нельзя прогонять всю строку через digitsOnly(), иначе получится 10000010.
+      const moneyFromCreditValue=(value)=>{
+        const m=String(value||'').match(/-?\d[\d\s\u00A0]*(?=\s*(?:₽|руб(?:\.|лей|ля)?|р\.?|\(|$))/i);
+        return m?digitsOnly(m[0]):'';
+      };
+      state.loanProgram=bankKey; state.loanProgramLabel=programText; state.loanBank=BANK_NAMES[Number(bankKey)]||programText;
+      state.loanCarPrice=moneyFromCreditValue(cm('Цена автомобиля для кредита'));
+      state.downPayment=moneyFromCreditValue(cm('Первоначальный взнос'));
+      state.downPaymentPercent=(cm('Первоначальный взнос, %').match(/[0-9]+(?:[.,][0-9]+)?/)||[''])[0];
+      state.loanTerm=(cm('Срок кредита').match(/\d+/)||['60'])[0];
+      state.loanRate=(cm('Ставка годовых').match(/[0-9]+(?:[.,][0-9]+)?/)||[''])[0].replace(',','.');
+      state.cascoPrice=moneyFromCreditValue(cm('КАСКО'))||'140 000';
+      state.cascoInLoan=/КАСКО включено в кредит/i.test(creditText);
     }
     if(!state.clientName && !state.clientPhone && !state.carInterest && !state.carPrice) return {error:'Не удалось найти данные расчёта. Проверь, что вставлен текст из «Скопировать расчёт».'};
     return {state};
@@ -4357,8 +4467,13 @@ function saveCurrentDeal(options={}){
       currentHistoryId=record.id;
       renderHistory();
       if(shouldReset){
+        // После обычного сохранения форма очищается и больше не должна
+        // оставаться привязанной к только что сохранённой записи. Иначе
+        // следующее сохранение новой сделки может перезаписать старую запись.
+        currentHistoryId=null;
         window.__calcApplyState({clientName:'',clientPhone:'',carInterest:'',carModel:'',carColor:'',tradeInValue:'',tradeInCar:'',downPayment:'',loanCarPrice:'',loanTerm:'60',loanRate:'',loanProgram:'',loanOfferProduct:'',loanBank:'',cascoInLoan:false,cascoPrice:'140 000',...initial});
         renderLocalPanel();
+        renderHistory();
         window.scrollTo({top:0,behavior:'smooth'});
       }
       return true;
