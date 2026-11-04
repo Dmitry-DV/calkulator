@@ -3743,6 +3743,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     <h2>2. Цена автомобиля и маржа</h2>
     <div class="price-grid deal-finance-grid">
       <div><label class="field-label" for="carPrice">Исходная цена автомобиля, ₽</label><input id="carPrice" class="money-input" type="text" value="" placeholder="3 290 000" inputmode="numeric" /></div>
+      <div><label class="field-label" for="purchaseCost">Закупочная стоимость, ₽</label><input id="purchaseCost" class="money-input" type="text" value="" placeholder="3 092 600" inputmode="numeric" /></div>
       <div><label class="field-label" for="marginRate">Маржа, %</label><input id="marginRate" type="number" min="0" max="100" step="0.1" value="6" /></div>
     </div>
     <div class="margin-pill"><span>Маржа от автомобиля («железо»)</span><strong id="marginBudget">220 000 ₽</strong></div>
@@ -3764,6 +3765,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     <div class="available-margin-offer" aria-live="polite"><div><span class="available-margin-kicker">КОНТРОЛЬ МАРЖИ</span><strong>Доступная маржа</strong><small>Остаток после скидки и выбранных опций</small></div><div class="available-margin-number" id="availableMarginClient">0 ₽</div></div>
     <div class="offer-discount-panel"><div class="range-head"><span>Скидка клиенту</span><strong id="discountValue">65 000 ₽</strong></div>
     <div class="discount-number-wrap"><label class="field-label" for="discountNumber">Введи скидку вручную, ₽</label><input id="discountNumber" class="money-input" type="text" value="" placeholder="0" inputmode="numeric" aria-label="Живая скидка числом" /></div>
+    <div class="discount-number-wrap target-margin-wrap"><label class="field-label" for="targetMargin">Оставить маржу, ₽</label><input id="targetMargin" class="money-input" type="text" value="" placeholder="Например, 150 000" inputmode="numeric" aria-label="Желаемый остаток маржи" /></div>
     <label class="loyalty-tradein-row"><input id="loyaltyTradeIn" type="checkbox" /> <span><strong>Лояльный Trade-in</strong><small>Снизить цену автомобиля ещё на 200 000 ₽ за счёт импортёра. В расходе на уступки учитывается как живая скидка, но маржу не уменьшает.</small></span></label>
     <input id="discount" type="range" min="0" max="300000" step="1000" value="0" aria-label="Живая скидка" />
     <div class="range-labels"><span>0 ₽</span><span id="rangeMid">150 тыс. ₽</span><span id="rangeMax">300 тыс. ₽</span></div></div><div class="offer-addons-panel"><div class="subsection-title">Дополнительные опции</div>
@@ -3868,11 +3870,18 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   const money = n => Math.round(Number.isFinite(n) ? n : 0).toLocaleString('ru-RU') + ' ₽';
   const digitsOnly = value => String(value||'').replace(/\D/g,'');
   const numericValue = value => { const n=Number(String(value??'').replace(/\s/g,'').replace(/,/g,'.')); return Number.isFinite(n)?n:0; };
-  const price = $('carPrice'), rate = $('marginRate'), discount = $('discount'), discountNumber = $('discountNumber'), extraIncome = $('extraIncome');
+  const price = $('carPrice'), purchaseCost = $('purchaseCost'), targetMargin = $('targetMargin'), rate = $('marginRate'), discount = $('discount'), discountNumber = $('discountNumber'), extraIncome = $('extraIncome');
+  function autoPurchaseCost(){const car=Math.max(0,numericValue(price.value)),pct=Math.min(100,Math.max(0,numericValue(rate.value)));return Math.max(0,Math.round(car*(1-pct/100)));}
+  function syncAutoPurchaseCost(){if(purchaseCost && purchaseCost.dataset.manual!=='1'){purchaseCost.value=formatInputMoney(autoPurchaseCost());}}
   const checks = [...document.querySelectorAll('.addon')];
   function syncAddonVisual(cb){ const row=cb?.closest('.item'); if(row) row.classList.toggle('is-selected',!!cb.checked); }
+  function clearTargetMarginOnAddonChange(){
+    // Желаемая маржа задаёт скидку только до изменения состава предложения.
+    // После выбора/изменения любого допа МОП должен заново определить скидку.
+    if(targetMargin) targetMargin.value='';
+  }
   checks.forEach(cb=>{
-    cb.addEventListener('change',()=>{syncAddonVisual(cb);update();});
+    cb.addEventListener('change',()=>{clearTargetMarginOnAddonChange();syncAddonVisual(cb);update();});
     const row=cb.closest('.item');
     row?.addEventListener('click',e=>{
       if(e.target.closest('.item-cost') || e.target===cb) return;
@@ -3885,17 +3894,18 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   const customOptionName = $('customOptionName'), customOptionCost = $('customOptionCost'), customOptionCheck = $('customOptionCheck'), customOptionRow = $('customOptionRow');
   function syncCustomOptionVisual(){ const active=String(customOptionName?.value||'').trim()!=='' && numericValue(customOptionCost?.value)>0; if(customOptionCheck) customOptionCheck.checked=active; if(customOptionRow){ customOptionRow.classList.add('is-selected'); customOptionRow.classList.add('is-available'); } }
   function syncCustomOptionAvailability(){ syncCustomOptionVisual(); }
-  customOptionCheck?.addEventListener('change',()=>{customOptionCheck.dataset.touched='1';syncCustomOptionVisual();update();});
+  customOptionCheck?.addEventListener('change',()=>{clearTargetMarginOnAddonChange();customOptionCheck.dataset.touched='1';syncCustomOptionVisual();update();});
   customOptionRow?.addEventListener('click',e=>{ if(e.target.closest('#customOptionCost')||e.target.closest('#customOptionName')) return; syncCustomOptionVisual(); });
-  customOptionName?.addEventListener('input',()=>{syncCustomOptionVisual();update();});
-  customOptionCost?.addEventListener('input',()=>{syncCustomOptionVisual();update();});
+  customOptionName?.addEventListener('input',()=>{clearTargetMarginOnAddonChange();syncCustomOptionVisual();update();});
+  customOptionCost?.addEventListener('input',()=>{clearTargetMarginOnAddonChange();syncCustomOptionVisual();update();});
+  costInputs.forEach(el=>el.addEventListener('input',clearTargetMarginOnAddonChange));
   syncCustomOptionAvailability();
   const importDetails=document.querySelector('.import-box-top');
   document.addEventListener('click',e=>{ if(importDetails?.open && !importDetails.contains(e.target)) importDetails.open=false; });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape' && importDetails?.open) importDetails.open=false; });
   const STORAGE_KEY = 'havalProDealCalculatorHistory_v1';
   let currentHistoryId = null;
-  const initial = {carPrice: price.value, marginRate: rate.value, discount: discount.value, discountNumber: discountNumber.value, extraIncome: extraIncome.value, incomeSource: $('incomeSource').value, checks: checks.map(x=>x.checked), costs: costInputs.map(x=>x.value), customOptionName:'', customOptionCost:'', customOptionSelected:false, loyaltyTradeIn:false, loanRate: '', downPaymentPercent:'', loanProgram:'', loanOfferProduct:'', loanBank:'', loanTerm:'60'};
+  const initial = {carPrice: price.value, purchaseCost:'', purchaseCostManual:false, marginRate: rate.value, discount: discount.value, discountNumber: discountNumber.value, extraIncome: extraIncome.value, incomeSource: $('incomeSource').value, checks: checks.map(x=>x.checked), costs: costInputs.map(x=>x.value), customOptionName:'', customOptionCost:'', customOptionSelected:false, loyaltyTradeIn:false, loanRate: '', downPaymentPercent:'', loanProgram:'', loanOfferProduct:'', loanBank:'', loanTerm:'60'};
 
   const carModel=$('carModel'), carColor=$('carColor'), carColorWrap=$('carColorWrap'), carInterest=$('carInterest');
   const VEHICLE_CATALOG={
@@ -3947,19 +3957,19 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     const calculatedDownPaymentPercent=loanCar>0&&down>0
       ? (down/loanCar*100).toFixed(1).replace(/\.0$/,'')
       : '';
-    return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:calculatedDownPaymentPercent, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, downPaymentAutoTradeIn:downPayment.dataset.autoTradeIn==='1', remainingMargin: $('remainingMargin') ? numericValue($('remainingMargin').textContent) : 0, loanOfferProduct:window.__selectedLoanOffer?.product||'', loanBank:window.__selectedLoanOffer?.bank||BANK_NAMES[Number(loanProgram.value)]||'', cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value};
+    return {dealMode:$('dealMode')?.value||'trade_credit', clientName:$('clientName').value, clientPhone:$('clientPhone').value, carInterest:$('carInterest').value, carModel:carModel.value, carColor:carColor.value, carPrice:price.value, purchaseCost:purchaseCost.value, purchaseCostManual:purchaseCost.dataset.manual==='1', targetMargin:targetMargin.value, marginRate:rate.value, discount:discount.value, discountNumber:discountNumber.value, extraIncome:extraIncome.value, incomeSource:$('incomeSource').value, checks:checks.map(x=>x.checked), costs:costInputs.map(x=>x.value), customOptionName:customOptionName.value, customOptionCost:customOptionCost.value, customOptionSelected:!!customOptionCheck?.checked, loyaltyTradeIn:$('loyaltyTradeIn').checked, tradeInValue:$('tradeInValue').value, tradeInCar:$('tradeInCar').value, downPayment:downPayment.value, downPaymentPercent:calculatedDownPaymentPercent, loanCarPrice:loanCarPrice.value, loanTerm:loanTerm.value, loanRate:loanRate.value, loanProgram:loanProgram.value, downPaymentAutoTradeIn:downPayment.dataset.autoTradeIn==='1', remainingMargin: $('remainingMargin') ? numericValue($('remainingMargin').textContent) : 0, loanOfferProduct:window.__selectedLoanOffer?.product||'', loanBank:window.__selectedLoanOffer?.bank||BANK_NAMES[Number(loanProgram.value)]||'', cascoInLoan:cascoInLoan.checked, cascoPrice:cascoPrice.value};
   }
   function applyState(s){
     if($('dealMode')) $('dealMode').value=['cash','trade_cash','credit','trade_credit'].includes(s.dealMode)?s.dealMode:'trade_credit';
     $('clientName').value=s.clientName||''; $('clientPhone').value=s.clientPhone||''; carModel.value=s.carModel||''; carColor.value=''; syncVehicleUI(); if(s.carColor && VEHICLE_CATALOG[carModel.value]){carColor.value=s.carColor;syncVehicleUI();} if(!carModel.value && s.carInterest){ const found=Object.entries(VEHICLE_CATALOG).find(([key,v])=>String(s.carInterest).toLowerCase().includes(v.label.toLowerCase())); if(found){carModel.value=found[0];syncVehicleUI();const color=VEHICLE_CATALOG[found[0]].colors.find(c=>String(s.carInterest).toLowerCase().includes(c.toLowerCase()));if(color)carColor.value=color;syncVehicleUI();} else carInterest.value=s.carInterest||''; } else carInterest.value=vehicleDescription()||s.carInterest||'';
     $('tradeInValue').value=s.tradeInValue??''; $('tradeInCar').value=s.tradeInCar||'';
-    price.value=s.carPrice??initial.carPrice; rate.value=s.marginRate??initial.marginRate; discount.value=s.discount??initial.discount; discountNumber.value=s.discountNumber??s.discount??initial.discountNumber; $('loyaltyTradeIn').checked=!!s.loyaltyTradeIn;
+    price.value=s.carPrice??initial.carPrice; rate.value=s.marginRate??initial.marginRate; const hasValidPurchaseCost=numericValue(s.purchaseCost)>0; purchaseCost.dataset.manual=(s.purchaseCostManual&&hasValidPurchaseCost)?'1':''; purchaseCost.value=hasValidPurchaseCost?formatInputMoney(s.purchaseCost):formatInputMoney(autoPurchaseCost()); targetMargin.value=s.targetMargin??''; discount.value=s.discount??initial.discount; discountNumber.value=s.discountNumber??s.discount??initial.discountNumber; $('loyaltyTradeIn').checked=!!s.loyaltyTradeIn;
     extraIncome.value=s.extraIncome??initial.extraIncome; $('incomeSource').value=s.incomeSource??initial.incomeSource;
     checks.forEach((x,i)=>{x.checked=Array.isArray(s.checks)?!!s.checks[i]:initial.checks[i];syncAddonVisual(x);});
     costInputs.forEach((x,i)=>x.value=Array.isArray(s.costs)?(s.costs[i]??initial.costs[i]):initial.costs[i]);
     customOptionName.value=s.customOptionName??initial.customOptionName; customOptionCost.value=s.customOptionCost??initial.customOptionCost; if(customOptionCheck){const legacySelected=(s.customOptionSelected!==undefined)?!!s.customOptionSelected:(String(customOptionName.value||'').trim()!==''&&numericValue(customOptionCost.value)>0); customOptionCheck.checked=legacySelected; customOptionCheck.dataset.touched=legacySelected?'1':'';} syncCustomOptionAvailability();
     if(s.loanCarPrice!==undefined) loanCarPrice.value=s.loanCarPrice; else loanCarPrice.value=price.value;
-    [price,extraIncome,discountNumber,tradeInValue,downPayment,loanCarPrice,cascoPrice,...costInputs,customOptionCost].forEach(el=>{ if(el) el.value=formatInputMoney(el.value); });
+    [price,purchaseCost,extraIncome,discountNumber,targetMargin,tradeInValue,downPayment,loanCarPrice,cascoPrice,...costInputs,customOptionCost].forEach(el=>{ if(el) el.value=formatInputMoney(el.value); });
     if(s.downPayment!==undefined){
       downPayment.value=formatInputMoney(s.downPayment);
       downPayment.dataset.autoTradeIn=s.downPaymentAutoTradeIn?'1':'';
@@ -4049,7 +4059,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
   }
   function buildSummary(state){
     const car=Math.max(0,window.__calcNumericValue(state.carPrice)), pct=Math.min(100,Math.max(0,Number(state.marginRate)||0)), extra=Math.max(0,window.__calcNumericValue(state.extraIncome)), disc=Math.max(0,window.__calcNumericValue(state.discountNumber??state.discount)), loyalty=state.loyaltyTradeIn?200000:0;
-    const hardware=car*pct/100, total=hardware+extra;
+    const hardware=Math.max(0,car-Math.max(0,window.__calcNumericValue(state.purchaseCost??(car*(1-pct/100))))), total=hardware+extra;
     const names=['Защитная сетка радиатора, антикоррозийная обработка, коврики, тонировка (если нет в комплектации)','Защита картера и брызговики','Шины зимние','Сигнализация','Три ТО'];
     const customBonus=(state.customOptionSelected&&String(state.customOptionName||'').trim()&&window.__calcNumericValue(state.customOptionCost)>0)?`• ${String(state.customOptionName).trim()}: ${money(window.__calcNumericValue(state.customOptionCost))}`:'';
     const bonuses=(state.checks||[]).map((on,i)=>on?`• ${names[i]||'Бонус'}: ${money(window.__calcNumericValue(state.costs?.[i]))}`:null).filter(Boolean).concat(customBonus?[customBonus]:[]).join('\n')||'Бонусы не выбраны';
@@ -4064,10 +4074,10 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
       const totalPay=payment*months, overpay=Math.max(0,totalPay-principal);
       credit=`\nПредварительный расчёт кредита\nБанк / программа: ${BANK_NAMES[Number(state.loanProgram)]||RATE_TABLES[state.loanProgram||'']?.label||state.loanBank||'не указано'}\nЦена автомобиля для кредита: ${money(loanCar)}\nПервоначальный взнос: ${money(down)}${state.downPaymentPercent?` (${String(state.downPaymentPercent).replace('.',',')}% от цены)`:''}\nПервоначальный взнос, %: ${state.downPaymentPercent||'не выбран'}\nКАСКО${state.cascoInLoan?' включено в кредит':''}: ${money(numericValue(state.cascoPrice||'140 000'))}\nСумма кредита: ${money(principal)}\nСрок кредита: ${months} мес.\nСтавка годовых: ${String(state.loanRate).replace('.',',')}%\nЕжемесячный платёж: ${money(payment)}\nОбщая сумма выплат банку: ${money(totalPay)}\nПереплата по процентам: ${money(overpay)}`;
     }
-    return `Расчёт сделки\nПараметр сделки: ${state.dealMode==='cash'?'Наличные':(state.dealMode==='trade_cash'?'Трейд-ин и наличные':(state.dealMode==='credit'?'Только кредит':'Трейд-ин и кредит'))}\nКлиент: ${state.clientName||'не указан'}\nТелефон: ${state.clientPhone||'не указан'}\nАвтомобиль, который рассматривает клиент: ${(state.carInterest||'').trim()||'не указан'}\nМодель из каталога: ${VEHICLE_CATALOG[state.carModel]?.label||'не выбрана'}\nЦвет автомобиля: ${state.carColor||'не выбран'}\nАвтомобиль клиента по трейд-ин: ${(state.tradeInCar||'').trim()||'не указан'}\nОценка трейд-ин: ${money(trade)}\nДоплата за новый автомобиль после скидки и трейд-ин: ${money(Math.max(0,finalPrice-trade))}\nИсходная цена: ${money(car)}\nМаржа от автомобиля (${state.marginRate||0}%): ${money(hardware)}\nДополнительный доход (${state.incomeSource||'не указан'}): ${money(extra)}\nОбщая маржа сделки: ${money(total)}\nЖивая скидка всего (включая лояльный Trade-in): ${money(disc+loyalty)}\n  • Ручная скидка: ${money(disc)}\n  • Лояльный Trade-in за счёт импортёра: ${money(loyalty)}\nБонусы:\n${bonuses}\nСебестоимость допов: ${money((state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend)}\nРасход на уступки (живая скидка + лояльный Trade-in + допы): ${money(spend)}\nОстаток маржи (лояльный Trade-in не уменьшает маржу): ${money(total-disc-addonsSpend)}\nФинальная цена клиенту: ${money(finalPrice)}${credit}`;
+    return `Расчёт сделки\nПараметр сделки: ${state.dealMode==='cash'?'Наличные':(state.dealMode==='trade_cash'?'Трейд-ин и наличные':(state.dealMode==='credit'?'Только кредит':'Трейд-ин и кредит'))}\nКлиент: ${state.clientName||'не указан'}\nТелефон: ${state.clientPhone||'не указан'}\nАвтомобиль, который рассматривает клиент: ${(state.carInterest||'').trim()||'не указан'}\nМодель из каталога: ${VEHICLE_CATALOG[state.carModel]?.label||'не выбрана'}\nЦвет автомобиля: ${state.carColor||'не выбран'}\nАвтомобиль клиента по трейд-ин: ${(state.tradeInCar||'').trim()||'не указан'}\nОценка трейд-ин: ${money(trade)}\nДоплата за новый автомобиль после скидки и трейд-ин: ${money(Math.max(0,finalPrice-trade))}\nИсходная цена: ${money(car)}\nЗакупочная стоимость: ${money(state.purchaseCost??(car*(1-(Number(state.marginRate)||0)/100)))}${state.targetMargin?`\nЖелаемая маржа: ${money(state.targetMargin)}`:''}\nМаржа от автомобиля (${state.marginRate||0}%): ${money(hardware)}\nДополнительный доход (${state.incomeSource||'не указан'}): ${money(extra)}\nОбщая маржа сделки: ${money(total)}\nЖивая скидка всего (включая лояльный Trade-in): ${money(disc+loyalty)}\n  • Ручная скидка: ${money(disc)}\n  • Лояльный Trade-in за счёт импортёра: ${money(loyalty)}\nБонусы:\n${bonuses}\nСебестоимость допов: ${money((state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0)+customSpend)}\nРасход на уступки (живая скидка + лояльный Trade-in + допы): ${money(spend)}\nОстаток маржи (лояльный Trade-in не уменьшает маржу): ${money(total-disc-addonsSpend)}\nФинальная цена клиенту: ${money(finalPrice)}${credit}`;
   }
   function update(){
-    const car=Math.max(0,numericValue(price.value)), pct=Math.min(100,Math.max(0,numericValue(rate.value))), hardwareMargin=car*pct/100, extra=Math.max(0,numericValue(extraIncome.value)), budget=hardwareMargin+extra, disc=Math.max(0,numericValue(discountNumber.value)); const loyalty=$('loyaltyTradeIn').checked?200000:0;
+    syncAutoPurchaseCost(); const car=Math.max(0,numericValue(price.value)), hardwareMargin=Math.max(0,car-Math.max(0,numericValue(purchaseCost.value))), extra=Math.max(0,numericValue(extraIncome.value)); if(targetMargin?.value.trim()){const targetAddons=checks.reduce((sum,cb,i)=>sum+(cb.checked?Math.max(0,numericValue(costInputs[i].value)):0),0)+((customOptionCheck?.checked&&customOptionName.value.trim()&&numericValue(customOptionCost.value)>0)?numericValue(customOptionCost.value):0);const autoDiscount=Math.max(0,hardwareMargin+extra-targetAddons-numericValue(targetMargin.value));discountNumber.value=formatInputMoney(autoDiscount);} const budget=hardwareMargin+extra, disc=Math.max(0,numericValue(discountNumber.value)); const loyalty=$('loyaltyTradeIn').checked?200000:0;
     const neededMax=Math.max(300000,Math.ceil(disc/100000)*100000); discount.max=String(neededMax); discount.value=String(Math.min(disc,neededMax)); if(document.activeElement!==discountNumber && discountNumber.value!=='') discountNumber.value=disc.toLocaleString('ru-RU');
     const customSpend=(customOptionCheck.checked&&customOptionName.value.trim()&&numericValue(customOptionCost.value)>0)?numericValue(customOptionCost.value):0; const addons=checks.reduce((sum,cb,i)=>sum+(cb.checked?Math.max(0,numericValue(costInputs[i].value)):0),0)+customSpend, spend=disc+loyalty+addons, remaining=budget-disc-addons, finalPrice=Math.max(0,car-disc-loyalty);
     const tradeDiff=Math.max(0,finalPrice-Math.max(0,numericValue($('tradeInValue').value)));
@@ -4239,7 +4249,7 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     const calcHistoryMargin=(state)=>{
       const car=Math.max(0,numericValue(state?.carPrice));
       const marginRate=Math.min(100,Math.max(0,Number(state?.marginRate)||0));
-      const hardware=car*marginRate/100;
+      const hardware=Math.max(0,car-Math.max(0,numericValue(state?.purchaseCost??(car*(1-marginRate/100)))));
       const extra=Math.max(0,numericValue(state?.extraIncome));
       const discount=Math.max(0,numericValue(state?.discountNumber??state?.discount));
       const addons=(state?.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state?.costs?.[i])):0),0);
@@ -4310,7 +4320,9 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     el.addEventListener('blur',()=>{el.value=formatInputMoney(el.value);});
   });
 
-  discount.addEventListener('input',()=>{loanRate.dataset.manualRate='';discountNumber.value=Number(discount.value).toLocaleString('ru-RU');update();updateLoan(true);}); discountNumber.addEventListener('input',()=>{loanRate.dataset.manualRate='';discountNumber.value=formatInputMoney(discountNumber.value);update();updateLoan(true);}); $('loyaltyTradeIn').addEventListener('change',()=>{update();updateLoan(true);});
+  discount.addEventListener('input',()=>{loanRate.dataset.manualRate='';if(targetMargin)targetMargin.value='';discountNumber.value=Number(discount.value).toLocaleString('ru-RU');update();updateLoan(true);}); discountNumber.addEventListener('input',()=>{loanRate.dataset.manualRate='';if(targetMargin)targetMargin.value='';discountNumber.value=formatInputMoney(discountNumber.value);update();updateLoan(true);});
+  targetMargin?.addEventListener('input',()=>{targetMargin.value=formatInputMoney(targetMargin.value);const car=Math.max(0,numericValue(price.value)),hardware=Math.max(0,car-numericValue(purchaseCost.value)),extra=Math.max(0,numericValue(extraIncome.value)),addons=checks.reduce((sum,cb,i)=>sum+(cb.checked?Math.max(0,numericValue(costInputs[i].value)):0),0)+((customOptionCheck?.checked&&customOptionName.value.trim()&&numericValue(customOptionCost.value)>0)?numericValue(customOptionCost.value):0);const desired=Math.max(0,numericValue(targetMargin.value));const calculatedDiscount=Math.max(0,hardware+extra-addons-desired);discountNumber.value=formatInputMoney(calculatedDiscount);discount.value=String(Math.min(calculatedDiscount,Number(discount.max)||300000));update();updateLoan(true);});
+  purchaseCost?.addEventListener('input',()=>{purchaseCost.dataset.manual='1';purchaseCost.value=formatInputMoney(purchaseCost.value);update();updateLoan(true);}); $('loyaltyTradeIn').addEventListener('change',()=>{update();updateLoan(true);});
   [price,rate,extraIncome,...checks,...costInputs,customOptionName,customOptionCost].filter(Boolean).forEach(el=>el.addEventListener('input',update));
   function escapeRegExp(text){return String(text).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
   function parseMoneyLine(text,label){
@@ -4327,14 +4339,19 @@ body{display:grid!important;grid-template-columns:330px minmax(0,760px)!importan
     const state={
       dealMode:parsedMode,
       clientName:getLine('Клиент')||'', clientPhone:getLine('Телефон')||'', carInterest:getLine('Автомобиль, который рассматривает клиент')||'', carModel:'', carColor:'',
-      tradeInCar:getLine('Автомобиль клиента по трейд-ин')||'', tradeInValue:moneyAfter('Оценка трейд-ин'), carPrice:moneyAfter('Исходная цена'),
+      tradeInCar:getLine('Автомобиль клиента по трейд-ин')||'', tradeInValue:moneyAfter('Оценка трейд-ин'), carPrice:moneyAfter('Исходная цена'), purchaseCost:moneyAfter('Закупочная стоимость'), purchaseCostManual:false, targetMargin:moneyAfter('Желаемая маржа'),
       discountNumber:((src.match(/^\s*[•-]\s*Ручная скидка\s*:\s*(-?\d[\d\s\u00A0]*)/im)||[])[1]?digitsOnly((src.match(/^\s*[•-]\s*Ручная скидка\s*:\s*(-?\d[\d\s\u00A0]*)/im)||[])[1]):(moneyAfter('Живая скидка')||'')), loyaltyTradeIn:/Лояльный Trade-in за счёт импортёра:\s*200\s*000\s*₽/i.test(src), marginRate:'', extraIncome:moneyAfter('Дополнительный доход'), incomeSource:'',
       checks:[false,false,false,false,false], costs:['15 000','10 000','50 000','25 000','62 000'], customOptionName:'', customOptionCost:'', cascoPrice:'140 000'
     };
     const importedCar=String(state.carInterest||'');
     const importedVehicle=Object.entries(VEHICLE_CATALOG).find(([key,v])=>importedCar.toLowerCase().includes(v.label.toLowerCase()));
     if(importedVehicle){state.carModel=importedVehicle[0];state.carColor=VEHICLE_CATALOG[importedVehicle[0]].colors.find(c=>importedCar.toLowerCase().includes(c.toLowerCase()))||'';}
-    const marginMatch=src.match(/^Маржа от автомобиля\s*\(([0-9]+(?:[.,][0-9]+)?)%\)\s*:/im); state.marginRate=marginMatch?marginMatch[1].replace(',','.'):'';
+    const marginMatch=src.match(/^Маржа от автомобиля\s*\(([0-9]+(?:[.,][0-9]+)?)%\)\s*:/im); state.marginRate=marginMatch?marginMatch[1].replace(',','.') : ''; 
+    // Если в готовом расчёте нет закупочной стоимости либо там сохранён ноль,
+    // восстанавливаем стандартную закупку: исходная цена минус указанная маржа.
+    const importedPurchase=numericValue(state.purchaseCost);
+    if(importedPurchase>0){state.purchaseCost=String(importedPurchase);state.purchaseCostManual=true;}
+    else {const importedPrice=numericValue(state.carPrice), importedRate=Math.min(100,Math.max(0,numericValue(state.marginRate)||6));state.purchaseCost=String(Math.max(0,Math.round(importedPrice*(1-importedRate/100))));state.purchaseCostManual=false;}
     const extraLine=getLine('Дополнительный доход'); const sourceMatch=extraLine.match(/^\((.*?)\)/); state.incomeSource=sourceMatch?sourceMatch[1]:'Кредит / страхование';
     const names=[
       ['Защитная сетка радиатора, антикоррозийная обработка, коврики, тонировка (если нет в комплектации)','Защитная сетка радиатора','Антикоррозионная обработка','Коврики','Тонировка (если нет в комплектации)'],
@@ -4802,6 +4819,42 @@ function saveCurrentDeal(options={}){
 }
 </style>
 
+
+<style id="client-field-typography-consistency">
+/* Поля, перечисленные в доработке, оформлены тем же кеглем и начертанием, что и имя клиента. */
+#clientSection #carModel,
+#clientSection #carColor,
+#priceSection #purchaseCost,
+#offerSection #targetMargin,
+#offerSection #customOptionName,
+#offerSection #customOptionCost,
+#offerSection .item-cost,
+#loanCalculator #cascoPrice {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.25!important;
+  color:#111!important;
+}
+#offerSection .item-name,
+#offerSection .custom-option #customOptionName,
+#offerSection .custom-option #customOptionCost {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.3!important;
+  color:#111!important;
+}
+#offerSection .item input[type="checkbox"] {
+  accent-color:#178650!important;
+  width:19px!important;
+  height:19px!important;
+  flex:0 0 19px!important;
+}
+#offerSection .item-cost {text-align:left!important;}
+#loanCalculator #cascoPrice {font-size:16px!important;}
+</style>
+
 </body></html>`;
   }
   function makeCommercialProposal(includeCredit=false){
@@ -4867,7 +4920,7 @@ function saveCurrentDeal(options={}){
     if(mode==='trade_cash' || mode==='trade_credit') add('Trade-in',numericValue(state.tradeInValue)>0&&String(state.tradeInCar||'').trim()!=='',numericValue(state.tradeInValue)>0?'Оценка и автомобиль заполнены':'Нужны автомобиль клиента и оценка');
     if(mode==='credit' || mode==='trade_credit') add('Кредит',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!=='',numericValue(state.loanCarPrice)>0&&numericValue(state.downPayment)>0&&String(state.loanRate||'').trim()!==''?'Цена, ПВ и ставка заполнены':'Нужны цена кредита, ПВ и ставка');
     add('Предложение клиенту',true,'Блок доступен для выбора допов и скидки');
-    const car=Math.max(0,numericValue(state.carPrice)), pct=Math.min(100,Math.max(0,Number(state.marginRate)||0)), hardware=car*pct/100, extra=Math.max(0,numericValue(state.extraIncome)), disc=Math.max(0,numericValue(state.discountNumber??state.discount)), addons=(state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0), custom=(state.customOptionSelected&&String(state.customOptionName||'').trim()&&numericValue(state.customOptionCost)>0)?numericValue(state.customOptionCost):0, remaining=hardware+extra-disc-addons-custom; const readyMargin=$('dealReadyMargin'), readyMarginBox=$('dealReadyMarginBox'); if(readyMargin) readyMargin.textContent=money(remaining); if(readyMarginBox) readyMarginBox.classList.toggle('is-danger',remaining<60000);
+    const car=Math.max(0,numericValue(state.carPrice)), pct=Math.min(100,Math.max(0,Number(state.marginRate)||0)), hardware=Math.max(0,car-Math.max(0,numericValue(state.purchaseCost??(car*(1-pct/100))))), extra=Math.max(0,numericValue(state.extraIncome)), disc=Math.max(0,numericValue(state.discountNumber??state.discount)), addons=(state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,numericValue(state.costs?.[i])):0),0), custom=(state.customOptionSelected&&String(state.customOptionName||'').trim()&&numericValue(state.customOptionCost)>0)?numericValue(state.customOptionCost):0, remaining=hardware+extra-disc-addons-custom; const readyMargin=$('dealReadyMargin'), readyMarginBox=$('dealReadyMarginBox'); if(readyMargin) readyMargin.textContent=money(remaining); if(readyMarginBox) readyMarginBox.classList.toggle('is-danger',remaining<60000);
     const list=$('dealReadyList');if(list)list.innerHTML=items.map(x=>`<div class="deal-ready-item ${x.ok?'ok':''}"><span class="dot">${x.ok?'✓':'!'}</span><div class="text"><strong>${escapeHtml(x.label)}</strong><span>${escapeHtml(x.detail)}</span></div></div>`).join('');
     const ready=items.every(x=>x.ok),status=$('dealReadyStatus');if(status){status.className='deal-ready-status '+(ready?'ready':'not-ready');status.textContent=ready?'✓ Сделка готова':'Нужно заполнить';}
   }
@@ -4980,9 +5033,9 @@ function saveCurrentDeal(options={}){
       const discountValue=Math.max(0,window.__calcNumericValue(state.discountNumber??state.discount));
       const loyalty=state.loyaltyTradeIn?200000:0;
       const pct=Math.min(100,Math.max(0,Number(state.marginRate)||0));
-      // Маржа по автомобилю — процент от РРЦ. Закупка = РРЦ - маржа.
-      const hardwareMargin=Math.round(carPriceValue*pct/100);
-      const purchaseCost=Math.max(0,Math.round(carPriceValue-hardwareMargin));
+      // Используем закупочную стоимость, указанную МОП в калькуляторе.
+      const purchaseCost=Math.max(0,Math.round(window.__calcNumericValue(state.purchaseCost??(carPriceValue*(1-pct/100)))));
+      const hardwareMargin=Math.max(0,Math.round(carPriceValue-purchaseCost));
       const extra=Math.max(0,window.__calcNumericValue(state.extraIncome));
       // Себестоимость выбранных допов — сумма их закупочных цен.
       const addonsCost=(state.checks||[]).reduce((sum,on,i)=>sum+(on?Math.max(0,window.__calcNumericValue(state.costs?.[i])):0),0) + ((state.customOptionSelected&&String(state.customOptionName||'').trim()&&window.__calcNumericValue(state.customOptionCost)>0)?window.__calcNumericValue(state.customOptionCost):0);
@@ -5306,6 +5359,42 @@ function saveCurrentDeal(options={}){
   row-gap:12px!important;
 }
 </style>
+
+<style id="client-field-typography-consistency">
+/* Поля, перечисленные в доработке, оформлены тем же кеглем и начертанием, что и имя клиента. */
+#clientSection #carModel,
+#clientSection #carColor,
+#priceSection #purchaseCost,
+#offerSection #targetMargin,
+#offerSection #customOptionName,
+#offerSection #customOptionCost,
+#offerSection .item-cost,
+#loanCalculator #cascoPrice {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.25!important;
+  color:#111!important;
+}
+#offerSection .item-name,
+#offerSection .custom-option #customOptionName,
+#offerSection .custom-option #customOptionCost {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.3!important;
+  color:#111!important;
+}
+#offerSection .item input[type="checkbox"] {
+  accent-color:#178650!important;
+  width:19px!important;
+  height:19px!important;
+  flex:0 0 19px!important;
+}
+#offerSection .item-cost {text-align:left!important;}
+#loanCalculator #cascoPrice {font-size:16px!important;}
+</style>
+
 </body>
 </html>
 
@@ -5365,3 +5454,97 @@ function saveCurrentDeal(options={}){
 }
 </style>
 
+
+<style id="purchase-cost-and-target-margin-fix">
+#priceSection .price-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 130px!important;align-items:end!important}
+#priceSection #purchaseCost{font-weight:700;color:#178650}
+#offerSection .target-margin-wrap{margin-top:8px;padding-top:9px;border-top:1px solid #d4e6da}
+#offerSection .target-margin-wrap input{font-weight:700;color:#178650}
+@media(max-width:760px){#priceSection .price-grid{grid-template-columns:1fr!important}}
+</style>
+
+<style id="v47-unified-input-and-offer-visuals">
+/* Единая типографика всех полей ввода — как у поля «Имя клиента». */
+.wrap input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]):not([type="button"]):not([type="submit"]),
+.wrap select,
+.wrap textarea,
+.import-popover textarea {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.25!important;
+  color:#178650!important;
+}
+
+/* В блоке предложения названия стандартных и вручную добавленных опций зелёные. */
+#offerSection .item-name,
+#offerSection #customOptionName {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.3!important;
+  color:#178650!important;
+}
+#offerSection .item-name small {
+  color:#178650!important;
+  font:inherit!important;
+  font-size:12px!important;
+  font-weight:600!important;
+}
+
+/* Закупочные цены — в стиле поля «Имя клиента», но с чёрным текстом и по центру. */
+#offerSection .item-cost,
+#offerSection #customOptionCost {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.25!important;
+  color:#111!important;
+  text-align:center!important;
+}
+
+/* Снять отметки: оформление как у «Новый клиент», исходные размеры кнопки сохранены. */
+#clearScriptChecks {
+  background:#1f9d61!important;
+  border:1px solid #1f9d61!important;
+  color:#fff!important;
+  font-weight:800!important;
+  opacity:1!important;
+}
+#clearScriptChecks:hover {
+  background:#178650!important;
+  border-color:#178650!important;
+}
+</style>
+
+<style id="v48-requested-visual-corrections">
+/* Параметры сделки снова используют исходный тёмный цвет и обычное начертание. */
+#dealMode {
+  color:var(--ink)!important;
+  font-weight:400!important;
+}
+/* У селектов автомобиля и цвета стрелки должны быть чёрными. */
+.vehicle-picker select {
+  background-image:linear-gradient(45deg,transparent 50%,#111 50%),linear-gradient(135deg,#111 50%,transparent 50%)!important;
+}
+/* Поле маржи — по типографике как поле «Имя клиента». */
+#marginRate {
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+  line-height:1.25!important;
+  color:#178650!important;
+}
+/* Название опции, добавленной вручную, всегда зелёное. */
+#offerSection #customOptionName {
+  color:#178650!important;
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:700!important;
+}
+/* У кнопки снятия отметок добавлено скругление как у кнопки «Новый клиент».
+   Размеры оставлены без изменений. */
+#clearScriptChecks {
+  border-radius:10px!important;
+}
+</style>
